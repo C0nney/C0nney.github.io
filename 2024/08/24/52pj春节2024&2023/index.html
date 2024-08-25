@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="2024初级题1：法一：主动调用分析思路一：因为是 webview js交互，还是个抓小猫游戏,那肯定是赢了出结果。那就看JavaScriptInterface实现在哪，分析代码逻辑发现赢了会启动了新的界面YSQDActivity分析思路二：jadx搜索”汗流浃背“，在资源文件中找到。（当时有点懵了，现在知道其实就是分开实现了）  异步处理： 枚举操作可能涉及大量项，逐个处理会涉及异步操作。回调函">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2024/08/24/52pj%E6%98%A5%E8%8A%822024&2023/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="2024初级题1：法一：主动调用分析思路一：因为是 webview js交互，还是个抓小猫游戏,那肯定是赢了出结果。那就看JavaScriptInterface实现在哪，分析代码逻辑发现赢了会启动了新的界面YSQDActivity分析思路二：jadx搜索”汗流浃背“，在资源文件中找到。（当时有点懵了，现在知道其实就是分开实现了）  异步处理： 枚举操作可能涉及大量项，逐个处理会涉及异步操作。回调函">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720771800574-bd59c5fd-69e4-49ac-8405-e2173668286c.png#averageHue=%23faf9f7&clientId=u163a8bd3-fdb3-4&from=paste&height=504&id=u384c302c&originHeight=630&originWidth=711&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=33819&status=done&style=none&taskId=u889b0c14-2141-4d06-b29d-0e18a543880&title=&width=568.8">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720771083775-436d90a7-9dbf-4d8c-80e9-8e6f02190c08.png#averageHue=%23f9f8f7&clientId=ub90b2966-9bab-4&from=paste&height=118&id=ud93dec8d&originHeight=148&originWidth=1338&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=23765&status=done&style=none&taskId=uc7b6d76c-a365-4097-b21c-d8037a6e419&title=&width=1070.4">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720771060126-aff19399-dd83-45e8-86f7-e5010a2c6221.png#averageHue=%23fbfaf7&clientId=ub90b2966-9bab-4&from=paste&height=514&id=uee4ea8d7&originHeight=643&originWidth=1322&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=83151&status=done&style=none&taskId=ua2e2b702-402c-43b0-9b18-083d98eef4e&title=&width=1057.6">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720771447985-db06c3ac-62d1-4901-9b1e-678676367ae8.png#averageHue=%23efedec&clientId=u163a8bd3-fdb3-4&from=paste&height=267&id=u5d2fa445&originHeight=334&originWidth=737&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=29709&status=done&style=none&taskId=u33a454cc-4e25-4570-b2b2-246117a9198&title=&width=589.6">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720854287072-de607ce7-95e0-499f-b3ac-228b904d12bc.png#averageHue=%23fdfcfb&clientId=u7aaf04fb-d1ed-4&from=paste&height=506&id=ub8ecda30&originHeight=632&originWidth=1023&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=48381&status=done&style=none&taskId=u26666c58-cc6b-4e58-a5a6-39a4b8cefa8&title=&width=818.4">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720854175899-47280ee7-98a8-4e04-a986-b490131ac276.png#averageHue=%23161413&clientId=u7aaf04fb-d1ed-4&from=paste&height=74&id=u500f43b7&originHeight=93&originWidth=823&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=10521&status=done&style=none&taskId=ud289d9a3-79db-406e-a5f6-5a92abe2100&title=&width=658.4">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720970956732-40ea967b-0578-4cda-8708-6fd68b90962b.png#averageHue=%23f8f8f8&clientId=u3f1513b1-78a6-4&from=paste&id=ub0a39307&originHeight=603&originWidth=989&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=100612&status=done&style=none&taskId=u10ebf8f5-2954-45d8-8356-50993f191e4&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720877731517-c6b94036-36b0-4752-9651-7c237b6928f2.png#averageHue=%23e1e1e1&clientId=u3136ceff-df09-4&from=paste&height=282&id=ub6d59b94&originHeight=353&originWidth=945&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=71436&status=done&style=none&taskId=u140a4edd-fa25-4dd2-9c11-60cd9142a1e&title=&width=756">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720877852050-63e2adff-41c8-4d24-b25a-dd1f3b5951cb.png#averageHue=%234f4e37&clientId=u3136ceff-df09-4&from=paste&height=656&id=YSesc&originHeight=820&originWidth=915&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=104962&status=done&style=none&taskId=ua9ad82e7-af6a-402b-ab7e-bfe9e82a002&title=&width=732">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720878928626-fecc9a5b-9650-402f-a0ee-950188a6e04b.png#averageHue=%232e2d2d&clientId=u3136ceff-df09-4&from=paste&height=204&id=u44f2944b&originHeight=255&originWidth=1301&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=35506&status=done&style=none&taskId=u702187bb-02c2-4cff-a51d-fb68d09b0bb&title=&width=1040.8">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720879680609-a9b55bf2-988c-47e0-b5fd-c2be5bf3fe3b.png#averageHue=%2359583b&clientId=u3136ceff-df09-4&from=paste&height=477&id=uecccc638&originHeight=596&originWidth=740&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=75188&status=done&style=none&taskId=ubf906e6d-ea5f-4155-bc13-b1c6432ca97&title=&width=592">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720879975705-b2429278-d328-450f-8378-e18ebe617725.png#averageHue=%23fcfbfa&clientId=u3136ceff-df09-4&from=paste&height=382&id=ucfae8adb&originHeight=478&originWidth=399&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=23605&status=done&style=none&taskId=udcd4eda3-de09-462a-9a5e-381700ea25d&title=&width=319.2">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720966929406-8d6bb9eb-42bf-425d-a1a1-2bee42434657.png#averageHue=%23faf9f8&clientId=u3f1513b1-78a6-4&from=paste&height=516&id=u6dda62c9&originHeight=645&originWidth=1713&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=116385&status=done&style=none&taskId=u9785e697-1e45-4b1f-b056-74881702c49&title=&width=1370.4">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720967033735-028c7fc2-c5d7-467d-bea9-2461d3fa7ea5.png#averageHue=%23f1f0ef&clientId=u3f1513b1-78a6-4&from=paste&height=130&id=u39dee681&originHeight=162&originWidth=679&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=7187&status=done&style=none&taskId=u79373754-50c9-4cf9-aa2a-83d767ce650&title=&width=543.2">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720967138993-ad7cac89-143a-481d-b760-6dc6626a6595.png#averageHue=%23fbfaf9&clientId=u3f1513b1-78a6-4&from=paste&height=362&id=u667ec686&originHeight=453&originWidth=1462&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=81286&status=done&style=none&taskId=u3b55b41b-274b-4e96-8e68-ff35069297e&title=&width=1169.6">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720967320133-2ded818a-825e-438d-8f23-13b8eb267822.png#averageHue=%23fbfafa&clientId=u3f1513b1-78a6-4&from=paste&height=488&id=u0b946caa&originHeight=610&originWidth=1434&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=73379&status=done&style=none&taskId=ua4ed474f-b530-40a5-94fa-cc8feb3ab22&title=&width=1147.2">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720967911911-966173f0-e4ab-4de5-817b-c2ac1027068d.png#averageHue=%23fcfafa&clientId=u3f1513b1-78a6-4&from=paste&height=354&id=u73c1adf7&originHeight=442&originWidth=1449&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=70522&status=done&style=none&taskId=u519236fd-4595-4e0e-b366-e11351b5509&title=&width=1159.2">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720968098442-1136d872-11c8-416b-b20e-dbdb520738ff.png#averageHue=%23faf8f8&clientId=u3f1513b1-78a6-4&from=paste&height=127&id=uc029b8eb&originHeight=159&originWidth=1437&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=17934&status=done&style=none&taskId=ufadd20e6-dfc9-442f-91e1-94818d10373&title=&width=1149.6">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720968189172-8129d227-ab58-40b2-bf52-f8f0ae529c28.png#averageHue=%23deecc3&clientId=u3f1513b1-78a6-4&from=paste&height=333&id=u47221f93&originHeight=416&originWidth=778&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=53069&status=done&style=none&taskId=ud0556e0c-1f98-434c-ba2f-edba4306b71&title=&width=622.4">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720968319993-2e39cba6-7bc9-461b-ba82-e0a2ac9f3c64.png#averageHue=%23f8f7f7&clientId=u3f1513b1-78a6-4&from=paste&height=567&id=u4a429549&originHeight=709&originWidth=1919&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=143775&status=done&style=none&taskId=u77ef6995-9ab6-4ab9-b293-863388135eb&title=&width=1535.2">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720968909348-b68de660-9592-40ab-a991-d631e9e864e0.png#averageHue=%23403e38&clientId=u3f1513b1-78a6-4&from=paste&height=310&id=ud50d70f9&originHeight=387&originWidth=1258&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=46823&status=done&style=none&taskId=u68e4cfa3-6c25-496b-a0d3-259febdb1b4&title=&width=1006.4">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720968978847-1c0ede5c-1f08-4dce-be53-93ccbff9aa37.png#averageHue=%233f3d38&clientId=u3f1513b1-78a6-4&from=paste&height=326&id=u539dc2dd&originHeight=408&originWidth=1058&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=42958&status=done&style=none&taskId=ufc25392c-386d-43fa-9a6f-c78c3d7f7ed&title=&width=846.4">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720969185079-88bc0bea-e84d-467d-b84f-23f73184884e.png#averageHue=%2336342f&clientId=u3f1513b1-78a6-4&from=paste&height=533&id=ucce9572f&originHeight=666&originWidth=1027&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=83298&status=done&style=none&taskId=u22abc042-72b8-4a7b-9496-b8e764d50af&title=&width=821.6">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720969296071-f15cffdb-fde4-4020-befb-8543c941fd87.png#averageHue=%23403e39&clientId=u3f1513b1-78a6-4&from=paste&height=299&id=ua7ef625d&originHeight=374&originWidth=874&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=35212&status=done&style=none&taskId=uc6476b81-a376-4d7c-a3da-dbcb830dc15&title=&width=699.2">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720969450630-f23ac89a-dc7d-4250-95a1-b9aa33d451a9.png#averageHue=%233e3d38&clientId=u3f1513b1-78a6-4&from=paste&height=90&id=uf2958209&originHeight=113&originWidth=681&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=10207&status=done&style=none&taskId=udc2f26f5-ad6e-41a1-b307-ecb7dab6362&title=&width=544.8">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720969393410-75cc6d80-bc21-475e-beba-c1baf487dd8f.png#averageHue=%23403e39&clientId=u3f1513b1-78a6-4&from=paste&height=290&id=u3e587559&originHeight=362&originWidth=860&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=34650&status=done&style=none&taskId=ubc7b90aa-3e32-4cc8-82cb-fd8ab490981&title=&width=688">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720969868453-c0493b17-0226-41b1-b92e-481540589948.png#averageHue=%23faf9f8&clientId=u3f1513b1-78a6-4&from=paste&height=422&id=u33166c8b&originHeight=528&originWidth=1920&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=102216&status=done&style=none&taskId=ueb93b7b0-c3fd-4ebd-801b-5d28c26a2e1&title=&width=1536">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720970189405-e12b8fcc-fec5-4783-a92c-d05936cb3681.png#averageHue=%23efefef&clientId=u3f1513b1-78a6-4&from=paste&height=532&id=u26824bae&originHeight=665&originWidth=400&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=23318&status=done&style=none&taskId=u42ed1831-6261-4ce1-bbbc-08ab7a75d6c&title=&width=320">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720970604858-90eb2ebd-2679-4545-81e7-f17cb293d4d7.png#averageHue=%2336342f&clientId=u3f1513b1-78a6-4&from=paste&height=630&id=u02f605d5&originHeight=788&originWidth=721&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=91707&status=done&style=none&taskId=u274db0d3-6486-45ce-b828-74a947e3e35&title=&width=576.8">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720970879246-d6e85cd8-78a9-4507-930d-d1c463d75b78.png#averageHue=%23f9f9f8&clientId=u3f1513b1-78a6-4&from=paste&height=273&id=u19a245a3&originHeight=341&originWidth=1343&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=42511&status=done&style=none&taskId=u31b0d692-7830-4293-a01a-f3be85ca65b&title=&width=1074.4">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720971311909-f2319c31-da11-4f7c-b95f-1d905659869e.png#averageHue=%23ecf1e6&clientId=u3f1513b1-78a6-4&from=paste&height=361&id=u47b05cfd&originHeight=451&originWidth=1324&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=134570&status=done&style=none&taskId=ud5b724ca-ba99-42d6-a4f9-5444f2f9084&title=&width=1059.2">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721033890401-f4755360-4f41-4c6a-979e-bb65b80c6dec.png#averageHue=%23fbf9f7&clientId=u1eabc14b-f6c5-4&from=paste&height=229&id=u247864a1&originHeight=286&originWidth=866&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=30089&status=done&style=none&taskId=uc3032424-7131-436e-bf5d-3c530cd2779&title=&width=692.8">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721044519439-24e3616b-2388-42b4-bd89-53ccc083a34d.png#averageHue=%23fbf9f8&clientId=ud3991e76-89a3-4&from=paste&height=360&id=u4eefeff1&originHeight=450&originWidth=883&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=37044&status=done&style=none&taskId=ue047ad38-b164-4782-83f0-424a7e44833&title=&width=706.4">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721044564744-1b3a4e6c-3e3f-4cd2-b39b-9d1518d5851b.png#averageHue=%23fbf9f7&clientId=ud3991e76-89a3-4&from=paste&height=341&id=ucccca823&originHeight=426&originWidth=1109&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=43154&status=done&style=none&taskId=u470703d3-7672-483a-a555-a2df884cac0&title=&width=887.2">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721044624886-42449f92-a0f8-4d90-a9a3-11db7da64071.png#averageHue=%23f2efef&clientId=ud3991e76-89a3-4&from=paste&height=615&id=u7034019c&originHeight=769&originWidth=1441&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=120630&status=done&style=none&taskId=ue40a28e1-ccb0-46f4-8520-d8b9ee9315f&title=&width=1152.8">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721394954815-50c9f6de-e928-47a3-9e5a-34e7ed65bb9c.png#averageHue=%23252321&clientId=ubd72167d-3de8-4&from=paste&height=492&id=u6e221188&originHeight=615&originWidth=773&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=78769&status=done&style=none&taskId=u9f304149-3292-4994-b5eb-dda91cbc544&title=&width=618.4">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721667647975-4a3e8f39-9546-45c7-a007-071d0dfa98f0.png#averageHue=%23f9f8f6&clientId=u242e8959-9724-4&from=paste&height=424&id=uf22d8baf&originHeight=530&originWidth=1570&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=62649&status=done&style=none&taskId=ud472d3f4-0950-4390-8fb3-f5700a2e116&title=&width=1256">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721667540406-01e7737a-790f-4e5f-bfef-a83006561132.png#averageHue=%23cfcb9b&clientId=u242e8959-9724-4&from=paste&height=746&id=ua8019750&originHeight=933&originWidth=1920&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=209086&status=done&style=none&taskId=ub93456c0-57d1-436b-8b3b-5a97c928a12&title=&width=1536">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721667716326-5341a509-92bd-4e75-b967-bfb6db15792c.png#averageHue=%23f2e8d9&clientId=u242e8959-9724-4&from=paste&height=237&id=ued3ba932&originHeight=296&originWidth=294&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=71660&status=done&style=none&taskId=u41e7ef1b-e9d8-4390-be83-166aeab9bfb&title=&width=235.2">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721747757545-cc137ff9-1145-4e1f-b3d7-72f2502e71ce.png#averageHue=%23b2d7c8&clientId=u8bb3477b-f067-4&from=paste&height=142&id=u14d6a95c&originHeight=178&originWidth=195&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=3136&status=done&style=none&taskId=u22e2c3a5-2770-42b7-89fd-53149a1b1b8&title=&width=156">
+<meta property="article:published_time" content="2024-08-24T12:29:04.529Z">
+<meta property="article:modified_time" content="2024-08-24T12:29:04.850Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720771800574-bd59c5fd-69e4-49ac-8405-e2173668286c.png#averageHue=%23faf9f7&clientId=u163a8bd3-fdb3-4&from=paste&height=504&id=u384c302c&originHeight=630&originWidth=711&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=33819&status=done&style=none&taskId=u889b0c14-2141-4d06-b29d-0e18a543880&title=&width=568.8">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2024/08/24/52pj春节2024&2023/"/>
+
+
+
+
+
+  <title> | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/08/24/52pj%E6%98%A5%E8%8A%822024&2023/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-08-24T20:29:04+08:00">
+                2024-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="2024"><a href="#2024" class="headerlink" title="2024"></a>2024</h1><h1 id="初级题1："><a href="#初级题1：" class="headerlink" title="初级题1："></a>初级题1：</h1><h2 id="法一：主动调用"><a href="#法一：主动调用" class="headerlink" title="法一：主动调用"></a>法一：主动调用</h2><p>分析思路一：<br>因为是 webview js交互，还是个抓小猫游戏,那肯定是赢了出结果。<br>那就看JavaScriptInterface实现在哪，分析代码逻辑发现赢了会启动了新的界面YSQDActivity<br>分析思路二：<br>jadx搜索”汗流浃背“，在资源文件中找到。（当时有点懵了，现在知道其实就是分开实现了）<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720771800574-bd59c5fd-69e4-49ac-8405-e2173668286c.png#averageHue=%23faf9f7&clientId=u163a8bd3-fdb3-4&from=paste&height=504&id=u384c302c&originHeight=630&originWidth=711&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=33819&status=done&style=none&taskId=u889b0c14-2141-4d06-b29d-0e18a543880&title=&width=568.8" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720771083775-436d90a7-9dbf-4d8c-80e9-8e6f02190c08.png#averageHue=%23f9f8f7&clientId=ub90b2966-9bab-4&from=paste&height=118&id=ud93dec8d&originHeight=148&originWidth=1338&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=23765&status=done&style=none&taskId=uc7b6d76c-a365-4097-b21c-d8037a6e419&title=&width=1070.4" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720771060126-aff19399-dd83-45e8-86f7-e5010a2c6221.png#averageHue=%23fbfaf7&clientId=ub90b2966-9bab-4&from=paste&height=514&id=uee4ea8d7&originHeight=643&originWidth=1322&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=83151&status=done&style=none&taskId=ua2e2b702-402c-43b0-9b18-083d98eef4e&title=&width=1057.6" alt="image.png"></p>
+<ul>
+<li><strong>异步处理</strong>：</li>
+<li>枚举操作可能涉及大量项，逐个处理会涉及异步操作。回调函数提供了一种处理这些异步事件的机制。</li>
+<li><strong>确保完整性</strong>：</li>
+<li>onMatch 确保每个匹配项都被正确处理，而 onComplete 确保所有匹配项都处理完毕后进行收尾工作或触发后续操作。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//首先定义一个函数检查目标是否已加载（建议使用try-catch）</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">checkClass</span>(<span class="params">targetClass</span>)&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//尝试直接使用目标类</span></span><br><span class="line">        <span class="title class_">Java</span>.<span class="title function_">use</span>(targetClass);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(error)&#123;</span><br><span class="line">        <span class="comment">//如果失败，枚举所有类加载器</span></span><br><span class="line">        <span class="title class_">Java</span>.<span class="title function_">enumerateClassLoaders</span>(&#123;</span><br><span class="line">            <span class="attr">onMatch</span>: <span class="keyword">function</span>(<span class="params">loader</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span>&#123;</span><br><span class="line">                    <span class="comment">//尝试在当前加载器中查找目标类</span></span><br><span class="line">                    <span class="keyword">if</span>(loader.<span class="title function_">findClass</span>(targetClass))&#123;</span><br><span class="line">                        <span class="comment">//设置当前类加载器为目标类的加载器</span></span><br><span class="line">                        <span class="title class_">Java</span>.<span class="property">classFactory</span>.<span class="property">loader</span>=loader;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;<span class="keyword">catch</span>(error)&#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;classloader failed&quot;</span>+error);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">onComplete</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//frida java</span></span><br><span class="line"><span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="comment">//解码目标类名</span></span><br><span class="line">      <span class="keyword">var</span> targetClass=<span class="built_in">decodeURIComponent</span>(<span class="string">&quot;com.zj.wuaipojie2024%5f1.YSQDActivity&quot;</span>);</span><br><span class="line">    <span class="comment">//检查并加载目标类</span></span><br><span class="line">    <span class="title function_">checkClass</span>(targetClass);</span><br><span class="line">    <span class="comment">//获取目标类的引用</span></span><br><span class="line">    <span class="keyword">var</span> gclass=<span class="title class_">Java</span>.<span class="title function_">use</span>(targetClass);</span><br><span class="line">    <span class="comment">//调用目标类中的目标方法方法</span></span><br><span class="line">    <span class="comment">//在jadx中分析发现目标方法中存在flag，此处完成目标方法的主动调用以获取flag</span></span><br><span class="line">    <span class="comment">//这种写法等价于：var ret = gclass.extractDataFromFile(&quot;文件路径&quot;);</span></span><br><span class="line">    <span class="keyword">var</span> ret=gclass[<span class="string">&#x27;extractDataFromFile&#x27;</span>](<span class="string">&quot;/data/user/0/com.zj.wuaipojie2024_1/files/ys.mp4&quot;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(ret);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720771447985-db06c3ac-62d1-4901-9b1e-678676367ae8.png#averageHue=%23efedec&clientId=u163a8bd3-fdb3-4&from=paste&height=267&id=u5d2fa445&originHeight=334&originWidth=737&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=29709&status=done&style=none&taskId=u33a454cc-4e25-4570-b2b2-246117a9198&title=&width=589.6" alt="image.png"></li>
+</ul>
+<h2 id="法二：直接启动Activity"><a href="#法二：直接启动Activity" class="headerlink" title="法二：直接启动Activity"></a>法二：直接启动Activity</h2><p><code>adb shell su -c am start-activity -n com.zj.wuaipojie2024_1/.YSQDActivity</code></p>
+<h1 id="初级题2"><a href="#初级题2" class="headerlink" title="初级题2"></a>初级题2</h1><p>jadx分析代码逻辑，发现成功后会调用页面。于是跟第一题一样，考点是主动调用。<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720854287072-de607ce7-95e0-499f-b3ac-228b904d12bc.png#averageHue=%23fdfcfb&clientId=u7aaf04fb-d1ed-4&from=paste&height=506&id=ub8ecda30&originHeight=632&originWidth=1023&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=48381&status=done&style=none&taskId=u26666c58-cc6b-4e58-a5a6-39a4b8cefa8&title=&width=818.4" alt="image.png"><br>于是：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720854175899-47280ee7-98a8-4e04-a986-b490131ac276.png#averageHue=%23161413&clientId=u7aaf04fb-d1ed-4&from=paste&height=74&id=u500f43b7&originHeight=93&originWidth=823&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=10521&status=done&style=none&taskId=ud289d9a3-79db-406e-a5f6-5a92abe2100&title=&width=658.4" alt="image.png"><br>成功拿到flag。<br>:::info<br>晚点试试自己写脚本hook主动调用<br>:::<br>:::info<br>其他解题思路：该倍率或者改抽数。都需要修改smali，然后会发现有签名校验。晚点试试。<br>:::</p>
+<h1 id="中级题"><a href="#中级题" class="headerlink" title="中级题"></a>中级题</h1><h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>:::info<br>这里建议直接看方法二，因为方法二成功了，方法一成功了一半。<br>:::<br>修复dex<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720970956732-40ea967b-0578-4cda-8708-6fd68b90962b.png#averageHue=%23f8f8f8&clientId=u3f1513b1-78a6-4&from=paste&id=ub0a39307&originHeight=603&originWidth=989&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=100612&status=done&style=none&taskId=u10ebf8f5-2954-45d8-8356-50993f191e4&title=" alt="image.png"><br>本题在assets中另外加载classes.dex（即外部加载classes.dex），并且由jadx的报错提示（还有as的运行日志提示）发现这个classes.dex加载失败，本题考点是dex的修复。<br>用010editor打开这个classes.dex可以发现 dex 头部 checksum 和signature错误，需要修复。<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720877731517-c6b94036-36b0-4752-9651-7c237b6928f2.png#averageHue=%23e1e1e1&clientId=u3136ceff-df09-4&from=paste&height=282&id=ub6d59b94&originHeight=353&originWidth=945&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=71436&status=done&style=none&taskId=u140a4edd-fa25-4dd2-9c11-60cd9142a1e&title=&width=756" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720877852050-63e2adff-41c8-4d24-b25a-dd1f3b5951cb.png#averageHue=%234f4e37&clientId=u3136ceff-df09-4&from=paste&height=656&id=YSesc&originHeight=820&originWidth=915&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=104962&status=done&style=none&taskId=ua9ad82e7-af6a-402b-ab7e-bfe9e82a002&title=&width=732" alt="image.png"><br>由几种修复方法：<br>①使用MT&#x2F;NP修复dex，注意：MT会修复整个dex并且删去多余的部分，可能会影响文件分析。而NP只修复dex头。这里根据需要可以选择NP来修复。<br>②使用python脚本计算并手动修复：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">repairChecksum</span>(<span class="params">dex_file</span>):</span><br><span class="line">    <span class="variable language_">self</span> = <span class="built_in">open</span>(dex_file, <span class="string">&quot;rb&quot;</span>)</span><br><span class="line">    <span class="variable language_">self</span>.seek(<span class="number">8</span>)</span><br><span class="line">    sourceData = <span class="variable language_">self</span>.read(<span class="number">4</span>)</span><br><span class="line">    <span class="variable language_">self</span>.seek(<span class="number">12</span>)</span><br><span class="line">    checkdata = <span class="variable language_">self</span>.read()</span><br><span class="line">    checksum =  <span class="built_in">format</span>(zlib.adler32(checkdata), <span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&quot;头部原checksum:&quot;</span>,sourceData )</span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&quot;计算checksum:&quot;</span>,checksum)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">repairSignature</span>(<span class="params">dex_file</span>):</span><br><span class="line">    <span class="variable language_">self</span> = <span class="built_in">open</span>(dex_file, <span class="string">&quot;rb&quot;</span>)</span><br><span class="line">    <span class="variable language_">self</span>.seek(<span class="number">12</span>)</span><br><span class="line">    sourceData = <span class="variable language_">self</span>.read(<span class="number">20</span>)</span><br><span class="line">    <span class="variable language_">self</span>.seek(<span class="number">32</span>)</span><br><span class="line">    sigdata = <span class="variable language_">self</span>.read()</span><br><span class="line">    sha1 = hashlib.sha1()</span><br><span class="line">    sha1.update(sigdata)</span><br><span class="line">    sha0 = sha1.hexdigest()</span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&quot;计算signature:&quot;</span>,sha0)</span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&quot;现在signature:&quot;</span>,sourceData.<span class="built_in">hex</span>())</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720878928626-fecc9a5b-9650-402f-a0ee-950188a6e04b.png#averageHue=%232e2d2d&clientId=u3136ceff-df09-4&from=paste&height=204&id=u44f2944b&originHeight=255&originWidth=1301&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=35506&status=done&style=none&taskId=u702187bb-02c2-4cff-a51d-fb68d09b0bb&title=&width=1040.8" alt="image.png"><br>然后在010Editor中修改<br>注意！直接跟着光标的位置覆盖修改就行了，不要手贱点“Backspace”或者“Delete”!会因为自动填充而修改错数据！<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720879680609-a9b55bf2-988c-47e0-b5fd-c2be5bf3fe3b.png#averageHue=%2359583b&clientId=u3136ceff-df09-4&from=paste&height=477&id=uecccc638&originHeight=596&originWidth=740&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=75188&status=done&style=none&taskId=ubf906e6d-ea5f-4155-bc13-b1c6432ca97&title=&width=592" alt="image.png"><br>③使用工具<a target="_blank" rel="noopener" href="https://github.com/luoyesiqiu/DexRepair">DexRepair</a>修复<br><code>java -jar DexRepair.jar /path/to/dex</code><br>修复之后替换到apk中再用jadx重新打开，此时就能正常显示ABCD类了：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720879975705-b2429278-d328-450f-8378-e18ebe617725.png#averageHue=%23fcfbfa&clientId=u3136ceff-df09-4&from=paste&height=382&id=ucfae8adb&originHeight=478&originWidth=399&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=23605&status=done&style=none&taskId=udcd4eda3-de09-462a-9a5e-381700ea25d&title=&width=319.2" alt="image.png"><br>这个方法有个弊端，修改了classes.dex后签名不一致，需要重新签名，但是这个签名校验我没找到在哪。</p>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>一个思路是，既然这个是外部加载dex，与其费劲修复dex让其能够完整显示，不如直接用ida分析dex文件看看。<br>最后用ida+010Editor完成的，记录一下过程。<br>jadx打开APK，分析代码发现是另外加载classes.dex，同时jadx提示dex的cheksum有问题。先关注classes.dex中的内容，前面的方法是通过根据报错信息、日志提示利用源代码提供的fix逻辑一步步修复dex，这里直接将classes.dex拖入ida分析，看有什么线索。然后看到ABCD类正常显示，显示出关键在B.d中，然后看到B.d没有被正常发编译出来，于是点击那部分，按“C”键，弹出提示，选yes强制反编译出smali。<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720966929406-8d6bb9eb-42bf-425d-a1a1-2bee42434657.png#averageHue=%23faf9f8&clientId=u3f1513b1-78a6-4&from=paste&height=516&id=u6dda62c9&originHeight=645&originWidth=1713&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=116385&status=done&style=none&taskId=u9785e697-1e45-4b1f-b056-74881702c49&title=&width=1370.4" alt="image.png"><br>其实刚进ida有提示：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720967033735-028c7fc2-c5d7-467d-bea9-2461d3fa7ea5.png#averageHue=%23f1f0ef&clientId=u3f1513b1-78a6-4&from=paste&height=130&id=u39dee681&originHeight=162&originWidth=679&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=7187&status=done&style=none&taskId=u79373754-50c9-4cf9-aa2a-83d767ce650&title=&width=543.2" alt="image.png"><br>按“G”输入偏移地址1EF4跳转：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720967138993-ad7cac89-143a-481d-b760-6dc6626a6595.png#averageHue=%23fbfaf9&clientId=u3f1513b1-78a6-4&from=paste&height=362&id=u667ec686&originHeight=453&originWidth=1462&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=81286&status=done&style=none&taskId=u3b55b41b-274b-4e96-8e68-ff35069297e&title=&width=1169.6" alt="image.png"><br>可以看到Method End之后会尾随没有被反编译的字节, 于是怀疑是被隐藏了，于是点击那部分，按“C”键，弹出提示，选yes强制反编译出smali发现这部分应该是签名校验：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720967320133-2ded818a-825e-438d-8f23-13b8eb267822.png#averageHue=%23fbfafa&clientId=u3f1513b1-78a6-4&from=paste&height=488&id=u0b946caa&originHeight=610&originWidth=1434&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=73379&status=done&style=none&taskId=ua4ed474f-b530-40a5-94fa-cc8feb3ab22&title=&width=1147.2" alt="image.png"><br>继续往下，这里其实就是锁屏密码（但是这种题目&#x2F;ctf其实锁屏密码并不意味着flag出现，这其实是得到flag提示的一道考验而已，过程flag吧）：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720967911911-966173f0-e4ab-4de5-817b-c2ac1027068d.png#averageHue=%23fcfafa&clientId=u3f1513b1-78a6-4&from=paste&height=354&id=u73c1adf7&originHeight=442&originWidth=1449&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=70522&status=done&style=none&taskId=u519236fd-4595-4e0e-b366-e11351b5509&title=&width=1159.2" alt="image.png"><br>继续往下，看到提示，关键在B.d，也就是B类里的d方法：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720968098442-1136d872-11c8-416b-b20e-dbdb520738ff.png#averageHue=%23faf8f8&clientId=u3f1513b1-78a6-4&from=paste&height=127&id=uc029b8eb&originHeight=159&originWidth=1437&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=17934&status=done&style=none&taskId=ufadd20e6-dfc9-442f-91e1-94818d10373&title=&width=1149.6" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720968189172-8129d227-ab58-40b2-bf52-f8f0ae529c28.png#averageHue=%23deecc3&clientId=u3f1513b1-78a6-4&from=paste&height=333&id=u47221f93&originHeight=416&originWidth=778&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=53069&status=done&style=none&taskId=ud0556e0c-1f98-434c-ba2f-edba4306b71&title=&width=622.4" alt="image.png"><br>找到B类，从functions表中找到双击进入：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720968319993-2e39cba6-7bc9-461b-ba82-e0a2ac9f3c64.png#averageHue=%23f8f7f7&clientId=u3f1513b1-78a6-4&from=paste&height=567&id=u4a429549&originHeight=709&originWidth=1919&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=143775&status=done&style=none&taskId=u77ef6995-9ab6-4ab9-b293-863388135eb&title=&width=1535.2" alt="image.png"><br>没有发现B.d，强制反编译也没有什么信息。<br>这里不知道能不能算是通用思路，总之，能看到A.b和A.c却看不到其他类的其他方法加载，再加上checksum有误，说明dex被修改过，所以可以猜测其他方法是通过修改偏移地址隐藏起来了。<br>用010Editor打开dex：<br>可以看到dex头有错误，这里先不管，等修改完再来修复dex头。<br> <code>dex_class_defs -&gt; class_def</code>：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720968909348-b68de660-9592-40ab-a991-d631e9e864e0.png#averageHue=%23403e38&clientId=u3f1513b1-78a6-4&from=paste&height=310&id=ud50d70f9&originHeight=387&originWidth=1258&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=46823&status=done&style=none&taskId=u68e4cfa3-6c25-496b-a0d3-259febdb1b4&title=&width=1006.4" alt="image.png"><br>然后在 <code>class_data -&gt; direct_methods</code> 看到目标B.d：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720968978847-1c0ede5c-1f08-4dce-be53-93ccbff9aa37.png#averageHue=%233f3d38&clientId=u3f1513b1-78a6-4&from=paste&height=326&id=u539dc2dd&originHeight=408&originWidth=1058&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=42958&status=done&style=none&taskId=ufc25392c-386d-43fa-9a6f-c78c3d7f7ed&title=&width=846.4" alt="image.png"><br>这里可以发现B类中只有d方法，并且点开后看到code_off地址偏移是<code>0x1EAC</code><br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720969185079-88bc0bea-e84d-467d-b84f-23f73184884e.png#averageHue=%2336342f&clientId=u3f1513b1-78a6-4&from=paste&height=533&id=ucce9572f&originHeight=666&originWidth=1027&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=83298&status=done&style=none&taskId=u22abc042-72b8-4a7b-9496-b8e764d50af&title=&width=821.6" alt="image.png"><br>既然有B.d方法为什么没有显示出来呢，上去看看能正常显示的A.b和A.c方法：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720969296071-f15cffdb-fde4-4020-befb-8543c941fd87.png#averageHue=%23403e39&clientId=u3f1513b1-78a6-4&from=paste&height=299&id=ua7ef625d&originHeight=374&originWidth=874&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=35212&status=done&style=none&taskId=uc6476b81-a376-4d7c-a3da-dbcb830dc15&title=&width=699.2" alt="image.png"><br>然后发现A类中竟有三个方法bcd，可是d方法也没有正常显示，果然有猫腻！<br>点开发现A.b的偏移是<code>0x1E98</code>，然而A.c和A.d的偏移居然都是<code>0x1EAC</code>！三个偏移一样的方法只有一个正常显示，那么真相呼之欲出了！A.d和B.d方法都被修改了偏移，修改成了A.c的偏移，这也是为什么使用第一种方法修复dex后看到的A.d和B.d方法不太正常（没有东西），因为他们都被隐藏起来了，jadx中显示的其实是A.c，这是障眼法！<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720969450630-f23ac89a-dc7d-4250-95a1-b9aa33d451a9.png#averageHue=%233e3d38&clientId=u3f1513b1-78a6-4&from=paste&height=90&id=uf2958209&originHeight=113&originWidth=681&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=10207&status=done&style=none&taskId=udc2f26f5-ad6e-41a1-b307-ecb7dab6362&title=&width=544.8" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720969393410-75cc6d80-bc21-475e-beba-c1baf487dd8f.png#averageHue=%23403e39&clientId=u3f1513b1-78a6-4&from=paste&height=290&id=u3e587559&originHeight=362&originWidth=860&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=34650&status=done&style=none&taskId=ubc7b90aa-3e32-4cc8-82cb-fd8ab490981&title=&width=688" alt="image.png"><br>但这一切都骗不过ida！！！<br>ida中显示了目标方法真正的偏移！<br>也就是说，这个就是真正的B.d方法，真正的偏移<code>0x1FAC</code>!：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720969868453-c0493b17-0226-41b1-b92e-481540589948.png#averageHue=%23faf9f8&clientId=u3f1513b1-78a6-4&from=paste&height=422&id=u33166c8b&originHeight=528&originWidth=1920&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=102216&status=done&style=none&taskId=ueb93b7b0-c3fd-4ebd-801b-5d28c26a2e1&title=&width=1536" alt="image.png"><br>接下来只需要在010Editor中修改B.d的偏移即可。但是这里需要注意一下，由于字节码的表示问题，这里需要计算一下。</p>
+<blockquote>
+<p><code>ULEB128</code>（Unsigned Little-Endian Base 128）是一种用于编码32位或64位无符号整数的可变长度编码方案。它主要用在编译器和二进制格式中，如DWARF调试信息和Android的DEX文件格式。ULEB128的目的是以尽可能少的字节表示一个数值  </p>
+</blockquote>
+<p>首先打开计算器，计算出<code>0x1FAC</code>的十进制是<code>8108</code>：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720970189405-e12b8fcc-fec5-4783-a92c-d05936cb3681.png#averageHue=%23efefef&clientId=u3f1513b1-78a6-4&from=paste&height=532&id=u26824bae&originHeight=665&originWidth=400&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=23318&status=done&style=none&taskId=u42ed1831-6261-4ce1-bbbc-08ab7a75d6c&title=&width=320" alt="image.png"><br>然后填入脚本中，计算ULEB128对应的地址：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">encode_uleb128</span>(<span class="params">value</span>):</span><br><span class="line">    encoded_bytes = []</span><br><span class="line">    <span class="keyword">while</span> value &gt; <span class="number">127</span>:</span><br><span class="line">        encoded_bytes.append((value &amp; <span class="number">0x7F</span>) | <span class="number">0x80</span>)</span><br><span class="line">        value &gt;&gt;= <span class="number">7</span></span><br><span class="line">    encoded_bytes.append(value &amp; <span class="number">0x7F</span>)</span><br><span class="line">    <span class="keyword">return</span> encoded_bytes</span><br><span class="line"></span><br><span class="line">uleb128_encoded = encode_uleb128(<span class="number">8108</span>)	//此处填写算出来的十进制</span><br><span class="line">hex_encoded = <span class="string">&#x27;&#x27;</span>.join(<span class="built_in">format</span>(byte, <span class="string">&#x27;02x&#x27;</span>) <span class="keyword">for</span> byte <span class="keyword">in</span> uleb128_encoded)</span><br><span class="line"><span class="built_in">print</span>(hex_encoded)</span><br><span class="line"></span><br><span class="line"><span class="comment">#ac3f</span></span><br></pre></td></tr></table></figure>
+<p>算出来是<code>AC 3F</code>，然后在010中修改：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720970604858-90eb2ebd-2679-4545-81e7-f17cb293d4d7.png#averageHue=%2336342f&clientId=u3f1513b1-78a6-4&from=paste&height=630&id=u02f605d5&originHeight=788&originWidth=721&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=91707&status=done&style=none&taskId=u274db0d3-6486-45ce-b828-74a947e3e35&title=&width=576.8" alt="image.png"><br>修改好后<code>ctrl+s</code>保存。然后用<a target="_blank" rel="noopener" href="https://www.yuque.com/yuqueyonghudieqcj/oaedbe/twa5wqmww66bt1wt?inner=oOEOP">脚本</a>计算修复Checksum和Signature，并在010中修改。最后将classes.dex拖入jadx中，得到计算flag的关键信息：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720970879246-d6e85cd8-78a9-4507-930d-d1c463d75b78.png#averageHue=%23f9f9f8&clientId=u3f1513b1-78a6-4&from=paste&height=273&id=u19a245a3&originHeight=341&originWidth=1343&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=42511&status=done&style=none&taskId=u31b0d692-7830-4293-a01a-f3be85ca65b&title=&width=1074.4" alt="image.png"><br>这里是标准的计算哈希散列而已（先sha1再md5），就直接用在厨师网站上跑就好：</p>
+<blockquote>
+<p>厨师：<a target="_blank" rel="noopener" href="https://gchq.github.io/CyberChef/#recipe=SHA1(80)MD5()&input=cGFzc3dvcmQr5L2g55qEdWlk">https://gchq.github.io/CyberChef/#recipe=SHA1(80)MD5()&input=cGFzc3dvcmQr5L2g55qEdWlk</a></p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1720971311909-f2319c31-da11-4f7c-b95f-1d905659869e.png#averageHue=%23ecf1e6&clientId=u3f1513b1-78a6-4&from=paste&height=361&id=u47b05cfd&originHeight=451&originWidth=1324&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=134570&status=done&style=none&taskId=ud5b724ca-ba99-42d6-a4f9-5444f2f9084&title=&width=1059.2" alt="image.png"></p>
+<h1 id="2023"><a href="#2023" class="headerlink" title="2023"></a>2023</h1><h2 id="初级题1"><a href="#初级题1" class="headerlink" title="初级题1"></a>初级题1</h2><p>题目要求点击999下，然后拿到flag。<br>jadx打开，一目了然，给了密文，要么分析加密逻辑解密要么hook。这里选择hook<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721033890401-f4755360-4f41-4c6a-979e-bb65b80c6dec.png#averageHue=%23fbf9f7&clientId=u1eabc14b-f6c5-4&from=paste&height=229&id=u247864a1&originHeight=286&originWidth=866&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=30089&status=done&style=none&taskId=uc3032424-7131-436e-bf5d-3c530cd2779&title=&width=692.8" alt="image.png"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">AP1</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="title class_">MainActivity</span> = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&quot;com.zj.wuaipojie2023_3.MainActivity&quot;</span>);</span><br><span class="line">  <span class="title class_">MainActivity</span>[<span class="string">&quot;check&quot;</span>].<span class="property">implementation</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`MainActivity.check is called`</span>);</span><br><span class="line">    <span class="keyword">let</span> result = <span class="variable language_">this</span>[<span class="string">&quot;check&quot;</span>]();</span><br><span class="line">    result=<span class="number">999</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`MainActivity.check result=<span class="subst">$&#123;result&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">main</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title class_">AP1</span>();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">setImmediate</span>(main);</span><br></pre></td></tr></table></figure>
+<p>因为源代码逻辑是判断check方法的返回值是否等于（int）999，所以修改返回值即可。成功拿到flag{zhudajiaxinniankuaile}</p>
+<h2 id="初级题2-1"><a href="#初级题2-1" class="headerlink" title="初级题2"></a>初级题2</h2><p>考点是动态调式。分析的时候发现在java层反调试，修改smali就能过掉。<br>但是用了frida hook的方法解的。<br>可以看到这个调用了a.B方法：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721044519439-24e3616b-2388-42b4-bd89-53ccc083a34d.png#averageHue=%23fbf9f8&clientId=ud3991e76-89a3-4&from=paste&height=360&id=u4eefeff1&originHeight=450&originWidth=883&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=37044&status=done&style=none&taskId=ue047ad38-b164-4782-83f0-424a7e44833&title=&width=706.4" alt="image.png"><br>点进去看b方法，有个对比函数areEqual：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721044564744-1b3a4e6c-3e3f-4cd2-b39b-9d1518d5851b.png#averageHue=%23fbf9f7&clientId=ud3991e76-89a3-4&from=paste&height=341&id=ucccca823&originHeight=426&originWidth=1109&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=43154&status=done&style=none&taskId=u470703d3-7672-483a-a555-a2df884cac0&title=&width=887.2" alt="image.png"><br>于是hook 对比函数areEqual即可：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721044624886-42449f92-a0f8-4d90-a9a3-11db7da64071.png#averageHue=%23f2efef&clientId=ud3991e76-89a3-4&from=paste&height=615&id=u7034019c&originHeight=769&originWidth=1441&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=120630&status=done&style=none&taskId=ue40a28e1-ccb0-46f4-8520-d8b9ee9315f&title=&width=1152.8" alt="image.png"></p>
+<blockquote>
+<p>对这种还是frida hook好用啊，不会修改原包，又快又省事。</p>
+</blockquote>
+<h2 id="中级题-1"><a href="#中级题-1" class="headerlink" title="中级题"></a>中级题</h2><p>aes.png图片打不开，用010editor也不能正常显示，应该是被加密了。(其实名字已经提示了笨蛋，就是aes加密)，aes解密关键在于找key。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">bool __fastcall <span class="title function_">get_RealKey</span>(<span class="params">JNIEnv *a1, jclass a2, jstring a3</span>)</span><br><span class="line">&#123;</span><br><span class="line">  int8x16_t *v3; <span class="comment">// x19</span></span><br><span class="line">  int8x16_t v5; <span class="comment">// [xsp+0h] [xbp-30h] BYREF</span></span><br><span class="line">  char v6; <span class="comment">// [xsp+10h] [xbp-20h]</span></span><br><span class="line">  __int64 v7; <span class="comment">// [xsp+18h] [xbp-18h]</span></span><br><span class="line"></span><br><span class="line">  v7 = *(_QWORD *)(<span class="title function_">_ReadStatusReg</span>(<span class="title class_">ARM64</span>_SYSREG(<span class="number">3</span>, <span class="number">3</span>, <span class="number">13</span>, <span class="number">0</span>, <span class="number">2</span>)) + <span class="number">40</span>);</span><br><span class="line">  v3 = (int8x16_t *)(*a1)-&gt;<span class="title class_">GetStringUTFChars</span>(a1, a3, 0LL);</span><br><span class="line">  <span class="keyword">if</span> ( <span class="title function_">strlen</span>((<span class="keyword">const</span> char *)v3) != <span class="number">16</span> )</span><br><span class="line">    <span class="keyword">return</span> 0LL;</span><br><span class="line">  v6 = <span class="number">0</span>;</span><br><span class="line">  v5 = <span class="title function_">vaddq_s8</span>(*v3, (int8x16_t)xmmword_3030);</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">strcmp</span>((<span class="keyword">const</span> char *)&amp;v5, <span class="string">&quot;thisiskey&quot;</span>) != <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个地方卡了很久，想得到真正的key，吾爱上的wp基本上都是将这个代码抠出来，我实在是抠不出来（太菜了orz），然后想着直接hook strcmp方法，然后由于没想清楚该怎么调用这个函数，再hook出key，然后就想歪到主动调用，总之就是hook代码写不出来，崩溃之下又去google了，然后被然后看到沐阳大佬是通过动态调式拿到str2的。（我真傻，明明初级题2都提示动态调式了，我居然没想到qaq）</p>
+<blockquote>
+<p>在打这段字的时候突然想到可以先主动调用get_RealKey，再hook strcmp得到str2。晚点试试</p>
+</blockquote>
+<p>下面开始记录动态调试的解题过程：<br>:::info<br>这里用ida动态调试有点问题（可能是因为apk没有交互键，导致ida运行不到断点处），明天跟视频学一下Unidbg怎么搞。<br>7.18突然发现当时忘记转发jdwp了，有可能时这个影响了动调？明天试试，不行就Unidbg。<br>最后用Unidbg解决的，隔了好几天，最后发现没用到Unidbg太复杂的功能，就是下断点获取mr0的值而已，在本题的情况中确实方便而且简单。<br>另外在过程中发现了frida的强大，学会了frida主动调用，要把frida练练，感觉练好能解决很多问题，突破到下一境界！<br>:::</p>
+<blockquote>
+<p>jdbc附加失败：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721394954815-50c9f6de-e928-47a3-9e5a-34e7ed65bb9c.png#averageHue=%23252321&clientId=ubd72167d-3de8-4&from=paste&height=492&id=u6e221188&originHeight=615&originWidth=773&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=78769&status=done&style=none&taskId=u9f304149-3292-4994-b5eb-dda91cbc544&title=&width=618.4" alt="image.png"><br>解决方法：有可能是手机问题，建议低版本真机，不要用模拟器！切命令顺序不要乱！另外也有可能软件有反调试！<br>感觉可能是反调试吧。。。不晓得，看来只能Unidbg了</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lession2;</span><br><span class="line"><span class="comment">//一堆导入</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">wuai6</span> <span class="keyword">extends</span> <span class="title class_">AbstractJni</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AndroidEmulator emulator;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> VM vm;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Memory memory;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Module <span class="keyword">module</span>;</span><br><span class="line">    <span class="keyword">private</span> DvmObject&lt;?&gt; obj;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">wuai6</span><span class="params">()</span>&#123;</span><br><span class="line">        emulator= AndroidEmulatorBuilder</span><br><span class="line">                .for32Bit()</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        memory=emulator.getMemory();</span><br><span class="line">        memory.setLibraryResolver(<span class="keyword">new</span> <span class="title class_">AndroidResolver</span>(<span class="number">23</span>));</span><br><span class="line">        vm=emulator.createDalvikVM(<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;unidbg-android/src/test/java/com/lession2/AM.apk&quot;</span>));</span><br><span class="line">        vm.setJni(<span class="built_in">this</span>);</span><br><span class="line">        vm.setVerbose(<span class="literal">true</span>);</span><br><span class="line">        DalvikModule dalvikModule=vm.loadLibrary(<span class="string">&quot;52pj&quot;</span>,<span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">module</span>=dalvikModule.getModule();</span><br><span class="line">        vm.callJNI_OnLoad(emulator,<span class="keyword">module</span>);</span><br><span class="line">        emulator.attach().addBreakPoint(<span class="keyword">module</span>,<span class="number">0x22BC</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">start</span> <span class="operator">=</span>System.currentTimeMillis();</span><br><span class="line">        <span class="type">wuai6</span> <span class="variable">mainActivity</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">wuai6</span>();</span><br><span class="line">        System.out.println(<span class="string">&quot;load the moudle&quot;</span>+(System.currentTimeMillis()-start)+<span class="string">&quot;ms&quot;</span>);</span><br><span class="line">        mainActivity.get_RealKey();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">get_RealKey</span><span class="params">()</span>&#123;</span><br><span class="line">        String lineTxt=<span class="string">&quot;|wfkuqokj4548366&quot;</span>;</span><br><span class="line">        DvmObject obj=vm.resolveClass(<span class="string">&quot;com/zj/wuaipojie2023_2/MainActivity&quot;</span>).newObject(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">boolean</span> obj1=obj.callJniMethodBoolean(emulator,<span class="string">&quot;get_RealKey(Ljava/lang/String;)Z&quot;</span>,lineTxt);</span><br><span class="line">        System.out.println(<span class="string">&quot;resual-----&gt;&quot;</span>+obj1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721667647975-4a3e8f39-9546-45c7-a007-071d0dfa98f0.png#averageHue=%23f9f8f6&clientId=u242e8959-9724-4&from=paste&height=424&id=uf22d8baf&originHeight=530&originWidth=1570&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=62649&status=done&style=none&taskId=ud472d3f4-0950-4390-8fb3-f5700a2e116&title=&width=1256" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721667540406-01e7737a-790f-4e5f-bfef-a83006561132.png#averageHue=%23cfcb9b&clientId=u242e8959-9724-4&from=paste&height=746&id=ua8019750&originHeight=933&originWidth=1920&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=209086&status=done&style=none&taskId=ub93456c0-57d1-436b-8b3b-5a97c928a12&title=&width=1536" alt="image.png"><br>另存为.png，得到：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721667716326-5341a509-92bd-4e75-b967-bfb6db15792c.png#averageHue=%23f2e8d9&clientId=u242e8959-9724-4&from=paste&height=237&id=ued3ba932&originHeight=296&originWidth=294&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=71660&status=done&style=none&taskId=u41e7ef1b-e9d8-4390-be83-166aeab9bfb&title=&width=235.2" alt="image.png"><br>在010中分析，查找png头，发现有两个png头，说明这个图片后面藏着一个图片，在010中复制另存为图片，得到一个二维码：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1721747757545-cc137ff9-1145-4e1f-b3d7-72f2502e71ce.png#averageHue=%23b2d7c8&clientId=u8bb3477b-f067-4&from=paste&height=142&id=u14d6a95c&originHeight=178&originWidth=195&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=3136&status=done&style=none&taskId=u22e2c3a5-2770-42b7-89fd-53149a1b1b8&title=&width=156" alt="image.png"><br>二维码在线解码，比如草料二维码，得到flag：<br><code>flag&#123;Happy_New_Year_Wuaipojie2023&#125;</code></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/08/24/%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84Q&A/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2024"><span class="nav-number">1.</span> <span class="nav-text">2024</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E7%BA%A7%E9%A2%981%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">初级题1：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%95%E4%B8%80%EF%BC%9A%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">法一：主动调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%95%E4%BA%8C%EF%BC%9A%E7%9B%B4%E6%8E%A5%E5%90%AF%E5%8A%A8Activity"><span class="nav-number">2.2.</span> <span class="nav-text">法二：直接启动Activity</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E7%BA%A7%E9%A2%982"><span class="nav-number">3.</span> <span class="nav-text">初级题2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AD%E7%BA%A7%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">中级题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">4.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">4.2.</span> <span class="nav-text">方法二</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2023"><span class="nav-number">5.</span> <span class="nav-text">2023</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E7%BA%A7%E9%A2%981"><span class="nav-number">5.1.</span> <span class="nav-text">初级题1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E7%BA%A7%E9%A2%982-1"><span class="nav-number">5.2.</span> <span class="nav-text">初级题2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E7%BA%A7%E9%A2%98-1"><span class="nav-number">5.3.</span> <span class="nav-text">中级题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
