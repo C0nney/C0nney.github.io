@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="逆向工具," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="安卓逆向常用工具及安装与配置教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工具篇">
+<meta property="og:url" content="https://c0nney.github.io/2024/07/29/%E5%B7%A5%E5%85%B7%E7%AF%87/index.html">
+<meta property="og:site_name" content="C0nney&#39;s Blog">
+<meta property="og:description" content="安卓逆向常用工具及安装与配置教程">
+<meta property="og:locale">
+<meta property="og:image" content="https://c0nney.github.io/images/%E5%B7%A5%E5%85%B7%E7%AF%87/image.png">
+<meta property="og:image" content="https://c0nney.github.io/images/%E5%B7%A5%E5%85%B7%E7%AF%87/img.png">
+<meta property="article:published_time" content="2024-07-29T06:22:55.000Z">
+<meta property="article:modified_time" content="2024-08-29T16:39:23.613Z">
+<meta property="article:author" content="C0nney">
+<meta property="article:tag" content="逆向工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://c0nney.github.io/images/%E5%B7%A5%E5%85%B7%E7%AF%87/image.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://C0nney.github.io/2024/07/29/工具篇/"/>
+
+
+
+
+
+  <title>工具篇 | C0nney's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">C0nney's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">少则是多，慢也是快</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://C0nney.github.io/2024/07/29/%E5%B7%A5%E5%85%B7%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="C0nney">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C0nney's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">工具篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-07-29T14:22:55+08:00">
+                2024-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/" itemprop="url" rel="index">
+                    <span itemprop="name">安卓逆向</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>安卓逆向常用工具及安装与配置教程</p>
+<span id="more"></span>
+
+<hr>
+<h1 id="1-apktool"><a href="#1-apktool" class="headerlink" title="1. apktool"></a>1. apktool</h1><p>apktool 常用于反编译 Android 中的资源文件 , 主要是 获取 AndroidManifest.xml , res 目录下的图片 , 布局 , style 风格配置 , 等资源文件 ;Android 应用打包时 , 会使用 aapt 对工程中的资源文件进行编译 , 一般情况下将 apk 打开以后 , 都是编译后的资源文件 , 这些文件基本不可读 , 无法理解 ;apktool 工具可以将 Android 项目中编译后的资源文件反编译出来。</p>
+<p>ApkTool 的最重要的两个作用是 解包 和 打包 ;</p>
+<ul>
+<li>解包 : 拿到 APK 文件 , 如果按照 zip 格式解压出来 , xml 文件都是乱码 ; APK 文件打包时 , 会将 xml 文件进行压缩转为二进制文件 , 以减小体积 ; 解包时 , 必须使用 ApkTool 解包工具 , 将二进制数据格式的 xml 文件转为 文本 xml 文件 , 才能获取真实的 xml 文件 ;</li>
+<li>打包 : 将使用 ApkTool 工具解包后的零散文件 , 再次打包成 APK 文件 ,</li>
+</ul>
+<p>如果 APK 文件进行了加固处理 , 那么解包无法获取正确的 dex &#x2F; so &#x2F; 资源文件 , 无法进行重打包 ;</p>
+<ul>
+<li>重打包操作 : 使用 ApkTool 工具 , 将 APK 解包 , 修改或注入 so 文件 , 然后再进行重打包 ;</li>
+</ul>
+<p> <strong>操作：</strong></p>
+<p>cd 进入apk所在目录 输入解包命令解包成功会在当前目录下生成app-debug文件夹，[]内为apk名&#x2F;文件夹名<br><code>apktool d [app-debug.apk]</code><br>输入重打包命令 -o是重命名<br><code>apktool b [app-debug] -o [test.apk] </code></p>
+<p>注：重打包后的apk由于没有签名，所以需要对重打包后的apk进行签名后才能在手机上安装并运行<br>打开AndroidKiller 点工具-APK签名 将要签名的apk拖拉到软件中进行签名 点执行后将会在当前目录生成test_sign.apk，即签名后的apk。</p>
+<h1 id="2-安装Frida"><a href="#2-安装Frida" class="headerlink" title="2. 安装Frida"></a>2. 安装Frida</h1><p>pychram直接安装frida和frida tools，</p>
+<p><img src="/../images/%E5%B7%A5%E5%85%B7%E7%AF%87/image.png" alt="img">然后在frida github上找到并下载对应frida版本的frida-server，我用的雷电模拟器于是选择frida-server-x86_64。解压后在雷电目录cmd，<code>adb root</code> <code>adb remount</code> 然后将frida-server adb push到&#x2F;data&#x2F;local&#x2F;tmp，然后<code>adb shell</code> <code>su</code> <code>cd /data/local/tmp</code>给frida-server 777权限，然后.&#x2F;frida-server执行。然后另开cmd端口转发<code>adb forward tcp:27042 tcp:27042</code>。在pychram中执行测试程序，成功！</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">把解压后的文件 push 到手机上</span></span><br><span class="line">adb push 你电脑里面frida-server-16.1.11-android-arm64的路径 data/local/tmp</span><br><span class="line">adb shell</span><br><span class="line">su</span><br><span class="line">cd data/local/tmp</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改改文件的执行权限</span></span><br><span class="line">chmod 777 frida-server-15.1.17-android-arm64</span><br><span class="line">./frida-server-15.1.17-android-arm64 </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">(另开一个窗口)最后就是做端口转发就行了。</span></span><br><span class="line">adb forward tcp:27042 tcp:27042   #frida-server常用端口</span><br><span class="line">adb forward tcp:27043 tcp:27043		#与其他服务/应用程序通信，应该是GameSentry</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 Android 进程列表，-R 选项用于指定通过远程连接进行列出。</span></span><br><span class="line">    frida-ps -R</span><br></pre></td></tr></table></figure>
+
+<p><code>frida-ps -Uai</code>显示<strong>USB</strong>连接的（iPhone等）<strong>移动端</strong>的<strong>应用程序</strong>的<strong>已安装的</strong>全部（<strong>正在运行</strong>和<strong>没有运行</strong>）的<strong>应用程序</strong>的进程：-Uai &#x3D; USB + only (running) applications + (not runnning but) installed</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">frida-ps -Ua | grep -i preferences <span class="comment">#举例preference</span></span><br><span class="line">adb shell pm path com.example.app 	</span><br><span class="line">adb pull /data/app/com.example.app-1/base.apk ./example.apk</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="配置虚拟环境"><a href="#配置虚拟环境" class="headerlink" title="配置虚拟环境"></a>配置虚拟环境</h2><p>方便切换frida版本</p>
+<ul>
+<li>安装环境</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenvwrapper-win -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置WORKON_HOME环境变量</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv 新建环境</span><br><span class="line">rmvirtualenv 删除环境</span><br></pre></td></tr></table></figure>
+
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (1).png)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install frida==16.1.11 frida-tools</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-Fiddler安装与配置"><a href="#3-Fiddler安装与配置" class="headerlink" title="3.Fiddler安装与配置"></a>3.Fiddler安装与配置</h1><p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (2).png)</p>
+<p> 查看用户证书安装的名称  <code>ls /data/misc/user/0/cacerts-added/</code></p>
+<p>但是</p>
+<p>要为其命名，命名为fiddlerca。</p>
+<p>PIN：1234</p>
+<p>然后显示出证书名称</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (3).png)</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (4).png)</p>
+<p>成功！</p>
+<h1 id="4-Magisk（面具）-LsPosed"><a href="#4-Magisk（面具）-LsPosed" class="headerlink" title="4.Magisk（面具）&amp;LsPosed"></a>4.Magisk（面具）&amp;LsPosed</h1><p>雷电9，安装</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (5).png)</p>
+<p>然后点击图标启动，给权限→点击“安装”→直接退回，关掉程序→重启magisk→再次点击“安装”→点击“下一步”→选择“安装至系统分区”（专门留给模拟器的选项）→点“开始”</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (6).png)</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (7).png)</p>
+<p>出现All done!即成功。如果失败，软件设置→磁盘共享改为可写入。</p>
+<p>然后直接重启模拟器，再打开面具，此时会有异常提示，不用管，直接点确定：</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (8).png)</p>
+<p>右上角设置，打开Zygisk</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (9).png)</p>
+<p>然后返回，点右下角“模块”，准备刷LsPosed模块：</p>
+<p>（提前将LsPosed放入共享文件夹）导入时找到Pictures文件夹：</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (10).png)</p>
+<p>点击即可：</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (11).png)</p>
+<p>成功！</p>
+<p>然后重启模拟器，出现这个，大功告成√</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (12).png)</p>
+<p><strong>核心破解</strong>——用于允许安装未签名的app。安装好LsPosed后，安装核心破解，手机消息栏会提示尚未激活，点击勾选“启用模块”和“系统框架”然后重启模拟器即可。</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (13).png)</p>
+<p>5.Ubuntu环境配置</p>
+<p>（前期环境已打包好，直接下载即可）</p>
+<p> 1.Android Studio创建新项目<br>2.将下载的xposedBridgeApi.jar包拖进libs文件夹<br>3.右击jar包，选择add as library<br>4.修改xml文件配置</p>
+<p>5.修改build.gradle,将此处修改为compileOnly 默认的是implementation    </p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (14).png)</p>
+<p>6.在app处右键新建–&gt;Folder–&gt;Assets Folder，然后在main&#x2F;assets下创建xposed_init(不要后缀名):只有一行代码，就是说明入口类</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (15).png)<br>7.新建Hook类，实现IXposedHookLoadPackage接口，然后在handleLoadPackage函数内编写Hook逻辑  </p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (16).png)</p>
+<p>然后复制Hook类的包名（记得加上类名Hook），粘贴至xposed_init中，即声明入口（说明入口类），然后编译（sync）一下</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (17).png)</p>
+<p>然后将以下代码复制到Hook类中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> de.robv.android.xposed.IXposedHookLoadPackage; </span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.callbacks.XC_LoadPackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hook</span> <span class="keyword">implements</span> <span class="title class_">IXposedHookLoadPackage</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleLoadPackage</span><span class="params">(XC_LoadPackage.LoadPackageParam loadPackageParam)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="5-OppenSSL"><a href="#5-OppenSSL" class="headerlink" title="5.OppenSSL"></a>5.OppenSSL</h1><p><code>openssl version -a</code>查看oppenssl版本查看是否已安装oppenssl</p>
+<h1 id="6-ILSpy工具"><a href="#6-ILSpy工具" class="headerlink" title="6.ILSpy工具"></a>6.ILSpy工具</h1><p>移动端的绝大部分3d游戏由unity 3d引擎开发，unity 3d引擎通常采用c#代码开发，c#代码编译由微软提供的.Net框架控制。ilspy工具是开源的.Net反编译软件，利用ilspy工具可反编译由Unity3d引擎开发的游戏代码。ilspy属于开源项目，可通过<a target="_blank" rel="noopener" href="https://github.com/icsharpcode/ilspy">https://github.com/icsharpcode/ilspy</a> 下载该工具的源码。</p>
+<p>在Unity3D的游戏安装包中会保存C#代码编译之后的DLL文件，文件通常保存在APK根目录的“assets\bin\Data\Managed”文件夹中，对应的文件夹内容如图所示：</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (18).png)![img](..&#x2F;images&#x2F;工具篇&#x2F;image (19).png)</p>
+<h1 id="7-手游分析分析工具GameSebtry"><a href="#7-手游分析分析工具GameSebtry" class="headerlink" title="7.手游分析分析工具GameSebtry"></a>7.手游分析分析工具GameSebtry</h1><p>需要frida环境和node，已有跳过</p>
+<p>运行frida-server后，另开窗口端口转发：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># (另开一个窗口)最后就是做端口转发就行了。</span></span><br><span class="line">adb forward tcp:27042 tcp:27042</span><br><span class="line">adb forward tcp:27043 tcp:27043</span><br><span class="line"><span class="comment"># 查看 Android 进程列表</span></span><br><span class="line">    frida-ps -R</span><br></pre></td></tr></table></figure>
+
+<p>然后在GameSebtry根目录下</p>
+<p><code>npm install  </code>&#x2F;&#x2F;第一次安装需要</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">node</span> <span class="title">index</span>.js</span><br></pre></td></tr></table></figure>
+
+<p>显示这个说明成功，然后直接在浏览器打开<a target="_blank" rel="noopener" href="http://127.0.0.1:5000/">http://127.0.0.1:5000/</a> 即可:</p>
+<p><img src="/../images/%E5%B7%A5%E5%85%B7%E7%AF%87/img.png" alt="img"></p>
+<h1 id="8-WinGW-gcc-的下载与安装"><a href="#8-WinGW-gcc-的下载与安装" class="headerlink" title="8.WinGW(gcc)的下载与安装"></a>8.WinGW(gcc)的下载与安装</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Kenny_cxc/article/details/109639383">win10安装MinGW</a></p>
+<h1 id="9-strace展示系统调用的小工具"><a href="#9-strace展示系统调用的小工具" class="headerlink" title="9.strace展示系统调用的小工具"></a>9.strace展示系统调用的小工具</h1><p><code>strace -f gcc -o hell hello.c &amp;| vim -A</code> &#x2F;&#x2F;这是fish</p>
+<p><code>strace -f gcc -o hello hello.c 2&gt;&amp;1 | vim -</code>&#x2F;&#x2F;shell</p>
+<h1 id="10-安装Charles证书"><a href="#10-安装Charles证书" class="headerlink" title="10.安装Charles证书"></a>10.安装Charles证书</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hyf20131113/p/16124377.html">Charles安卓7.0以上抓包 - 夏有凉风 - 博客园</a></p>
+<h1 id="11-Unidbg安装使用与实战"><a href="#11-Unidbg安装使用与实战" class="headerlink" title="11.Unidbg安装使用与实战"></a>11.Unidbg安装使用与实战</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/freeking101/article/details/128519449">unidbg 简介、基本使用、调用so中方法、unidbg-web-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/theseventhson/p/16418593.html">android逆向奇技淫巧三十一：unidbg常见功能代码 - 第七子007 - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/13442?time__1311=Gqmxu7G=fxlx0nD2DUhYpD8YXHKmu52mD">Unidbg如何秒解CTF-Android题目？ - 先知社区</a></p>
+<h1 id="12-Cheat-Engine"><a href="#12-Cheat-Engine" class="headerlink" title="12.Cheat Engine"></a>12.Cheat Engine</h1><p>[CE修改器使用教程 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/LyShark/p/10799926.html">入门篇] - lyshark - 博客园</a></p>
+<h1 id="13-apk查壳工具-ApkCheckPack"><a href="#13-apk查壳工具-ApkCheckPack" class="headerlink" title="13.apk查壳工具-ApkCheckPack"></a>13.apk查壳工具-ApkCheckPack</h1><p>github地址：<a target="_blank" rel="noopener" href="https://github.com/moyuwa/ApkCheckPack">https://github.com/moyuwa/ApkCheckPack</a></p>
+<p>【支持的功能】</p>
+<p>√ 特征so库扫描：通过对比加固特征so库名&#x2F;路径，判断是否有加固</p>
+<p>√ 校验签名：校验V2签名，判断是否存在Janus漏洞</p>
+<p>√ 密钥泄露：扫描Apk文件内容，匹配是否有密钥字符串</p>
+<p>√ 反环境检测：扫描Dex文件搜索是否有Root、模拟器、反调试检测</p>
+<p>使用参数-s&#x3D;true（默认false）开启全文件硬编码信息扫描，-f参数指定apk文件或文件夹</p>
+<p>【运行】</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApkCheckPack.exe -s=<span class="keyword">true</span> -f <span class="keyword">test</span>.apk</span><br></pre></td></tr></table></figure>
+
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (20).png)</p>
+<h1 id="14-Drozer最新版-drozer-3-0-3-安装"><a href="#14-Drozer最新版-drozer-3-0-3-安装" class="headerlink" title="14.Drozer最新版(drozer 3.0.3)安装"></a>14.Drozer最新版(<strong>drozer 3.0.3)安装</strong></h1><p>【环境】：</p>
+<p>python 3.x 我这里是3.10</p>
+<p>红米 安卓9</p>
+<p>github下载<code>drozer-3.0.3-py3-none-any.whl</code>到任意目录，随便</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/WithSecureLabs/drozer/releases">https://github.com/WithSecureLabs/drozer/releases</a></p>
+<p>然后在目录下cmd pip或者pipx运行安装命令官网建议：<code>pipx install ./drozer-*.whl</code></p>
+<p>但是这里我没有pipx就直接pip运行了：<code>pip3 install ./drozer-3.0.3-py3-none-any.whl</code></p>
+<p>提示Successfully即为安装完成</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (21).png)</p>
+<p>默认是安装在python3.x对应目录下，不知道怎么找的可以往前看安装过程：</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (22).png)</p>
+<p>可以看到这里是给我安装到C盘用户目录下的AppData&#x2F;local&#x2F;programs&#x2F;python&#x2F;python10目录，也就是我python3.10的目录</p>
+<p>然后到这个目录下Scripts文件夹中可以看到drozer的相关文件</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (23).png)</p>
+<p>在这个目录下cmd 输入drozer回车出现</p>
+<p>即为安装成功。</p>
+<p>然后在手机安装对应版本的agrent</p>
+<p>drozer3.03对应的agent版本是agent3.0.0 <a target="_blank" rel="noopener" href="https://github.com/WithSecureLabs/drozer-agent/releases/tag/3.0.0">https://github.com/WithSecureLabs/drozer-agent/releases/tag/3.0.0</a></p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (24).png)</p>
+<p>下载，然后adb安装到手机</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb <span class="keyword">install</span> drozer-agent.apk</span><br></pre></td></tr></table></figure>
+
+<p>点开agent，打开点击右下角“关闭”改为“开启”：</p>
+<p>另开cmd窗口进行端口转发：<code>adb forward tcp:31415 tcp:31415</code></p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (25).png)<br>然后在<code>\Python310\Scripts</code>目录下cmd运行：<code>drozer console connect</code></p>
+<p>出现，成功！</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (26).png)</p>
+<p>这样的每次都得进到目录运行<code>drozer console connect</code>似乎有点麻烦，不够优雅。</p>
+<p>于是我将目录添加到环境变量，亲测win+r后可以直接运行命令。</p>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p><code>run app.package.list -f weibo</code> 找包名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">list  //列出目前可用的模块，也可以使用<span class="built_in">ls</span></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash"><span class="built_in">help</span> app.activity.forintent       //查看指定模块的帮助信息</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.package.list      //列出android设备中安装的app</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.package.info -a com.android.browser       //查看指定app的基本信息</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.activity.info -a com.android.browser      //列出app中的activity组件</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.activity.start --action android.intent.action.VIEW --data-uri  http://www.google.com  //开启一个activity，例如运行浏览器打开谷歌页面</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run scanner.provider.finduris -a com.sina.weibo       //查找可以读取的Content Provider</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run  app.provider.query content://settings/secure --selection <span class="string">&quot;name=&#x27;adb_enabled&#x27;&quot;</span>    //读取指定Content Provider内容</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run scanner.misc.writablefiles --privileged /data/data/com.sina.weibo     //列出指定文件路径里全局可写/可读的文件</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run shell.start       //shell操作</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run tools.setup.busybox       //安装busybox</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">list auxiliary        //通过web的方式查看content provider组件的相关内容</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash"><span class="built_in">help</span> auxiliary.webcontentresolver     //webcontentresolver帮助</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run auxiliary.webcontentresolver      //执行在浏览器中以http://localhost:8080即可访问</span></span><br><span class="line">以sieve示例</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.package.list -f sieve         //查找sieve应用程序</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.package.info -a com.mwr.example.sieve         //显示app.package.info命令包的基本信息</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.package.attacksurface com.mwr.example.sieve   //确定攻击面</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.activity.info -a com.mwr.example.sieve         //获取activity信息</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.activity.start --component com.mwr.example.sieve com.mwr.example.sieve.PWList     //启动pwlist</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.provider.info -a com.mwr.example.sieve        //提供商信息</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run scanner.provider.finduris -a com.mwr.example.sieve        //扫描所有能访问地址</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords/--vertical  //查看DBContentProvider/Passwords这条可执行地址</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords/ --projection <span class="string">&quot;&#x27;&quot;</span>   //检测注入</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.provider.read content://com.mwr.example.sieve.FileBackupProvider/etc/hosts    //查看读权限数据</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.provider.download content://com.mwr.example.sieve.FileBackupProvider/data/data/com.mwr.example.sieve/databases/database.db /home/user/database.db //下载数据</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run scanner.provider.injection -a com.mwr.example.sieve       //扫描注入地址</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run scanner.provider.traversal -a com.mwr.example.sieve</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">run app.service.info -a com.mwr.example.sieve         //查看服务</span></span><br></pre></td></tr></table></figure>
+
+<p>我们在测试过程中，常用测试指令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line">(1)Activity:</span><br><span class="line">app.activity.forintent -- 找到可以处理已指定的包</span><br><span class="line">app.activity.info -- 获取activity组件信息</span><br><span class="line">app.activity.start -- 开启activity组件</span><br><span class="line">scanner.activity.browsable -- 获取可从web浏览器调用的所有可浏览的activity组件</span><br><span class="line"> </span><br><span class="line">(2)Service:</span><br><span class="line">app.service.info -- 获取service组件信息</span><br><span class="line">app.service.send -- 向服务组件发送消息并显示答复</span><br><span class="line">app.service.start -- 开启service组件</span><br><span class="line">app.service.stop -- 停止service组件</span><br><span class="line"> </span><br><span class="line">(3)Content Provider:</span><br><span class="line">app.provider.columns -- 在内容提供程序中列出列</span><br><span class="line">app.provider.delete -- 在内容提供程序中删除</span><br><span class="line">app.provider.download -- 在内容提供程序中下载支持文件</span><br><span class="line">app.provider.finduri -- 在包中查找引用的内容URIS</span><br><span class="line">app.provider.info -- 获取Content Provider组件信息</span><br><span class="line">app.provider.insert -- 插入到Content Provider组件中</span><br><span class="line">app.provider.query -- 查询Content Provider组件</span><br><span class="line">app.provider.read -- 从支持文件的Content Provider读取</span><br><span class="line">app.provider.update -- 更新Content Provider的记录</span><br><span class="line">scanner.provider.finduris -- 搜索可从上下文中查询的Content Provider</span><br><span class="line">scanner.provider.injection -- 测试Content Provider的注入漏洞</span><br><span class="line">scanner.provider.sqltables -- 查找可通过SQL注入漏洞访问的表</span><br><span class="line">scanner.provider.traversal -- 测试Content Provider的基本目录遍历漏洞</span><br><span class="line"> </span><br><span class="line">(4)Broadcast Receivers:</span><br><span class="line">app.broadcast.info -- 获取有关广播接收器的信息</span><br><span class="line">app.broadcast.send -- 带目的发送广播</span><br><span class="line">app.broadcast.sniff -- 注册一个能嗅出特定意图的广播接收器</span><br><span class="line">app.package.attacksurface------获取包攻击面</span><br><span class="line"> </span><br><span class="line">app.package.backup------列出使用备份API的包(在标记“允许备份”时返回true)</span><br><span class="line"> </span><br><span class="line">app.package.debuggable------查找可调试包</span><br><span class="line"> </span><br><span class="line">app.package.info------获取有关已安装软件包的信息</span><br><span class="line"> </span><br><span class="line">app.package.launchintent------获取包的启动意图</span><br><span class="line"> </span><br><span class="line">app.package.list------列出程序包</span><br><span class="line"> </span><br><span class="line">app.package.manifest------获取包的AndroidManifest.xml</span><br><span class="line"> </span><br><span class="line">app.package.native------查找嵌入在应用程序中的本地库</span><br><span class="line"> </span><br><span class="line">app.package.shareduid------查找具有共享uid的包</span><br><span class="line">1.连接drozer：</span><br><span class="line">drozer console connect</span><br><span class="line"> </span><br><span class="line">2.列出详细APP信息：</span><br><span class="line">run app.package.info -a com.xxx.xxxx</span><br><span class="line"> </span><br><span class="line">3.查看APP的配置信息</span><br><span class="line">run app.package.manifest com.xxx.xxxx</span><br><span class="line"> </span><br><span class="line">3.分析是否存在攻击攻击点</span><br><span class="line">run app.package.attacksurface com.xxx.xxxx</span><br><span class="line"> </span><br><span class="line">==============================================</span><br><span class="line">Activity测试：</span><br><span class="line">4.获取Activity信息</span><br><span class="line">命令 run app.activity.info -a</span><br><span class="line">示例 run app.activity.info -a com.xxx.xxxx</span><br><span class="line"> </span><br><span class="line">5.Activity跳转</span><br><span class="line">命令：run app.activity.start --component 软件包名 软件包名.对应exported的activtiy</span><br><span class="line">示例：run app.activity.start --component com.example.test com.example.test.Activity</span><br><span class="line"> </span><br><span class="line">==============================================</span><br><span class="line">Service测试：</span><br><span class="line">6.获取service信息</span><br><span class="line">命令 run app.service.info -a</span><br><span class="line">示例 run app.service.info -a com.xxx.xxxx</span><br><span class="line"> </span><br><span class="line">7.发送service服务</span><br><span class="line">命令：run app.service.start --component 软件包名 软件包名.对应exported的activtiy --extra 数据</span><br><span class="line">示例：run app.service.start --component com.example.test com.example.test.Activity --extra string phone 12345678901 --extra string content Hello</span><br><span class="line"> </span><br><span class="line">==============================================</span><br><span class="line">Broadcast Receivers测试：</span><br><span class="line">8.获取Broadcast信息</span><br><span class="line">命令 run app.broadcast.info -a</span><br><span class="line">示例 run app.broadcast.info -a com.xxx.xxxx</span><br><span class="line"> </span><br><span class="line">9.注册一个能嗅出特定意图的广播接收器</span><br><span class="line">命令：app.broadcast.sniff --action &quot;活动&quot;</span><br><span class="line">示例：app.broadcast.sniff --action &quot;ddns.actiton.Token&quot;</span><br><span class="line"> </span><br><span class="line">10.发送广播</span><br><span class="line">命令：run app.broadcast.send --action 广播名 --extra string name lisi</span><br><span class="line">示例：run app.broadcast.send --action org.owasp.goatdroid.fourgoats.SOCIAL_SMS --extra string phoneNumber 1234 --extra string message dog</span><br><span class="line"> </span><br><span class="line">==============================================</span><br><span class="line">contentProvider测试：</span><br><span class="line">11.获取contentProvider信息</span><br><span class="line">命令：run app.provider.info -a</span><br><span class="line">示例：run app.provider.info -a com.xxx.xxxx</span><br><span class="line"> </span><br><span class="line">12.获取所有可访问的Uri</span><br><span class="line">命令 run scanner.provider.finduris -a</span><br><span class="line">示例 run scanner.provider.finduris -a com.xxx.xxxx</span><br><span class="line"> </span><br><span class="line">13.检测SQL注入</span><br><span class="line">命令 run scanner.provider.injection -a</span><br><span class="line">示例 run scanner.provider.injection -a com.xxx.xxxx</span><br><span class="line"> </span><br><span class="line">14.检测目录遍历</span><br><span class="line">命令 run scanner.provider.traversal -a</span><br><span class="line">示例 run scanner.provider.traversal -a com.xxx.xxxx</span><br><span class="line"> </span><br><span class="line">15.进行SQL注入</span><br><span class="line">命令 run app.provider.query [--projection] [--selection]</span><br><span class="line">示例 run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords/</span><br><span class="line"> </span><br><span class="line">列出所有表 run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords/ --projection &quot;* FROM SQLITE_MASTER WHERE type=&#x27;table&#x27;;--&quot;</span><br><span class="line">获取单表（如Key）的数据 run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords/ --projection &quot;* FROM Key;--&quot;</span><br><span class="line"> </span><br><span class="line">16.读取文件系统下的文件</span><br><span class="line">示例 run app.provider.read content://com.mwr.example.sieve.FileBackupProvider/etc/hosts</span><br><span class="line"> </span><br><span class="line">17.下载数据库文件到本地</span><br><span class="line">示例 run app.provider.download content://com.mwr.example.sieve.FileBackupProvider/data/data/com.mwr.example.sieve/databases/database.db d:/database.db</span><br></pre></td></tr></table></figure>
+
+<h1 id="15-kali安装-使用Docker"><a href="#15-kali安装-使用Docker" class="headerlink" title="15.kali安装&amp;使用Docker"></a>15.kali安装&amp;使用Docker</h1><p>首先<code>uname -r</code>查看kali内核是否满足Docker最低要求</p>
+<p><code>sudo apt update</code>更新软件包列表</p>
+<p><code>sudo apt install docker.io</code> 安装Docker</p>
+<p>使用命令即可启动Docker服务<code>sudo systemctl start docker</code></p>
+<p>如有需要：<code>sudo systemctl enable docker</code>命令将其设置为开机自启动</p>
+<h1 id="16-运行-MobSF"><a href="#16-运行-MobSF" class="headerlink" title="16.运行 MobSF"></a>16.运行 MobSF</h1><p><a target="_blank" rel="noopener" href="https://mobsf.github.io/docs/#/zh-cn/mobsf_docker?id=%E8%BF%90%E8%A1%8C-mobsf">运行 MobSF</a></p>
+<p>【前置】：Docker</p>
+<p><strong>下载</strong></p>
+<p>您应该始终下载标记为“最新”的 MobSF docker 映像，以获得最新版本、功能、安全性和错误修复。我们还提供最新版本背后的版本控制<a target="_blank" rel="noopener" href="https://hub.docker.com/r/opensecurity/mobile-security-framework-mobsf/tags">releases</a>。</p>
+<p>docker pull opensecurity&#x2F;mobile-security-framework-mobsf:latestCopy to clipboardErrorCopied</p>
+<p><strong>运行</strong></p>
+<p>docker run -it –rm -p 8000:8000 opensecurity&#x2F;mobile-security-framework-mobsf:latestCopy to clipboardErrorCopied</p>
+<p>您现在可以在网络浏览器中通过“<a href="http://127.0.0.1:8000”访问">http://127.0.0.1:8000”访问</a> MobSF 网络界面。默认凭据是“mobsf&#x2F;mobsf”。</p>
+<h1 id="17-windows安装MobSF"><a href="#17-windows安装MobSF" class="headerlink" title="17.windows安装MobSF"></a>17.windows安装MobSF</h1><p>一开始在kali使用docker安装，结果因为网络原因无法访问docker hub仓库，下载不了仓库里的MobSF镜像。</p>
+<p>所以还是在物理机clone git项目了。</p>
+<p><strong>【前置环境】</strong></p>
+<p>1、安装 Git（示例版本 Git 2.35.1）</p>
+<p>2、安装 Python 3.8-3.9（示例版本 Python 3.10）</p>
+<p>3、安装 JDK 8+（示例版本 JDK 15）</p>
+<p>4、安装 Microsoft Visual C++ Build Tools</p>
+<p>5、安装 OpenSSL（non-light 示例版本：Win64 OpenSSL v3.3.1）</p>
+<p>6、安装 wkhtmltopdf，并将包含 wkhtmltopdf 的二进制文件路径添加到环境变量 PATH 里</p>
+<p><strong>【安装部署】</strong></p>
+<p>1、下载最新项目 <code>git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF.git</code></p>
+<p>2、跳转到项目目录里 <code>cd Mobile-Security-Framework-MobSF</code></p>
+<p>3、执行安装 <code>setup.bat</code></p>
+<p><strong>注意：Windows 用户在运行 setup.bat 之前，请关闭所有 MobSF 打开过的文件夹和用 MobSF 打开过的文本编辑器，因为这些都会引起权限错误造成安装中断。</strong></p>
+<p>经过一段时间，不知道成功了没。</p>
+<p>![img](..&#x2F;images&#x2F;工具篇&#x2F;image (27).png)</p>
+<p>但是悲催的是，在安装的过程中我突然发现旧版MobSF不支持真机，晴天霹雳。。。虽然不知道新版支不支持，但是还是找新的漏洞检测方案吧orz</p>
+<p><strong>【运行】</strong></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7090502702458732552">https://juejin.cn/post/7090502702458732552</a></p>
+<h1 id="18-安装ApplicationScanner"><a href="#18-安装ApplicationScanner" class="headerlink" title="18.安装ApplicationScanner"></a>18.安装<strong>ApplicationScanner</strong></h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/diwangguilai/p/17283925.html">app安全扫描工具——ApplicationScanner - 迷途的小书僮 - 博客园</a></p>
+<p>由于该工具目前只支持linux和mac，所以我在kali安装。</p>
+<p>安装的时候发现没有npm，于是使用apt安装npm</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">sudo</span> apt update </span><br><span class="line"><span class="built_in">sudo</span> apt install nodejs npm  </span><br></pre></td></tr></table></figure>
+
+<p>然后下载包  <code>sudo npm install -g js-beautify</code></p>
+<p>然后新建一个目录，进入该目录，git clone <a target="_blank" rel="noopener" href="https://github.com/paradiseduo/ApplicationScanner.git">https://github.com/paradiseduo/ApplicationScanner.git</a></p>
+<p>cd 到ApplicationScanner目录后，执行命令：<br><code>pip install -r requirements.txt </code>  这是安装依赖的第三方包</p>
+<p>但是npm下载太慢了orz又是万恶的网络问题！</p>
+<p>绷不住了，下次再试！</p>
+
+      
+    </div>
+    
+    
+    
+
+
+<div>
+  
+    
+<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E9%80%86%E5%90%91%E5%B7%A5%E5%85%B7/" rel="tag"><i class="fa fa-tag"></i> 逆向工具</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/07/23/52pj%E6%98%A5%E8%8A%82%E7%BA%A2%E5%8C%85%E9%A2%98/" rel="next" title="52pj春节红包题2024&2023">
+                <i class="fa fa-chevron-left"></i> 52pj春节红包题2024&2023
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2024/08/21/%E6%9F%90Cocos-js%E6%B8%B8%E6%88%8F%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/" rel="prev" title="某Cocos-js游戏逆向分析">
+                某Cocos-js游戏逆向分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/logo.jpg"
+                alt="C0nney" />
+            
+              <p class="site-author-name" itemprop="name">C0nney</p>
+              <p class="site-description motion-element" itemprop="description">Keep Curious</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-apktool"><span class="nav-number">1.</span> <span class="nav-text">1. apktool</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85Frida"><span class="nav-number">2.</span> <span class="nav-text">2. 安装Frida</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.</span> <span class="nav-text">配置虚拟环境</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Fiddler%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">3.Fiddler安装与配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Magisk%EF%BC%88%E9%9D%A2%E5%85%B7%EF%BC%89-LsPosed"><span class="nav-number">4.</span> <span class="nav-text">4.Magisk（面具）&amp;LsPosed</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-OppenSSL"><span class="nav-number">5.</span> <span class="nav-text">5.OppenSSL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-ILSpy%E5%B7%A5%E5%85%B7"><span class="nav-number">6.</span> <span class="nav-text">6.ILSpy工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-%E6%89%8B%E6%B8%B8%E5%88%86%E6%9E%90%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7GameSebtry"><span class="nav-number">7.</span> <span class="nav-text">7.手游分析分析工具GameSebtry</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-WinGW-gcc-%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="nav-number">8.</span> <span class="nav-text">8.WinGW(gcc)的下载与安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-strace%E5%B1%95%E7%A4%BA%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E5%B0%8F%E5%B7%A5%E5%85%B7"><span class="nav-number">9.</span> <span class="nav-text">9.strace展示系统调用的小工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-%E5%AE%89%E8%A3%85Charles%E8%AF%81%E4%B9%A6"><span class="nav-number">10.</span> <span class="nav-text">10.安装Charles证书</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-Unidbg%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%AE%9E%E6%88%98"><span class="nav-number">11.</span> <span class="nav-text">11.Unidbg安装使用与实战</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-Cheat-Engine"><span class="nav-number">12.</span> <span class="nav-text">12.Cheat Engine</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-apk%E6%9F%A5%E5%A3%B3%E5%B7%A5%E5%85%B7-ApkCheckPack"><span class="nav-number">13.</span> <span class="nav-text">13.apk查壳工具-ApkCheckPack</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#14-Drozer%E6%9C%80%E6%96%B0%E7%89%88-drozer-3-0-3-%E5%AE%89%E8%A3%85"><span class="nav-number">14.</span> <span class="nav-text">14.Drozer最新版(drozer 3.0.3)安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">14.1.</span> <span class="nav-text">基本使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#15-kali%E5%AE%89%E8%A3%85-%E4%BD%BF%E7%94%A8Docker"><span class="nav-number">15.</span> <span class="nav-text">15.kali安装&amp;使用Docker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#16-%E8%BF%90%E8%A1%8C-MobSF"><span class="nav-number">16.</span> <span class="nav-text">16.运行 MobSF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#17-windows%E5%AE%89%E8%A3%85MobSF"><span class="nav-number">17.</span> <span class="nav-text">17.windows安装MobSF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#18-%E5%AE%89%E8%A3%85ApplicationScanner"><span class="nav-number">18.</span> <span class="nav-text">18.安装ApplicationScanner</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C0nney</span>
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

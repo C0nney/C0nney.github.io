@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-CN">
+<html class="theme-next gemini use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,29 +79,28 @@
 
 
 
-<meta name="description" content="Q1.DDMS被高版本AS弃用的问题A:找到SDK文件目录-&gt;tools-&gt;双击monitor.bat打开，若无法打开并生成错误日志，如果日志中显示：eclipse.buildId&#x3D;unknown 并且java.version≠1.8，说明jdk版本太高。 有两种解决方法： ①安装jdk1.8 但是一般我们早已安装好别的版本的jdk了，如果不想安装jdk1.8可以选择方法②">
+<meta name="description" content="记录学习过程中遇到的各种问题及解决方案，因为有很多容易遇到&#x2F;踩坑的问题但是互联网上查到的有些是过时的不适用的旧方法，所以这里记录一些截止记录时已经更新的方法。希望能帮到看到的人。 除此之外还有一些我在学习过程中的思考与疑问。 正所谓，学而不思则罔，思而不学则殆。在如今这个快节奏的时代，愿诸君与我都谨记，不要陷入无效内卷与空耗。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习过程中遇到的Q&amp;A">
 <meta property="og:url" content="https://c0nney.github.io/2024/08/24/%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84QA/index.html">
 <meta property="og:site_name" content="C0nney&#39;s Blog">
-<meta property="og:description" content="Q1.DDMS被高版本AS弃用的问题A:找到SDK文件目录-&gt;tools-&gt;双击monitor.bat打开，若无法打开并生成错误日志，如果日志中显示：eclipse.buildId&#x3D;unknown 并且java.version≠1.8，说明jdk版本太高。 有两种解决方法： ①安装jdk1.8 但是一般我们早已安装好别的版本的jdk了，如果不想安装jdk1.8可以选择方法②">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="f:\blog\source\images\Q&A\Q6.png">
-<meta property="og:image" content="f:\blog\source\images\Q&A\Q7_1.png">
-<meta property="og:image" content="f:\blog\source\images\Q&A\Q7_2.png">
-<meta property="og:image" content="f:\blog\source\images\Q&A\Q8_1.png">
-<meta property="og:image" content="f:\blog\source\images\Q&A\Q8_2.png">
-<meta property="og:image" content="f:\blog\source\images\Q&A\Q8_3.png">
-<meta property="og:image" content="f:\blog\source\images\Q&A\Q8_4.png">
+<meta property="og:description" content="记录学习过程中遇到的各种问题及解决方案，因为有很多容易遇到&#x2F;踩坑的问题但是互联网上查到的有些是过时的不适用的旧方法，所以这里记录一些截止记录时已经更新的方法。希望能帮到看到的人。 除此之外还有一些我在学习过程中的思考与疑问。 正所谓，学而不思则罔，思而不学则殆。在如今这个快节奏的时代，愿诸君与我都谨记，不要陷入无效内卷与空耗。">
+<meta property="og:locale">
+<meta property="og:image" content="https://c0nney.github.io/images/QA/Q6.png">
+<meta property="og:image" content="https://c0nney.github.io/images/QA/Q7_1.png">
+<meta property="og:image" content="https://c0nney.github.io/images/QA/Q7_2.png">
+<meta property="og:image" content="https://c0nney.github.io/images/QA/Q8_1.png">
+<meta property="og:image" content="https://c0nney.github.io/images/QA/Q8_2.png">
+<meta property="og:image" content="https://c0nney.github.io/images/QA/Q8_4.png">
 <meta property="og:image" content="f:\blog\source\images\Q&A\Q14.png">
-<meta property="og:image" content="f:\blog\source\images\Q&A\Q18_1.png">
-<meta property="og:image" content="f:\blog\source\images\Q&A\Q18_2.png">
+<meta property="og:image" content="https://c0nney.github.io/images/QA/Q18_1.png">
+<meta property="og:image" content="https://c0nney.github.io/images/QA/Q18_2.png">
 <meta property="article:published_time" content="2024-08-24T09:57:39.000Z">
-<meta property="article:modified_time" content="2024-08-25T11:47:04.261Z">
+<meta property="article:modified_time" content="2024-08-29T16:18:34.338Z">
 <meta property="article:author" content="C0nney">
 <meta property="article:tag" content="踩坑">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="f:\blog\source\images\Q&A\Q6.png">
+<meta name="twitter:image" content="https://c0nney.github.io/images/QA/Q6.png">
 
 
 
@@ -109,7 +108,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '',
-    scheme: 'Pisces',
+    scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
@@ -117,7 +116,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -149,7 +148,7 @@
 
 <meta name="generator" content="Hexo 7.3.0"></head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -193,31 +192,31 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/%20" rel="section">
+          <a href="/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            首页
           </a>
         </li>
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/%20" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
           </a>
         </li>
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/%20" rel="section">
+          <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
-            Categories
+            分类
           </a>
         </li>
       
@@ -281,9 +280,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-08-24T17:57:39+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-08-24T17:57:39+08:00">
                 2024-08-24
               </time>
             
@@ -293,6 +292,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B8%A9%E5%9D%91/" itemprop="url" rel="index">
+                    <span itemprop="name">踩坑</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -321,7 +342,13 @@
       
 
       
-        <h1 id="Q1-DDMS被高版本AS弃用的问题"><a href="#Q1-DDMS被高版本AS弃用的问题" class="headerlink" title="Q1.DDMS被高版本AS弃用的问题"></a>Q1.DDMS被高版本AS弃用的问题</h1><p>A:找到SDK文件目录-&gt;tools-&gt;双击monitor.bat打开，若无法打开并生成错误日志，如果日志中显示：eclipse.buildId&#x3D;unknown</p>
+        <p>记录学习过程中遇到的各种问题及解决方案，因为有很多容易遇到&#x2F;踩坑的问题但是互联网上查到的有些是过时的不适用的旧方法，所以这里记录一些截止记录时已经更新的方法。希望能帮到看到的人。</p>
+<p>除此之外还有一些我在学习过程中的思考与疑问。</p>
+<p>正所谓，学而不思则罔，思而不学则殆。在如今这个快节奏的时代，愿诸君与我都谨记，不要陷入无效内卷与空耗。</p>
+<span id="more"></span>
+
+<hr>
+<h1 id="Q1-DDMS被高版本AS弃用的问题"><a href="#Q1-DDMS被高版本AS弃用的问题" class="headerlink" title="Q1.DDMS被高版本AS弃用的问题"></a>Q1.DDMS被高版本AS弃用的问题</h1><p>A:找到SDK文件目录-&gt;tools-&gt;双击monitor.bat打开，若无法打开并生成错误日志，如果日志中显示：<code>eclipse.buildId=unknown</code></p>
 <p>并且java.version≠1.8，说明jdk版本太高。</p>
 <p>有两种解决方法：</p>
 <p>①安装jdk1.8</p>
@@ -336,20 +363,20 @@
 <h1 id="Q4：-adb文件传输权限问题——remote-couldn’t-create-file-Read-only-file-system"><a href="#Q4：-adb文件传输权限问题——remote-couldn’t-create-file-Read-only-file-system" class="headerlink" title="Q4： adb文件传输权限问题——remote couldn’t create file: Read-only file system"></a>Q4： adb文件传输权限问题——remote couldn’t create file: Read-only file system</h1><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">adb root</span></span><br><span class="line"><span class="attribute">adb remount</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="Q5：运行虚拟机时报错“VMware-Workstation-未能启动-VMware-Authorization-Service。您可以尝试手动启动-VMware-Authorization-Service。如果此问题仍然存在，请联系-VMware-支持部门。”"><a href="#Q5：运行虚拟机时报错“VMware-Workstation-未能启动-VMware-Authorization-Service。您可以尝试手动启动-VMware-Authorization-Service。如果此问题仍然存在，请联系-VMware-支持部门。”" class="headerlink" title="Q5：运行虚拟机时报错“VMware Workstation 未能启动 VMware Authorization Service。您可以尝试手动启动 VMware Authorization Service。如果此问题仍然存在，请联系 VMware 支持部门。”"></a>Q5：运行虚拟机时报错“VMware Workstation 未能启动 VMware Authorization Service。您可以尝试手动启动 VMware Authorization Service。如果此问题仍然存在，请联系 VMware 支持部门。”</h1><p>A：右键管理员运行VM即可。</p>
-<h1 id="Q6：为什么进行IDA动态调试时要端口转发？"><a href="#Q6：为什么进行IDA动态调试时要端口转发？" class="headerlink" title="Q6：为什么进行IDA动态调试时要端口转发？"></a>Q6：为什么进行IDA动态调试时要端口转发？</h1><p><img src="F:\blog\source\images\Q&A\Q6.png" alt="img"></p>
-<h1 id="Q7-ARM汇编指令b的相对跳转问题"><a href="#Q7-ARM汇编指令b的相对跳转问题" class="headerlink" title="Q7:ARM汇编指令b的相对跳转问题"></a>Q7:ARM汇编指令b的相对跳转问题</h1><p><img src="F:\blog\source\images\Q&A\Q7_1.png" alt="img"></p>
-<p><img src="F:\blog\source\images\Q&A\Q7_2.png" alt="img"></p>
-<h1 id="Q8：红米手机刷入面具后，pc-usb连接手机进行调试为什么不能su-？"><a href="#Q8：红米手机刷入面具后，pc-usb连接手机进行调试为什么不能su-？" class="headerlink" title="Q8：红米手机刷入面具后，pc usb连接手机进行调试为什么不能su ？"></a>Q8：红米手机刷入面具后，pc usb连接手机进行调试为什么不能su ？</h1><p><img src="F:\blog\source\images\Q&A\Q8_1.png" alt="img"></p>
+<h1 id="Q6：为什么进行IDA动态调试时要端口转发？"><a href="#Q6：为什么进行IDA动态调试时要端口转发？" class="headerlink" title="Q6：为什么进行IDA动态调试时要端口转发？"></a>Q6：为什么进行IDA动态调试时要端口转发？</h1><p><img src="/../images/QA/Q6.png" alt="img"></p>
+<h1 id="Q7-ARM汇编指令b的相对跳转问题"><a href="#Q7-ARM汇编指令b的相对跳转问题" class="headerlink" title="Q7:ARM汇编指令b的相对跳转问题"></a>Q7:ARM汇编指令b的相对跳转问题</h1><p><img src="/../images/QA/Q7_1.png" alt="img"></p>
+<p><img src="/../images/QA/Q7_2.png" alt="img"></p>
+<h1 id="Q8：红米手机刷入面具后，pc-usb连接手机进行调试为什么不能su-？"><a href="#Q8：红米手机刷入面具后，pc-usb连接手机进行调试为什么不能su-？" class="headerlink" title="Q8：红米手机刷入面具后，pc usb连接手机进行调试为什么不能su ？"></a>Q8：红米手机刷入面具后，pc usb连接手机进行调试为什么不能su ？</h1><p><img src="/../images/QA/Q8_1.png" alt="img"></p>
 <p>由于面具的hide功能，刷入面具后就不能使用<code>adb root</code>命令了。但是可以通过<code>adb shell</code> <code>su</code>的方式进入root：</p>
-<p><img src="F:\blog\source\images\Q&A\Q8_2.png" alt="img"></p>
+<p><img src="/../images/QA/Q8_2.png" alt="img"></p>
 <p>提示没有权限su失败 ，需要先确保面具刷入成功，然后看输入su命令时面具是否有提示，发现提示“shell功能已关闭”,原来是没开启，打开，再su，成功进入root：</p>
-<p><img src="F:\blog\source\images\Q&A\Q8_3.png" alt="img"><img src="F:\blog\source\images\Q&A\Q8_4.png" alt="img"></p>
+<p><img src="/../images/QA/Q8_4.png" alt="img"></p>
 <h1 id="Q9：以管理员身份运行命令提示符时无法切换目录"><a href="#Q9：以管理员身份运行命令提示符时无法切换目录" class="headerlink" title="Q9：以管理员身份运行命令提示符时无法切换目录"></a>Q9：以管理员身份运行命令提示符时无法切换目录</h1><p>A：加上&#x2F;d</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /d E:\GameSentry-main</span><br></pre></td></tr></table></figure>
 
-<h3 id="Q10：查询手机设备架构"><a href="#Q10：查询手机设备架构" class="headerlink" title="Q10：查询手机设备架构"></a>Q10：查询手机设备架构</h3><p><code>uname -m</code>&#x2F;&#x2F;<strong>aarch64表示ARM64</strong></p>
+<h1 id="Q10：查询手机设备架构"><a href="#Q10：查询手机设备架构" class="headerlink" title="Q10：查询手机设备架构"></a>Q10：查询手机设备架构</h1><p><code>uname -m</code>&#x2F;&#x2F;<strong>aarch64表示ARM64</strong></p>
 <p><code>ls -l [文件名]</code>  &#x2F;&#x2F;查看文件权限</p>
-<h1 id="Q10：关于注入游戏进程的一些疑问"><a href="#Q10：关于注入游戏进程的一些疑问" class="headerlink" title="Q10：关于注入游戏进程的一些疑问"></a>Q10：关于注入游戏进程的一些疑问</h1><h2 id="为什么要注入游戏进程？"><a href="#为什么要注入游戏进程？" class="headerlink" title="为什么要注入游戏进程？"></a>为什么要注入游戏进程？</h2><ol>
+<h1 id="Q11：关于注入游戏进程的一些疑问"><a href="#Q11：关于注入游戏进程的一些疑问" class="headerlink" title="Q11：关于注入游戏进程的一些疑问"></a>Q11：关于注入游戏进程的一些疑问</h1><h2 id="为什么要注入游戏进程？"><a href="#为什么要注入游戏进程？" class="headerlink" title="为什么要注入游戏进程？"></a>为什么要注入游戏进程？</h2><ol>
 <li><strong>修改游戏行为</strong>：</li>
 </ol>
 <ul>
@@ -459,7 +486,8 @@
 </ul>
 </li>
 </ul>
-<h4 id="具体实现细节"><a href="#具体实现细节" class="headerlink" title="具体实现细节"></a>具体实现细节</h4><ul>
+<p><strong>具体实现细节</strong></p>
+<ul>
 <li><p><strong>ptrace注入</strong>：</p>
 </li>
 <li><ul>
@@ -480,7 +508,7 @@
 </li>
 </ul>
 <p>通过注入和后续的内存操作，可以实现对目标进程的有效控制和修改，但每一步都需要仔细处理，以确保稳定性和有效性。</p>
-<h1 id="Q11：visual-studio-2022编译运行c-c"><a href="#Q11：visual-studio-2022编译运行c-c" class="headerlink" title="Q11：visual studio 2022编译运行c&#x2F;c++"></a>Q11：visual studio 2022编译运行c&#x2F;c++</h1><h2 id="编译与运行步骤"><a href="#编译与运行步骤" class="headerlink" title="编译与运行步骤"></a>编译与运行步骤</h2><p><strong>1.使用Visual Studio 2022</strong>。</p>
+<h1 id="Q12：visual-studio-2022编译运行c-c"><a href="#Q12：visual-studio-2022编译运行c-c" class="headerlink" title="Q12：visual studio 2022编译运行c&#x2F;c++"></a>Q12：visual studio 2022编译运行c&#x2F;c++</h1><h2 id="编译与运行步骤"><a href="#编译与运行步骤" class="headerlink" title="编译与运行步骤"></a>编译与运行步骤</h2><p><strong>1.使用Visual Studio 2022</strong>。</p>
 <p><strong>创建新项目</strong>：</p>
 <p>点击“创建新项目”（Create a new project）。</p>
 <p>在搜索框中输入“Console App”，然后选择“Console App (C++)”。</p>
@@ -541,7 +569,7 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -<span class="selector-tag">g</span> test<span class="selector-class">.c</span> -o <span class="selector-attr">[输出名]</span> </span><br></pre></td></tr></table></figure>
 
 <p>注意：-g 后接的是目标文件路径，如果在同一目录下可以使用相对路径，否则要用绝对路径。</p>
-<h1 id="Q12-MOV-R3-R3-和-movs-r0-r0有什么区别？"><a href="#Q12-MOV-R3-R3-和-movs-r0-r0有什么区别？" class="headerlink" title="Q12:MOV R3, R3 和 movs r0,r0有什么区别？"></a>Q12:MOV R3, R3 和 movs r0,r0有什么区别？</h1><h3 id="MOV-R3-R3"><a href="#MOV-R3-R3" class="headerlink" title="MOV R3, R3"></a>MOV R3, R3</h3><ul>
+<h1 id="Q13-MOV-R3-R3-和-movs-r0-r0有什么区别？"><a href="#Q13-MOV-R3-R3-和-movs-r0-r0有什么区别？" class="headerlink" title="Q13:MOV R3, R3 和 movs r0,r0有什么区别？"></a>Q13:MOV R3, R3 和 movs r0,r0有什么区别？</h1><h3 id="MOV-R3-R3"><a href="#MOV-R3-R3" class="headerlink" title="MOV R3, R3"></a>MOV R3, R3</h3><ul>
 <li><strong>操作</strong>: 把寄存器 R3 的值移动到寄存器 R3，实际上是一个 NOP 操作。</li>
 <li><strong>条件标志位</strong>: 不改变条件标志位。</li>
 <li><strong>用途</strong>: 主要用于填充空间（例如对齐）或作为 NOP 操作，以保持程序计数器的正常推进而不做任何实际操作。</li>
@@ -574,7 +602,7 @@
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exception_handler:</span><br><span class="line">    ...        ; 异常处理</span><br><span class="line">    MOV PC, LR ; 从异常处理程序返回</span><br></pre></td></tr></table></figure>
 
-<h1 id="Q13：-frida为什么要用-int代表构造函数？要是代码中有多个构造参数该怎么指定hook目标函数？"><a href="#Q13：-frida为什么要用-int代表构造函数？要是代码中有多个构造参数该怎么指定hook目标函数？" class="headerlink" title="Q13： frida为什么要用$int代表构造函数？要是代码中有多个构造参数该怎么指定hook目标函数？"></a>Q13： frida为什么要用$int代表构造函数？要是代码中有多个构造参数该怎么指定hook目标函数？</h1><p>在Frida中，$init通常被用来表示Java类的构造函数（constructor）。这是因为在Java字节码中，构造函数是通过特定的名称<init>表示的，而在Frida的JavaScript API中，它被映射为$init。</p>
+<h1 id="Q14：-frida为什么要用-int代表构造函数？要是代码中有多个构造参数该怎么指定hook目标函数？"><a href="#Q14：-frida为什么要用-int代表构造函数？要是代码中有多个构造参数该怎么指定hook目标函数？" class="headerlink" title="Q14： frida为什么要用$int代表构造函数？要是代码中有多个构造参数该怎么指定hook目标函数？"></a>Q14： frida为什么要用$int代表构造函数？要是代码中有多个构造参数该怎么指定hook目标函数？</h1><p>在Frida中，$init通常被用来表示Java类的构造函数（constructor）。这是因为在Java字节码中，构造函数是通过特定的名称<init>表示的，而在Frida的JavaScript API中，它被映射为$init。</p>
 <p>然而，当一个类有多个构造函数时，Frida需要根据实际情况来正确匹配和hook这些构造函数。在Java中，方法的重载（overload）允许一个类有多个方法，它们有相同的名称但不同的参数列表。为了正确hook具有不同参数的构造函数，你需要准确指定参数类型以匹配正确的构造函数签名。</p>
 <h3 id="如何指定hook多个构造函数？"><a href="#如何指定hook多个构造函数？" class="headerlink" title="如何指定hook多个构造函数？"></a>如何指定hook多个构造函数？</h3><p>如果一个类有多个构造函数，并且你想hook其中一个或多个，可以根据构造函数的参数类型来区分。例如，假设有以下Java类Demo：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package com.<span class="property">zj</span>.<span class="property">wuaipojie</span>;</span><br><span class="line"></span><br><span class="line">public <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">  public <span class="title class_">Demo</span>(<span class="title class_">String</span> str) &#123;</span><br><span class="line">    <span class="comment">// 构造函数1</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public <span class="title class_">Demo</span>(int num) &#123;</span><br><span class="line">    <span class="comment">// 构造函数2</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public <span class="title class_">Demo</span>(<span class="title class_">String</span> str, int num) &#123;</span><br><span class="line">    <span class="comment">// 构造函数3</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -587,15 +615,15 @@
 <li><strong>参数类型匹配</strong>：确保你指定的参数类型与目标构造函数的参数类型完全匹配。</li>
 <li><strong>调用原始构造函数</strong>：在hook函数中，你可以调用this.$init()来调用原始构造函数，以确保构造函数能够正常执行。</li>
 </ul>
-<h1 id="Q14：-adb-install-报错Failure-INSTALL-FAILED-TEST-ONLY-installPackageLI"><a href="#Q14：-adb-install-报错Failure-INSTALL-FAILED-TEST-ONLY-installPackageLI" class="headerlink" title="Q14： adb install 报错Failure [INSTALL_FAILED_TEST_ONLY: installPackageLI]"></a>Q14： adb install 报错<code>Failure [INSTALL_FAILED_TEST_ONLY: installPackageLI]</code></h1><p><img src="F:\blog\source\images\Q&A\Q14.png" alt="img"></p>
+<h1 id="Q15：-adb-install-报错Failure-INSTALL-FAILED-TEST-ONLY-installPackageLI"><a href="#Q15：-adb-install-报错Failure-INSTALL-FAILED-TEST-ONLY-installPackageLI" class="headerlink" title="Q15： adb install 报错Failure [INSTALL_FAILED_TEST_ONLY: installPackageLI]"></a>Q15： adb install 报错<code>Failure [INSTALL_FAILED_TEST_ONLY: installPackageLI]</code></h1><p><img src="F:\blog\source\images\Q&A\Q14.png" alt="img"></p>
 <p>说明apk作者打包的是测试版本，加参数<code>-t</code>就可以安装了。</p>
-<h1 id="Q15：while条件"><a href="#Q15：while条件" class="headerlink" title="Q15：while条件"></a>Q15：while条件</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一段代码</span></span><br><span class="line"><span class="keyword">while</span> (cur) &#123;</span><br><span class="line">    <span class="keyword">if</span> (cur-&gt;val == x) &#123;</span><br><span class="line">        pre-&gt;next = cur-&gt;next;</span><br><span class="line">        <span class="built_in">free</span>(cur);</span><br><span class="line">        head-&gt;num--;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//第二段</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (cur-&gt;val == x) &#123;</span><br><span class="line">        pre-&gt;next = cur-&gt;next;</span><br><span class="line">        <span class="built_in">free</span>(cur);</span><br><span class="line">        head-&gt;num--;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Q16：while条件"><a href="#Q16：while条件" class="headerlink" title="Q16：while条件"></a>Q16：while条件</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一段代码</span></span><br><span class="line"><span class="keyword">while</span> (cur) &#123;</span><br><span class="line">    <span class="keyword">if</span> (cur-&gt;val == x) &#123;</span><br><span class="line">        pre-&gt;next = cur-&gt;next;</span><br><span class="line">        <span class="built_in">free</span>(cur);</span><br><span class="line">        head-&gt;num--;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//第二段</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (cur-&gt;val == x) &#123;</span><br><span class="line">        pre-&gt;next = cur-&gt;next;</span><br><span class="line">        <span class="built_in">free</span>(cur);</span><br><span class="line">        head-&gt;num--;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>第一段代码在每次循环开始时检查 <code>cur</code> 是否为 <code>NULL</code>，如果是 <code>NULL</code>，则退出循环。这意味着循环会在 <code>cur</code> 为 <code>NULL</code> 时停止。</li>
 <li>第二段代码使用无限循环 <code>while (true)</code>，因此需要在循环内部显式地使用 <code>return</code> 或 <code>break</code> 语句来退出循环。</li>
 </ul>
-<h1 id="Q16：java中为什么会分静态方法和非静态方法？"><a href="#Q16：java中为什么会分静态方法和非静态方法？" class="headerlink" title="Q16：java中为什么会分静态方法和非静态方法？"></a>Q16：java中为什么会分静态方法和非静态方法？</h1><h3 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h3><ol>
+<h1 id="Q17：java中为什么会分静态方法和非静态方法？"><a href="#Q17：java中为什么会分静态方法和非静态方法？" class="headerlink" title="Q17：java中为什么会分静态方法和非静态方法？"></a>Q17：java中为什么会分静态方法和非静态方法？</h1><h3 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h3><ol>
 <li><strong>与类相关</strong>：静态方法属于类本身，而不是某个特定的实例。你可以在没有创建类的对象的情况下调用静态方法。</li>
 <li><strong>内存效率</strong>：因为静态方法在类加载时就已经存在，不需要每次创建实例时重新分配内存，所以它们在某些情况下可以提高内存效率。</li>
 <li><strong>共享数据</strong>：静态方法可以访问和修改静态变量，静态变量是所有类的实例共享的。</li>
@@ -614,7 +642,7 @@
 
 <p>在上述示例中，<code>staticMethod</code>是一个静态方法，它可以直接通过类名调用，而不需要实例化对象。<code>instanceMethod</code>是一个非静态方法，需要通过类的实例来调用。静态方法无法直接访问实例变量，而实例方法可以访问静态变量和实例变量。</p>
 <p>区分很简单，static修饰的就是静态方法。</p>
-<h1 id="Q17：ida中显示w13，为什么代码中获取寄存器写的x13？"><a href="#Q17：ida中显示w13，为什么代码中获取寄存器写的x13？" class="headerlink" title="Q17：ida中显示w13，为什么代码中获取寄存器写的x13？"></a>Q17：ida中显示w13，为什么代码中获取寄存器写的x13？</h1><p>图片中框内的寄存器是<code>W13</code>。在代码中使用<code>x13</code>获取寄存器值的原因是，<code>x</code>寄存器是64位寄存器，而<code>w</code>寄存器是其下半部分的32位寄存器。例如，<code>x13</code>寄存器的低32位即为<code>w13</code>寄存器。因此，在Frida中读取寄存器时，可以使用<code>x13</code>来获取完整的64位值，尽管在汇编代码中它显示为<code>w13</code>。</p>
+<h1 id="Q18：ida中显示w13，为什么代码中获取寄存器写的x13？"><a href="#Q18：ida中显示w13，为什么代码中获取寄存器写的x13？" class="headerlink" title="Q18：ida中显示w13，为什么代码中获取寄存器写的x13？"></a>Q18：ida中显示w13，为什么代码中获取寄存器写的x13？</h1><p>图片中框内的寄存器是<code>W13</code>。在代码中使用<code>x13</code>获取寄存器值的原因是，<code>x</code>寄存器是64位寄存器，而<code>w</code>寄存器是其下半部分的32位寄存器。例如，<code>x13</code>寄存器的低32位即为<code>w13</code>寄存器。因此，在Frida中读取寄存器时，可以使用<code>x13</code>来获取完整的64位值，尽管在汇编代码中它显示为<code>w13</code>。</p>
 <p>所以，代码中的<code>this.context.x13</code>实际上也会包含<code>w13</code>的值，只不过是64位版本。</p>
 <p>为了验证，您可以修改<code>onEnter</code>函数，分别打印<code>x13</code>和<code>w13</code>寄存器的值：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">inline_hook</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> base_hello_jni = <span class="title class_">Module</span>.<span class="title function_">findBaseAddress</span>(<span class="string">&quot;libxxxx.so&quot;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;base_hello_jni:&quot;</span>, base_hello_jni);</span><br><span class="line">    <span class="keyword">if</span> (base_hello_jni) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(base_hello_jni);</span><br><span class="line">        <span class="comment">//inline hook</span></span><br><span class="line">        <span class="keyword">var</span> addr_07320 = base_hello_jni.<span class="title function_">add</span>(<span class="number">0x07320</span>);<span class="comment">//指令执行的地址，不是变量所在的栈或堆</span></span><br><span class="line">        <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(addr_07320, &#123;</span><br><span class="line">            <span class="attr">onEnter</span>: <span class="keyword">function</span> (<span class="params">args</span>) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;addr_07320 x13:&quot;</span>, <span class="variable language_">this</span>.<span class="property">context</span>.<span class="property">x13</span>.<span class="title function_">toString</span>(<span class="number">16</span>));</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;addr_07320 w13:&quot;</span>, <span class="variable language_">this</span>.<span class="property">context</span>.<span class="property">x13</span>.<span class="title function_">toUInt32</span>().<span class="title function_">toString</span>(<span class="number">16</span>));</span><br><span class="line">            &#125;, <span class="attr">onLeave</span>: <span class="keyword">function</span> (<span class="params">retval</span>) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -623,12 +651,12 @@
 <p> 如果不使用<code>toString(16)</code>方法，Frida会以默认的十进制格式打印寄存器值。</p>
 <p>addr_07320 x13: 1a2b3c4d5e6f</p>
 <p>addr_07320 w13: 5e6f</p>
-<h1 id="Q18：npm速度慢的问题"><a href="#Q18：npm速度慢的问题" class="headerlink" title="Q18：npm速度慢的问题"></a>Q18：npm速度慢的问题</h1><p>改淘宝镜像，但是淘宝镜像换过地址，网上有些旧帖子没有更新，目前淘宝镜像地址为<code>https://registry.npmmirror.com</code></p>
+<h1 id="Q19：npm速度慢的问题"><a href="#Q19：npm速度慢的问题" class="headerlink" title="Q19：npm速度慢的问题"></a>Q19：npm速度慢的问题</h1><p>改淘宝镜像，但是淘宝镜像换过地址，网上有些旧帖子没有更新，目前淘宝镜像地址为<code>https://registry.npmmirror.com</code></p>
 <p>修改：<code>npm config set registry https://registry.npmmirror.com</code></p>
 <p>确认：<code>npm config get registry</code></p>
-<p><img src="F:\blog\source\images\Q&A\Q18_1.png" alt="img"></p>
+<p><img src="/../images/QA/Q18_1.png" alt="img"></p>
 <p>随便使用npm install试试，这里我下载的hexo是用来做博客的<br><code>npm install -g hexo-cli</code></p>
-<p><img src="F:\blog\source\images\Q&A\Q18_2.png" alt="img"></p>
+<p><img src="/../images/QA/Q18_2.png" alt="img"></p>
 <p>顺便记一下，这里遇到的报错是因为权限不够控制nodeJs，使用管理员打开cmd即可。</p>
 
       
@@ -674,8 +702,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2024/07/23/52pj%E6%98%A5%E8%8A%82%E7%BA%A2%E5%8C%85%E9%A2%98/" rel="next" title="52pj春节红包题2024&2023">
-                <i class="fa fa-chevron-left"></i> 52pj春节红包题2024&2023
+              <a href="/2024/08/21/%E6%9F%90Cocos-js%E6%B8%B8%E6%88%8F%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/" rel="next" title="某Cocos-js游戏逆向分析">
+                <i class="fa fa-chevron-left"></i> 某Cocos-js游戏逆向分析
               </a>
             
           </div>
@@ -684,8 +712,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2024/08/26/%E5%B7%A5%E5%85%B7%E7%AF%87/" rel="prev" title="工具篇">
-                工具篇 <i class="fa fa-chevron-right"></i>
+              <a href="/2024/08/27/%E6%9F%90apk%E4%BC%9A%E5%91%98%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0(%E5%88%86%E6%9E%90%E4%B8%AD)/" rel="prev" title="某apk会员功能实现(分析中)">
+                某apk会员功能实现(分析中) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -740,10 +768,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            站点概览
           </li>
         </ul>
       
@@ -767,12 +795,21 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
             
 
             
@@ -780,8 +817,8 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
                 </a>
               </div>
             
@@ -813,7 +850,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Q1-DDMS%E8%A2%AB%E9%AB%98%E7%89%88%E6%9C%ACAS%E5%BC%83%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">Q1.DDMS被高版本AS弃用的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q2%EF%BC%9A%E6%8A%A5%E9%94%99%E5%86%85%E5%AE%B9%EF%BC%9Acannot-resolve-symbol-%E2%80%98log%E2%80%99-%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90log%E7%AC%A6%E5%8F%B7"><span class="nav-number">2.</span> <span class="nav-text">Q2：报错内容：cannot resolve symbol ‘log’ [无法解析log符号]</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q3%EF%BC%9AIDA%E8%BF%9E%E6%8E%A5%E6%89%8B%E6%9C%BA%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95%E6%97%B6%E9%81%87%E5%88%B0%E2%80%9C-android-server%E2%80%9D-error-Android-5-0-and-later-only-support-position-independent-executables-fPIE"><span class="nav-number">3.</span> <span class="nav-text">Q3：IDA连接手机动态调试时遇到“.&#x2F;android_server”: error: Android 5.0 and later only support position-independent executables (-fPIE).</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q4%EF%BC%9A-adb%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94remote-couldn%E2%80%99t-create-file-Read-only-file-system"><span class="nav-number">4.</span> <span class="nav-text">Q4： adb文件传输权限问题——remote couldn’t create file: Read-only file system</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q5%EF%BC%9A%E8%BF%90%E8%A1%8C%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%97%B6%E6%8A%A5%E9%94%99%E2%80%9CVMware-Workstation-%E6%9C%AA%E8%83%BD%E5%90%AF%E5%8A%A8-VMware-Authorization-Service%E3%80%82%E6%82%A8%E5%8F%AF%E4%BB%A5%E5%B0%9D%E8%AF%95%E6%89%8B%E5%8A%A8%E5%90%AF%E5%8A%A8-VMware-Authorization-Service%E3%80%82%E5%A6%82%E6%9E%9C%E6%AD%A4%E9%97%AE%E9%A2%98%E4%BB%8D%E7%84%B6%E5%AD%98%E5%9C%A8%EF%BC%8C%E8%AF%B7%E8%81%94%E7%B3%BB-VMware-%E6%94%AF%E6%8C%81%E9%83%A8%E9%97%A8%E3%80%82%E2%80%9D"><span class="nav-number">5.</span> <span class="nav-text">Q5：运行虚拟机时报错“VMware Workstation 未能启动 VMware Authorization Service。您可以尝试手动启动 VMware Authorization Service。如果此问题仍然存在，请联系 VMware 支持部门。”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q6%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%9B%E8%A1%8CIDA%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95%E6%97%B6%E8%A6%81%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">Q6：为什么进行IDA动态调试时要端口转发？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q7-ARM%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4b%E7%9A%84%E7%9B%B8%E5%AF%B9%E8%B7%B3%E8%BD%AC%E9%97%AE%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">Q7:ARM汇编指令b的相对跳转问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q8%EF%BC%9A%E7%BA%A2%E7%B1%B3%E6%89%8B%E6%9C%BA%E5%88%B7%E5%85%A5%E9%9D%A2%E5%85%B7%E5%90%8E%EF%BC%8Cpc-usb%E8%BF%9E%E6%8E%A5%E6%89%8B%E6%9C%BA%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BDsu-%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">Q8：红米手机刷入面具后，pc usb连接手机进行调试为什么不能su ？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q9%EF%BC%9A%E4%BB%A5%E7%AE%A1%E7%90%86%E5%91%98%E8%BA%AB%E4%BB%BD%E8%BF%90%E8%A1%8C%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6%E6%97%B6%E6%97%A0%E6%B3%95%E5%88%87%E6%8D%A2%E7%9B%AE%E5%BD%95"><span class="nav-number">9.</span> <span class="nav-text">Q9：以管理员身份运行命令提示符时无法切换目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q10%EF%BC%9A%E6%9F%A5%E8%AF%A2%E6%89%8B%E6%9C%BA%E8%AE%BE%E5%A4%87%E6%9E%B6%E6%9E%84"><span class="nav-number">9.0.1.</span> <span class="nav-text">Q10：查询手机设备架构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q10%EF%BC%9A%E5%85%B3%E4%BA%8E%E6%B3%A8%E5%85%A5%E6%B8%B8%E6%88%8F%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E7%96%91%E9%97%AE"><span class="nav-number">10.</span> <span class="nav-text">Q10：关于注入游戏进程的一些疑问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%B3%A8%E5%85%A5%E6%B8%B8%E6%88%8F%E8%BF%9B%E7%A8%8B%EF%BC%9F"><span class="nav-number">10.1.</span> <span class="nav-text">为什么要注入游戏进程？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E6%B8%B8%E6%88%8F%E8%BF%9B%E7%A8%8B%E5%90%8E%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9%EF%BC%9F"><span class="nav-number">10.2.</span> <span class="nav-text">注入游戏进程后为什么不能直接进行修改？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E8%BF%9B%E7%A8%8B%E5%90%8E%E8%83%BD%E5%90%A6%E6%8E%A7%E5%88%B6%E6%89%80%E6%9C%89%E6%A8%A1%E5%9D%97%EF%BC%9F"><span class="nav-number">10.3.</span> <span class="nav-text">注入进程后能否控制所有模块？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E6%B8%B8%E6%88%8F%E5%A4%96%E6%8C%82%E7%9A%84%E5%85%B8%E5%9E%8B%E6%AD%A5%E9%AA%A4"><span class="nav-number">10.4.</span> <span class="nav-text">定制游戏外挂的典型步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82"><span class="nav-number">10.4.0.1.</span> <span class="nav-text">具体实现细节</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q11%EF%BC%9Avisual-studio-2022%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8Cc-c"><span class="nav-number">11.</span> <span class="nav-text">Q11：visual studio 2022编译运行c&#x2F;c++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%AD%A5%E9%AA%A4"><span class="nav-number">11.1.</span> <span class="nav-text">编译与运行步骤</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q12-MOV-R3-R3-%E5%92%8C-movs-r0-r0%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">12.</span> <span class="nav-text">Q12:MOV R3, R3 和 movs r0,r0有什么区别？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MOV-R3-R3"><span class="nav-number">12.0.1.</span> <span class="nav-text">MOV R3, R3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MOVS-R0-R0"><span class="nav-number">12.0.2.</span> <span class="nav-text">MOVS R0, R0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MOV-PC-LR"><span class="nav-number">12.0.3.</span> <span class="nav-text">MOV PC, LR</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q13%EF%BC%9A-frida%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-int%E4%BB%A3%E8%A1%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%EF%BC%9F%E8%A6%81%E6%98%AF%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%9C%89%E5%A4%9A%E4%B8%AA%E6%9E%84%E9%80%A0%E5%8F%82%E6%95%B0%E8%AF%A5%E6%80%8E%E4%B9%88%E6%8C%87%E5%AE%9Ahook%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="nav-number">13.</span> <span class="nav-text">Q13： frida为什么要用$int代表构造函数？要是代码中有多个构造参数该怎么指定hook目标函数？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%8C%87%E5%AE%9Ahook%E5%A4%9A%E4%B8%AA%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="nav-number">13.0.1.</span> <span class="nav-text">如何指定hook多个构造函数？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q14%EF%BC%9A-adb-install-%E6%8A%A5%E9%94%99Failure-INSTALL-FAILED-TEST-ONLY-installPackageLI"><span class="nav-number">14.</span> <span class="nav-text">Q14： adb install 报错Failure [INSTALL_FAILED_TEST_ONLY: installPackageLI]</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q15%EF%BC%9Awhile%E6%9D%A1%E4%BB%B6"><span class="nav-number">15.</span> <span class="nav-text">Q15：while条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q16%EF%BC%9Ajava%E4%B8%AD%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%88%86%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E9%9D%9E%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%EF%BC%9F"><span class="nav-number">16.</span> <span class="nav-text">Q16：java中为什么会分静态方法和非静态方法？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">16.0.1.</span> <span class="nav-text">静态方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">16.0.2.</span> <span class="nav-text">非静态方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">16.0.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q17%EF%BC%9Aida%E4%B8%AD%E6%98%BE%E7%A4%BAw13%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A3%E7%A0%81%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%AF%84%E5%AD%98%E5%99%A8%E5%86%99%E7%9A%84x13%EF%BC%9F"><span class="nav-number">17.</span> <span class="nav-text">Q17：ida中显示w13，为什么代码中获取寄存器写的x13？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q18%EF%BC%9Anpm%E9%80%9F%E5%BA%A6%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">18.</span> <span class="nav-text">Q18：npm速度慢的问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Q1-DDMS%E8%A2%AB%E9%AB%98%E7%89%88%E6%9C%ACAS%E5%BC%83%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">Q1.DDMS被高版本AS弃用的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q2%EF%BC%9A%E6%8A%A5%E9%94%99%E5%86%85%E5%AE%B9%EF%BC%9Acannot-resolve-symbol-%E2%80%98log%E2%80%99-%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90log%E7%AC%A6%E5%8F%B7"><span class="nav-number">2.</span> <span class="nav-text">Q2：报错内容：cannot resolve symbol ‘log’ [无法解析log符号]</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q3%EF%BC%9AIDA%E8%BF%9E%E6%8E%A5%E6%89%8B%E6%9C%BA%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95%E6%97%B6%E9%81%87%E5%88%B0%E2%80%9C-android-server%E2%80%9D-error-Android-5-0-and-later-only-support-position-independent-executables-fPIE"><span class="nav-number">3.</span> <span class="nav-text">Q3：IDA连接手机动态调试时遇到“.&#x2F;android_server”: error: Android 5.0 and later only support position-independent executables (-fPIE).</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q4%EF%BC%9A-adb%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94remote-couldn%E2%80%99t-create-file-Read-only-file-system"><span class="nav-number">4.</span> <span class="nav-text">Q4： adb文件传输权限问题——remote couldn’t create file: Read-only file system</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q5%EF%BC%9A%E8%BF%90%E8%A1%8C%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%97%B6%E6%8A%A5%E9%94%99%E2%80%9CVMware-Workstation-%E6%9C%AA%E8%83%BD%E5%90%AF%E5%8A%A8-VMware-Authorization-Service%E3%80%82%E6%82%A8%E5%8F%AF%E4%BB%A5%E5%B0%9D%E8%AF%95%E6%89%8B%E5%8A%A8%E5%90%AF%E5%8A%A8-VMware-Authorization-Service%E3%80%82%E5%A6%82%E6%9E%9C%E6%AD%A4%E9%97%AE%E9%A2%98%E4%BB%8D%E7%84%B6%E5%AD%98%E5%9C%A8%EF%BC%8C%E8%AF%B7%E8%81%94%E7%B3%BB-VMware-%E6%94%AF%E6%8C%81%E9%83%A8%E9%97%A8%E3%80%82%E2%80%9D"><span class="nav-number">5.</span> <span class="nav-text">Q5：运行虚拟机时报错“VMware Workstation 未能启动 VMware Authorization Service。您可以尝试手动启动 VMware Authorization Service。如果此问题仍然存在，请联系 VMware 支持部门。”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q6%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%9B%E8%A1%8CIDA%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95%E6%97%B6%E8%A6%81%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">Q6：为什么进行IDA动态调试时要端口转发？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q7-ARM%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4b%E7%9A%84%E7%9B%B8%E5%AF%B9%E8%B7%B3%E8%BD%AC%E9%97%AE%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">Q7:ARM汇编指令b的相对跳转问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q8%EF%BC%9A%E7%BA%A2%E7%B1%B3%E6%89%8B%E6%9C%BA%E5%88%B7%E5%85%A5%E9%9D%A2%E5%85%B7%E5%90%8E%EF%BC%8Cpc-usb%E8%BF%9E%E6%8E%A5%E6%89%8B%E6%9C%BA%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BDsu-%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">Q8：红米手机刷入面具后，pc usb连接手机进行调试为什么不能su ？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q9%EF%BC%9A%E4%BB%A5%E7%AE%A1%E7%90%86%E5%91%98%E8%BA%AB%E4%BB%BD%E8%BF%90%E8%A1%8C%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6%E6%97%B6%E6%97%A0%E6%B3%95%E5%88%87%E6%8D%A2%E7%9B%AE%E5%BD%95"><span class="nav-number">9.</span> <span class="nav-text">Q9：以管理员身份运行命令提示符时无法切换目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q10%EF%BC%9A%E6%9F%A5%E8%AF%A2%E6%89%8B%E6%9C%BA%E8%AE%BE%E5%A4%87%E6%9E%B6%E6%9E%84"><span class="nav-number">10.</span> <span class="nav-text">Q10：查询手机设备架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q11%EF%BC%9A%E5%85%B3%E4%BA%8E%E6%B3%A8%E5%85%A5%E6%B8%B8%E6%88%8F%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E7%96%91%E9%97%AE"><span class="nav-number">11.</span> <span class="nav-text">Q11：关于注入游戏进程的一些疑问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%B3%A8%E5%85%A5%E6%B8%B8%E6%88%8F%E8%BF%9B%E7%A8%8B%EF%BC%9F"><span class="nav-number">11.1.</span> <span class="nav-text">为什么要注入游戏进程？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E6%B8%B8%E6%88%8F%E8%BF%9B%E7%A8%8B%E5%90%8E%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9%EF%BC%9F"><span class="nav-number">11.2.</span> <span class="nav-text">注入游戏进程后为什么不能直接进行修改？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E8%BF%9B%E7%A8%8B%E5%90%8E%E8%83%BD%E5%90%A6%E6%8E%A7%E5%88%B6%E6%89%80%E6%9C%89%E6%A8%A1%E5%9D%97%EF%BC%9F"><span class="nav-number">11.3.</span> <span class="nav-text">注入进程后能否控制所有模块？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E6%B8%B8%E6%88%8F%E5%A4%96%E6%8C%82%E7%9A%84%E5%85%B8%E5%9E%8B%E6%AD%A5%E9%AA%A4"><span class="nav-number">11.4.</span> <span class="nav-text">定制游戏外挂的典型步骤</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q12%EF%BC%9Avisual-studio-2022%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8Cc-c"><span class="nav-number">12.</span> <span class="nav-text">Q12：visual studio 2022编译运行c&#x2F;c++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%AD%A5%E9%AA%A4"><span class="nav-number">12.1.</span> <span class="nav-text">编译与运行步骤</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q13-MOV-R3-R3-%E5%92%8C-movs-r0-r0%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">13.</span> <span class="nav-text">Q13:MOV R3, R3 和 movs r0,r0有什么区别？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MOV-R3-R3"><span class="nav-number">13.0.1.</span> <span class="nav-text">MOV R3, R3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MOVS-R0-R0"><span class="nav-number">13.0.2.</span> <span class="nav-text">MOVS R0, R0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MOV-PC-LR"><span class="nav-number">13.0.3.</span> <span class="nav-text">MOV PC, LR</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q14%EF%BC%9A-frida%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-int%E4%BB%A3%E8%A1%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%EF%BC%9F%E8%A6%81%E6%98%AF%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%9C%89%E5%A4%9A%E4%B8%AA%E6%9E%84%E9%80%A0%E5%8F%82%E6%95%B0%E8%AF%A5%E6%80%8E%E4%B9%88%E6%8C%87%E5%AE%9Ahook%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="nav-number">14.</span> <span class="nav-text">Q14： frida为什么要用$int代表构造函数？要是代码中有多个构造参数该怎么指定hook目标函数？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%8C%87%E5%AE%9Ahook%E5%A4%9A%E4%B8%AA%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="nav-number">14.0.1.</span> <span class="nav-text">如何指定hook多个构造函数？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q15%EF%BC%9A-adb-install-%E6%8A%A5%E9%94%99Failure-INSTALL-FAILED-TEST-ONLY-installPackageLI"><span class="nav-number">15.</span> <span class="nav-text">Q15： adb install 报错Failure [INSTALL_FAILED_TEST_ONLY: installPackageLI]</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q16%EF%BC%9Awhile%E6%9D%A1%E4%BB%B6"><span class="nav-number">16.</span> <span class="nav-text">Q16：while条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q17%EF%BC%9Ajava%E4%B8%AD%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%88%86%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E9%9D%9E%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%EF%BC%9F"><span class="nav-number">17.</span> <span class="nav-text">Q17：java中为什么会分静态方法和非静态方法？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">17.0.1.</span> <span class="nav-text">静态方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">17.0.2.</span> <span class="nav-text">非静态方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">17.0.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q18%EF%BC%9Aida%E4%B8%AD%E6%98%BE%E7%A4%BAw13%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A3%E7%A0%81%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%AF%84%E5%AD%98%E5%99%A8%E5%86%99%E7%9A%84x13%EF%BC%9F"><span class="nav-number">18.</span> <span class="nav-text">Q18：ida中显示w13，为什么代码中获取寄存器写的x13？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q19%EF%BC%9Anpm%E9%80%9F%E5%BA%A6%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">19.</span> <span class="nav-text">Q19：npm速度慢的问题</span></a></li></ol></div>
             
 
           </div>
@@ -843,15 +880,11 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
-  <span class="post-meta-divider">|</span>
 
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
