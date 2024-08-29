@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-CN">
+<html class="theme-next gemini use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -83,7 +83,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习过程中遇到的Q&amp;A">
 <meta property="og:url" content="https://c0nney.github.io/2024/08/24/%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84QA/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="C0nney&#39;s Blog">
 <meta property="og:description" content="Q1.DDMS被高版本AS弃用的问题A:找到SDK文件目录-&gt;tools-&gt;双击monitor.bat打开，若无法打开并生成错误日志，如果日志中显示：eclipse.buildId&#x3D;unknown 并且java.version≠1.8，说明jdk版本太高。 有两种解决方法： ①安装jdk1.8 但是一般我们早已安装好别的版本的jdk了，如果不想安装jdk1.8可以选择方法②">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="f:\blog\source\images\Q&A\Q6.png">
@@ -98,7 +98,7 @@
 <meta property="og:image" content="f:\blog\source\images\Q&A\Q18_2.png">
 <meta property="article:published_time" content="2024-08-24T09:57:39.000Z">
 <meta property="article:modified_time" content="2024-08-25T11:47:04.261Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="C0nney">
 <meta property="article:tag" content="踩坑">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="f:\blog\source\images\Q&A\Q6.png">
@@ -109,9 +109,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '',
-    scheme: 'Muse',
+    scheme: 'Gemini',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -137,7 +137,7 @@
 
 
 
-  <title>学习过程中遇到的Q&A | Hexo</title>
+  <title>学习过程中遇到的Q&A | C0nney's Blog</title>
   
 
 
@@ -167,12 +167,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">C0nney's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">少则是多，慢也是快</p>
       
   </div>
 
@@ -202,12 +202,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/%20" rel="section">
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Archives
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
           </a>
         </li>
       
@@ -247,13 +257,13 @@
     <link itemprop="mainEntityOfPage" href="https://C0nney.github.io/2024/08/24/%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84QA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
+      <meta itemprop="name" content="C0nney">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/logo.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="C0nney's Blog">
     </span>
 
     
@@ -323,7 +333,7 @@
 <p>3、装SDK：查看 Dependencies 一项是否有com.android.support:support-compat:25.2.0，如果没有则添加。 如果有就到 Sdk Manager 内更新Android Support Repostory 到最新版本，然后重启 IDE。</p>
 <p>4、把log改成”Log”，问题消失了</p>
 <h1 id="Q3：IDA连接手机动态调试时遇到“-android-server”-error-Android-5-0-and-later-only-support-position-independent-executables-fPIE"><a href="#Q3：IDA连接手机动态调试时遇到“-android-server”-error-Android-5-0-and-later-only-support-position-independent-executables-fPIE" class="headerlink" title="Q3：IDA连接手机动态调试时遇到“.&#x2F;android_server”: error: Android 5.0 and later only support position-independent executables (-fPIE)."></a>Q3：IDA连接手机动态调试时遇到“.&#x2F;android_server”: error: Android 5.0 and later only support position-independent executables (-fPIE).</h1><p>A:使用更新的IDApro。Android5.0以上对于可执行文件加入了一个安全验证，如果你使用的是ida pro6.6及以下的版本，请更换新版ida pro \dbgsrv\android_server 程序。</p>
-<h1 id="Q4：-adb文件传输权限问题——remote-couldn’t-create-file-Read-only-file-system"><a href="#Q4：-adb文件传输权限问题——remote-couldn’t-create-file-Read-only-file-system" class="headerlink" title="Q4： adb文件传输权限问题——remote couldn’t create file: Read-only file system"></a>Q4： adb文件传输权限问题——remote couldn’t create file: Read-only file system</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adb root</span><br><span class="line">adb remount</span><br></pre></td></tr></table></figure>
+<h1 id="Q4：-adb文件传输权限问题——remote-couldn’t-create-file-Read-only-file-system"><a href="#Q4：-adb文件传输权限问题——remote-couldn’t-create-file-Read-only-file-system" class="headerlink" title="Q4： adb文件传输权限问题——remote couldn’t create file: Read-only file system"></a>Q4： adb文件传输权限问题——remote couldn’t create file: Read-only file system</h1><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">adb root</span></span><br><span class="line"><span class="attribute">adb remount</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="Q5：运行虚拟机时报错“VMware-Workstation-未能启动-VMware-Authorization-Service。您可以尝试手动启动-VMware-Authorization-Service。如果此问题仍然存在，请联系-VMware-支持部门。”"><a href="#Q5：运行虚拟机时报错“VMware-Workstation-未能启动-VMware-Authorization-Service。您可以尝试手动启动-VMware-Authorization-Service。如果此问题仍然存在，请联系-VMware-支持部门。”" class="headerlink" title="Q5：运行虚拟机时报错“VMware Workstation 未能启动 VMware Authorization Service。您可以尝试手动启动 VMware Authorization Service。如果此问题仍然存在，请联系 VMware 支持部门。”"></a>Q5：运行虚拟机时报错“VMware Workstation 未能启动 VMware Authorization Service。您可以尝试手动启动 VMware Authorization Service。如果此问题仍然存在，请联系 VMware 支持部门。”</h1><p>A：右键管理员运行VM即可。</p>
 <h1 id="Q6：为什么进行IDA动态调试时要端口转发？"><a href="#Q6：为什么进行IDA动态调试时要端口转发？" class="headerlink" title="Q6：为什么进行IDA动态调试时要端口转发？"></a>Q6：为什么进行IDA动态调试时要端口转发？</h1><p><img src="F:\blog\source\images\Q&A\Q6.png" alt="img"></p>
@@ -335,7 +345,7 @@
 <p>提示没有权限su失败 ，需要先确保面具刷入成功，然后看输入su命令时面具是否有提示，发现提示“shell功能已关闭”,原来是没开启，打开，再su，成功进入root：</p>
 <p><img src="F:\blog\source\images\Q&A\Q8_3.png" alt="img"><img src="F:\blog\source\images\Q&A\Q8_4.png" alt="img"></p>
 <h1 id="Q9：以管理员身份运行命令提示符时无法切换目录"><a href="#Q9：以管理员身份运行命令提示符时无法切换目录" class="headerlink" title="Q9：以管理员身份运行命令提示符时无法切换目录"></a>Q9：以管理员身份运行命令提示符时无法切换目录</h1><p>A：加上&#x2F;d</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /d E:\GameSentry-main</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /d E:\GameSentry-main</span><br></pre></td></tr></table></figure>
 
 <h3 id="Q10：查询手机设备架构"><a href="#Q10：查询手机设备架构" class="headerlink" title="Q10：查询手机设备架构"></a>Q10：查询手机设备架构</h3><p><code>uname -m</code>&#x2F;&#x2F;<strong>aarch64表示ARM64</strong></p>
 <p><code>ls -l [文件名]</code>  &#x2F;&#x2F;查看文件权限</p>
@@ -520,15 +530,15 @@
 <p>\4. 清理和重建项目</p>
 <p>尝试清理项目并重新生成解决方案：</p>
 <p><strong>清理项目</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在Visual Studio菜单中，选择“生成”（Build） &gt; “清理解决方案”（Clean Solution）。</span><br></pre></td></tr></table></figure>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在Visual Studio菜单中，选择“生成”（Build） &gt; “清理解决方案”（<span class="built_in">Clean</span> Solution）。</span><br></pre></td></tr></table></figure>
 
 <p><strong>重建项目</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在Visual Studio菜单中，选择“生成”（Build） &gt; “生成解决方案”（Build Solution）。</span><br></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在Visual Studio菜单中，选择“生成”（<span class="keyword">Build） </span>&gt; “生成解决方案”（<span class="keyword">Build </span>Solution）。</span><br></pre></td></tr></table></figure>
 
 <p>方法二：使用gcc编译</p>
 <p>使用任意文本编辑器（记事本就行），保存拓展名为.c&#x2F;.cpp。</p>
 <p>然后开启命令行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -g test.c -o [输出名] </span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -<span class="selector-tag">g</span> test<span class="selector-class">.c</span> -o <span class="selector-attr">[输出名]</span> </span><br></pre></td></tr></table></figure>
 
 <p>注意：-g 后接的是目标文件路径，如果在同一目录下可以使用相对路径，否则要用绝对路径。</p>
 <h1 id="Q12-MOV-R3-R3-和-movs-r0-r0有什么区别？"><a href="#Q12-MOV-R3-R3-和-movs-r0-r0有什么区别？" class="headerlink" title="Q12:MOV R3, R3 和 movs r0,r0有什么区别？"></a>Q12:MOV R3, R3 和 movs r0,r0有什么区别？</h1><h3 id="MOV-R3-R3"><a href="#MOV-R3-R3" class="headerlink" title="MOV R3, R3"></a>MOV R3, R3</h3><ul>
@@ -627,6 +637,20 @@
     
     
 
+
+<div>
+  
+    
+<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+
     
 
     
@@ -637,7 +661,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag"># 踩坑</a>
+            <a href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag"><i class="fa fa-tag"></i> 踩坑</a>
           
         </div>
       
@@ -728,8 +752,12 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name"></p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <img class="site-author-image" itemprop="image"
+                src="/images/logo.jpg"
+                alt="C0nney" />
+            
+              <p class="site-author-name" itemprop="name">C0nney</p>
+              <p class="site-description motion-element" itemprop="description">Keep Curious</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -737,9 +765,9 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/%20%7C%7C%20archive">
+                <a href="/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -751,10 +779,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">3</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">tags</span>
-                
+                </a>
               </div>
             
 
@@ -809,7 +837,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">C0nney</span>
 
   
 </div>
@@ -823,7 +851,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
@@ -843,6 +871,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -869,6 +899,8 @@
 
   
 
+
+  
 
 
 
@@ -910,6 +942,11 @@
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
 
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
 
   
 
@@ -922,6 +959,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>

@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-CN">
+<html class="theme-next gemini use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -83,7 +83,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="52pj春节红包题2024&amp;2023">
 <meta property="og:url" content="https://c0nney.github.io/2024/07/23/52pj%E6%98%A5%E8%8A%82%E7%BA%A2%E5%8C%85%E9%A2%98/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="C0nney&#39;s Blog">
 <meta property="og:description" content="2024初级题1：法一：主动调用分析思路一： 因为是 webview js交互，还是个抓小猫游戏,那肯定是赢了出结果。 那就看JavaScriptInterface实现在哪，分析代码逻辑发现赢了会启动了新的界面YSQDActivity 分析思路二： jadx搜索”汗流浃背“，在资源文件中找到。   12345678910111213141516171819202122232425262728293">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://c0nney.github.io/images/52Spring/001.png">
@@ -124,8 +124,8 @@
 <meta property="og:image" content="https://c0nney.github.io/images/52Spring/036.png">
 <meta property="og:image" content="https://c0nney.github.io/images/52Spring/037.png">
 <meta property="article:published_time" content="2024-07-23T10:03:42.000Z">
-<meta property="article:modified_time" content="2024-08-26T14:37:49.278Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2024-08-26T16:06:15.219Z">
+<meta property="article:author" content="C0nney">
 <meta property="article:tag" content="逆向实战">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://c0nney.github.io/images/52Spring/001.png">
@@ -136,9 +136,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '',
-    scheme: 'Muse',
+    scheme: 'Gemini',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -164,7 +164,7 @@
 
 
 
-  <title>52pj春节红包题2024&2023 | Hexo</title>
+  <title>52pj春节红包题2024&2023 | C0nney's Blog</title>
   
 
 
@@ -194,12 +194,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">C0nney's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">少则是多，慢也是快</p>
       
   </div>
 
@@ -229,12 +229,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/%20" rel="section">
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Archives
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
           </a>
         </li>
       
@@ -274,13 +284,13 @@
     <link itemprop="mainEntityOfPage" href="https://C0nney.github.io/2024/07/23/52pj%E6%98%A5%E8%8A%82%E7%BA%A2%E5%8C%85%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
+      <meta itemprop="name" content="C0nney">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/logo.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="C0nney's Blog">
     </span>
 
     
@@ -348,7 +358,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//首先定义一个函数检查目标是否已加载</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">checkClass</span>(<span class="params">targetClass</span>)&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//尝试直接使用目标类</span></span><br><span class="line">        <span class="title class_">Java</span>.<span class="title function_">use</span>(targetClass);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(error)&#123;</span><br><span class="line">        <span class="comment">//如果失败，枚举所有类加载器</span></span><br><span class="line">        <span class="title class_">Java</span>.<span class="title function_">enumerateClassLoaders</span>(&#123;</span><br><span class="line">            <span class="attr">onMatch</span>: <span class="keyword">function</span>(<span class="params">loader</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span>&#123;</span><br><span class="line">                    <span class="comment">//尝试在当前加载器中查找目标类</span></span><br><span class="line">                    <span class="keyword">if</span>(loader.<span class="title function_">findClass</span>(targetClass))&#123;</span><br><span class="line">                        <span class="comment">//设置当前类加载器为目标类的加载器</span></span><br><span class="line">                        <span class="title class_">Java</span>.<span class="property">classFactory</span>.<span class="property">loader</span>=loader;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;<span class="keyword">catch</span>(error)&#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;classloader failed&quot;</span>+error);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">onComplete</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//frida java</span></span><br><span class="line"><span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="comment">//解码目标类名</span></span><br><span class="line">      <span class="keyword">var</span> targetClass=<span class="built_in">decodeURIComponent</span>(<span class="string">&quot;com.zj.wuaipojie2024%5f1.YSQDActivity&quot;</span>);</span><br><span class="line">    <span class="comment">//检查并加载目标类</span></span><br><span class="line">    <span class="title function_">checkClass</span>(targetClass);</span><br><span class="line">    <span class="comment">//获取目标类的引用</span></span><br><span class="line">    <span class="keyword">var</span> gclass=<span class="title class_">Java</span>.<span class="title function_">use</span>(targetClass);</span><br><span class="line">    <span class="comment">//调用目标类中的目标方法方法</span></span><br><span class="line">    <span class="comment">//在jadx中分析发现目标方法中存在flag，此处完成目标方法的主动调用以获取flag</span></span><br><span class="line">    <span class="comment">//这种写法等价于：var ret = gclass.extractDataFromFile(&quot;文件路径&quot;);</span></span><br><span class="line">    <span class="keyword">var</span> ret=gclass[<span class="string">&#x27;extractDataFromFile&#x27;</span>](<span class="string">&quot;/data/user/0/com.zj.wuaipojie2024_1/files/ys.mp4&quot;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(ret);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <h2 id="法二：直接启动Activity"><a href="#法二：直接启动Activity" class="headerlink" title="法二：直接启动Activity"></a>法二：直接启动Activity</h2><p><img src="/../images/52Spring/003.png" alt="img"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell su -c am start-activity -n com.zj.wuaipojie2024_1/.YSQDActivity</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb <span class="keyword">shell</span> su -<span class="keyword">c</span> <span class="keyword">am</span> start-activity -n <span class="keyword">com</span>.zj.wuaipojie2024_1/.YSQDActivity</span><br></pre></td></tr></table></figure>
 
 <p><img src="/../images/52Spring/004.png" alt="004"></p>
 <h1 id="初级题2"><a href="#初级题2" class="headerlink" title="初级题2"></a>初级题2</h1><p>jadx分析代码逻辑，发现成功后会调用页面。于是跟第一题一样，考点是主动调用。</p>
@@ -375,7 +385,7 @@
 <p>注意！直接跟着光标的位置覆盖修改就行了，不要手贱点“Backspace”或者“Delete”!会因为自动填充而修改错数据！</p>
 <p><img src="/../images/52Spring/011.png" alt="012"></p>
 <p>③使用工具<a target="_blank" rel="noopener" href="https://github.com/luoyesiqiu/DexRepair">DexRepair</a>修复</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar DexRepair.jar /path/to/dex</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar DexRepair<span class="selector-class">.jar</span> /<span class="selector-tag">path</span>/<span class="selector-tag">to</span>/dex</span><br></pre></td></tr></table></figure>
 
 <p>修复之后替换到apk中再用jadx重新打开，此时就能正常显示ABCD类了：<br><img src="/../images/52Spring/012.png" alt="012"></p>
 <p>这个方法有个弊端，修改了classes.dex后签名不一致，需要重新签名。</p>
@@ -450,11 +460,11 @@
 <p>在010中分析，查找png头，发现有两个png头，说明这个图片后面藏着一个图片，在010中复制另存为图片，得到一个二维码：</p>
 <p><img src="/../images/52Spring/037.png" alt="037"></p>
 <p>二维码在线解码，得到flag：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;Happy_New_Year_Wuaipojie2023&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml">flag</span><span class="template-variable">&#123;Happy_New_Year_Wuaipojie2023&#125;</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>本篇参考到的解法均来自吾爱破解论坛，篇幅有限这里暂不列出。</p>
-<p>如有任何问题请联系本人：<a href="mailto:&#x43;&#x6f;&#x6e;&#110;&#x65;&#x79;&#x5f;&#x79;&#64;&#49;&#54;&#51;&#46;&#99;&#111;&#x6d;">&#x43;&#x6f;&#x6e;&#110;&#x65;&#x79;&#x5f;&#x79;&#64;&#49;&#54;&#51;&#46;&#99;&#111;&#x6d;</a></p>
+<p>如有任何问题请联系本人：<a href="mailto:&#x43;&#111;&#110;&#110;&#101;&#x79;&#x5f;&#x79;&#64;&#49;&#x36;&#51;&#x2e;&#x63;&#111;&#109;">&#x43;&#111;&#110;&#110;&#101;&#x79;&#x5f;&#x79;&#64;&#49;&#x36;&#51;&#x2e;&#x63;&#111;&#109;</a></p>
 </blockquote>
 
       
@@ -462,6 +472,20 @@
     
     
     
+
+
+<div>
+  
+    
+<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
 
     
 
@@ -473,7 +497,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E9%80%86%E5%90%91%E5%AE%9E%E6%88%98/" rel="tag"># 逆向实战</a>
+            <a href="/tags/%E9%80%86%E5%90%91%E5%AE%9E%E6%88%98/" rel="tag"><i class="fa fa-tag"></i> 逆向实战</a>
           
         </div>
       
@@ -564,8 +588,12 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name"></p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <img class="site-author-image" itemprop="image"
+                src="/images/logo.jpg"
+                alt="C0nney" />
+            
+              <p class="site-author-name" itemprop="name">C0nney</p>
+              <p class="site-description motion-element" itemprop="description">Keep Curious</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -573,9 +601,9 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/%20%7C%7C%20archive">
+                <a href="/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -587,10 +615,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">3</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">tags</span>
-                
+                </a>
               </div>
             
 
@@ -645,7 +673,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">C0nney</span>
 
   
 </div>
@@ -659,7 +687,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
@@ -679,6 +707,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -705,6 +735,8 @@
 
   
 
+
+  
 
 
 
@@ -746,6 +778,11 @@
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
 
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
 
   
 
@@ -758,6 +795,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
