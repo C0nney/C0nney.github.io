@@ -95,9 +95,9 @@
 <meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202409/3513816-20240903135023500-1029716635.png">
 <meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202409/3513816-20240903135047179-8438479.png">
 <meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202409/3513816-20240903135105408-1919906372.png">
-<meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202409/3513816-20240903135116110-126636293.png">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202409/3513816-20240923175842637-1233935322.png">
 <meta property="article:published_time" content="2024-08-20T16:47:39.000Z">
-<meta property="article:modified_time" content="2024-09-03T05:51:20.538Z">
+<meta property="article:modified_time" content="2024-09-23T09:58:52.480Z">
 <meta property="article:author" content="C0nney">
 <meta property="article:tag" content="Cocos">
 <meta name="twitter:card" content="summary">
@@ -379,7 +379,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">xor_decrypt</span>(<span class="params">data, key</span>):</span><br><span class="line">    key_length = <span class="built_in">len</span>(key)</span><br><span class="line">    decrypted = <span class="built_in">bytearray</span>(data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(decrypted)):</span><br><span class="line">        decrypted[i] ^= key[i % key_length]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> decrypted</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;android.js&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    data = file.read()</span><br><span class="line"></span><br><span class="line">key_str = <span class="string">&#x27;kajw300vvjjakfvsabcjsldlvk&#x27;</span></span><br><span class="line">key = key_str.encode(<span class="string">&#x27;utf-8&#x27;</span>) </span><br><span class="line"></span><br><span class="line">result = xor_decrypt(data, key)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;aaa.js&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    file.write(result)</span><br></pre></td></tr></table></figure>
 
 <p>运行脚本得到aaa.js文件，用010Editor打开，看看到底是什么文件，原来是文件头0x35开头的dex文件。重命名为aaa.dex，用jadx反编译查看，发现是关键代码js-webvevie</p>
-<p><img src="https://img2023.cnblogs.com/blog/3513816/202409/3513816-20240903135116110-126636293.png" alt="img"></p>
+<p><img src="https://img2023.cnblogs.com/blog/3513816/202409/3513816-20240923175842637-1233935322.png" alt="005"></p>
 <p>找到目标网址：<a target="_blank" rel="noopener" href="https://www.baidu.com/">https://www.baidu.com/</a></p>
 <hr>
 <h2 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h2><p>方法一是根据cocos游戏的一些特征推出的解法，那如果不知道这个些特征该如何解呢？</p>
@@ -522,7 +522,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -544,7 +544,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
