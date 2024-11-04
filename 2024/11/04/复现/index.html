@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="有一个月没碰逆向了，正好看到最近网鼎杯的wp出了，来复健一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【复现】2024网鼎杯-青龙组">
+<meta property="og:url" content="https://c0nney.github.io/2024/11/04/%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="C0nney&#39;s Blog">
+<meta property="og:description" content="有一个月没碰逆向了，正好看到最近网鼎杯的wp出了，来复健一下。">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730342297357-7c97ec9b-7730-49c2-8985-0c8ba189ec11.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730344461435-6d583ba6-e937-44e0-9eca-9658ee4f2dfd.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730344635603-6562ecb5-d6fd-4c50-9bf8-d5fb5f36e692.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730344902069-69382c3d-9a56-4187-8301-4de0df090668.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730345087162-9c9fc083-33d7-418f-9517-d9bf879b2541.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730345134096-86945832-995a-494a-971a-2b5afe2593d6.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730345275478-142383e8-4ab6-4bb3-8076-31a862ca8e00.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730357003969-a96329f7-fb45-4337-af37-7b43df246dd4.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730357672709-bea1f7ba-e000-4ceb-9cb7-e113cc6b4010.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730359574763-937a0f98-cd8e-4ede-bc7a-be5c2dd878c8.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730359456247-ff097b0f-6970-47fc-a3d7-3248d1a78c7c.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730359224839-ac6ee828-eaff-4de4-91e5-60a6550fed0a.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730360657355-ef24430c-950a-4592-a2dd-bf5d2df594e1.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730364285945-aa0d88ea-b8d1-4740-b2a7-a8f608c52a68.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730710027020-037d805e-ed5b-4f8e-be4d-0db3f134f5a5.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730709993366-04f6bfa6-b947-45ed-8705-2ea41f159dca.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730710111843-c3378f3f-c6c6-4ee4-974c-98a58d8642ce.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730710428071-fabb63a3-4234-417d-8318-37413d4148ac.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730710444004-23e5dbeb-9df7-48ab-9182-c8ffac25b502.png?x-oss-process=image/crop,x_0,y_0,w_586,h_317">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730710547095-d5e044f1-d4a2-4d95-a1c4-5303d577ac96.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730711841901-8a58ad79-904e-477b-a221-d8a581aa6f98.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730711907966-5c5b99a8-482a-42e9-92bf-cc8b8418429b.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730712358974-e86ade9e-9c5d-43a3-bb93-3e1f26698620.png">
+<meta property="article:published_time" content="2024-11-04T10:08:21.000Z">
+<meta property="article:modified_time" content="2024-11-04T10:19:02.860Z">
+<meta property="article:author" content="C0nney">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730342297357-7c97ec9b-7730-49c2-8985-0c8ba189ec11.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://C0nney.github.io/2024/11/04/复现/"/>
+
+
+
+
+
+  <title>【复现】2024网鼎杯-青龙组 | C0nney's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">C0nney's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">少则是多，慢也是快</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://C0nney.github.io/2024/11/04/%E5%A4%8D%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="C0nney">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C0nney's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【复现】2024网鼎杯-青龙组</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-11-04T18:08:21+08:00">
+                2024-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <meta name="referrer" content="no-referrer">
+
+<p>有一个月没碰逆向了，正好看到最近网鼎杯的wp出了，来复健一下。</p>
+<span id="more"></span>
+
+<h1 id="reverse1"><a href="#reverse1" class="headerlink" title="reverse1"></a>reverse1</h1><p>【环境】：红米 安卓8</p>
+<p>【工具】：jadx、ida</p>
+<p>adb install apk到手机。打开发现是个经典的提交按钮界面。随便输入提示“Invalid flag”。</p>
+<p>然后将apk拖到jadx分析。此处原帖使用jeb分析，有些细节不太一样。</p>
+<p>jadx中搜索“Invalid flag”搜索不到，但是可以明显在原帖的分析中看到关键字的，而jadx显示的是标签风格的变量而不是直接显示字符串，不知道是不是因为解析方式不同导致的。并且在关键变量的显示上也有点差别，不过这些都是小问题，因为基本的语法和程序逻辑还是很清晰的。</p>
+<p>这里贴下jadx分析的过程：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730342297357-7c97ec9b-7730-49c2-8985-0c8ba189ec11.png" alt="img"></p>
+<p>在MainActivity中找到onCreate，这里面有两个if，if前的是变量赋值就是就是关键变量(关键操作)了。给button赋值，获取editText。然后可以看到setOnClickListener方法监听了button，调用了b类。跟进b类看一下。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730344461435-6d583ba6-e937-44e0-9eca-9658ee4f2dfd.png" alt="img"></p>
+<p>这里可以看到原贴中jeb里是显示字符串的，不过这里jadx也可以看出是成功和失败的提示。</p>
+<p>这个类中调用了check.validate类，跟进去看看。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730344635603-6562ecb5-d6fd-4c50-9bf8-d5fb5f36e692.png" alt="img"></p>
+<p>嚯嚯，上ida!</p>
+<p>这里没有涉及到怎么定位so，apk中只有一个so。无需犹豫直接拖进ida。</p>
+<p>这里我分析的是v8a。</p>
+<p>先看导出表，很简单，只有JNI_onLoad，都不用搜索方法名了，直接进到JNI_onLoad看看。</p>
+<p>流程图就能看出看清晰，确实是easy，没做任何混淆。直接看到关键字符串了（有一个分析方法是<code>shift+f12</code>看ida中的string表来找关键字符串进行定位）</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730344902069-69382c3d-9a56-4187-8301-4de0df090668.png" alt="img"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730345087162-9c9fc083-33d7-418f-9517-d9bf879b2541.png" alt="img"></p>
+<p>跟进去，可以看到方法名Validate、参数类型String，以及函数调用</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730345134096-86945832-995a-494a-971a-2b5afe2593d6.png" alt="img"></p>
+<p>跟进去，这里我改了下jni格式，从原帖也可以看出，本题中不改的话也可能看到基本函数。这里我是习惯使然，是个小细节。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730345275478-142383e8-4ab6-4bb3-8076-31a862ca8e00.png" alt="img"></p>
+<p>然后呢，这个地方，原帖中贴主直接分析sub_904函数，也就是直接去分析算法部分了。</p>
+<p>这里可看到strcpy，可以尝试动态调试。</p>
+<p>进入函数，分析加密算法。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730357003969-a96329f7-fb45-4337-af37-7b43df246dd4.png" alt="img"></p>
+<p>这里贴主提到“byte_CC4和unk_C44数组长度是256，不是RC4就是SM4加密”的说法有点不够准确，此处是可以分析出算法是sm4的。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730357672709-bea1f7ba-e000-4ceb-9cb7-e113cc6b4010.png" alt="img"></p>
+<p>将鼠标悬浮在byte_CC4上有显示数组长度为256，但是unk_C44显示unknown，分析算法。</p>
+<p>分析数组长度：</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">(char *)</span>&amp;u<span class="symbol">nk_C44</span> + v<span class="number">4</span> * <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>这里<code>unk_C44</code>通过<code>v4*4</code>的偏移量来访问。说明每次访问<code>unk_C44</code>都是按照4字节为一个单位来读取的（比如int），其中的<code>v4</code>是偏移因子，决定了读取数组的哪个元素。</p>
+<p>接下来看循环条件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    v6 = ...;</span><br><span class="line">    v7 = v3;</span><br><span class="line">    v3 = v5;</span><br><span class="line">    v5 = v6;</span><br><span class="line">    v4++;</span><br><span class="line">&#125; <span class="keyword">while</span> (v4 != <span class="number">32</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在这段代码中，v4从0开始，循环直到v4&#x3D;&#x3D;32结束。也就是循环会执行32次，每次循环中，<code>v4*4</code>这个偏移量会从0到124，也就是长度为125 。</p>
+<p>通过这两个信息，我们可以推测 <code>unk_C44</code> 至少有 32 个元素，每个元素 4 字节，也就是 <strong>128 字节</strong>。  </p>
+<p>可以进一步推测出这是个sm4算法。</p>
+<p>开头这个<img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730359574763-937a0f98-cd8e-4ede-bc7a-be5c2dd878c8.png" alt="img">应该就是key，对key进行一下变换给下面的循环用了。看一下做了什么，这里是对<strong>aA1122357753221</strong>第8位开始重新赋值，双击看一下原值：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730359456247-ff097b0f-6970-47fc-a3d7-3248d1a78c7c.png" alt="img"></p>
+<p><strong>aA1122357753221</strong>的原值是<strong>A11223577532211A</strong>。</p>
+<p>然后选中等式右边按“R”显示出字符串<img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730359224839-ac6ee828-eaff-4de4-91e5-60a6550fed0a.png" alt="img"></p>
+<p>可以得到key的后8位是<strong>Z0099864</strong>，不过这里要反过来，因为在IDA是小端存储。所以key就是<strong>A11223574689900Z。</strong></p>
+<p>esc返回上层函数<code>sub_75C</code>，前面都是初始化，后面有个对比的判断</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> ( byte_C14[v12] == (unsigned __int8)byte_12128[v12] )</span><br><span class="line"> &#123;</span><br><span class="line">   <span class="keyword">if</span> ( v12++ &gt; <span class="number">43</span> )</span><br><span class="line">     <span class="keyword">return</span> 1LL;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么<code>byte_CC4</code>就是密文了。进去看看密文：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730360657355-ef24430c-950a-4592-a2dd-bf5d2df594e1.png" alt="img"></p>
+<p>39 B8 F2 2D  D7 53 A5 4C 55 84 FC 72 FF 6C EC BF E6 4E 7F 59  C6 40 C1 9E EA 0D E7 B1 AB 0D DC BF AF 54 51 D0  C6 F8 A2 25 33 EE A4 36 F1 C3 16 D1</p>
+<p><a target="_blank" rel="noopener" href="https://www.toolhelper.cn/SymmetricEncryption/SM4">SM4 加密&#x2F;解密 - 锤子在线工具</a></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730364285945-aa0d88ea-b8d1-4740-b2a7-a8f608c52a68.png" alt="img"></p>
+<p> wdflag{7314c25f-7097-483e-b745-fe96bb6a0b24}</p>
+<blockquote>
+<p>后续补上，动态调试法。</p>
+</blockquote>
+<h1 id="reverse2"><a href="#reverse2" class="headerlink" title="reverse2"></a>reverse2</h1><p>考点：分析ELF文件、C代码审计、加密算法</p>
+<p>​                            可执行文件             动态链接库</p>
+<p>windows               pe文件                     .dll文件</p>
+<p>Linux                     ELF文件                   .so</p>
+<p>Android                ELF、dex</p>
+<p>f5之后可以看到代码还是很清晰的，这里简单提下涉及到的函数</p>
+<p> - C 库函数 <strong>strcspn(str1, str2)</strong> 检索字符串 <strong>str1</strong> 开头连续有几个字符都不含字符串 <strong>str2</strong> 中的字符，返回值是字符数（数字）。</p>
+<p> - C 库函数 <strong>strlen(str)</strong> 计算字符串 <strong>str</strong> 的长度，直到空结束字符，但不包括空结束字符，返回值是字符串长度。</p>
+<p> - <strong>strncmp</strong>比较两个字符串的ASCII码，如str1&#x3D;str2返回0，str1&lt;str2返回值&lt;0，str1&gt;str2返回值&gt;0。</p>
+<p> - C 库函数 <strong>memcpy(*str1, *str2, n)</strong> 从存储区 <strong>str2</strong> 复制 <strong>n</strong> 个字节到存储区 <strong>str1，</strong>n为要被复制的字节数，返回一个指向目标存储区 str1 的指针。</p>
+<p>这里的qmemcpy不是C的标准函数，不过看起来作用与memcpy类似。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">printf(<span class="string">&quot;Enter the flag:&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> ( fgets(s, <span class="number">41</span>, stdin) )</span><br><span class="line">    s[strcspn(s, <span class="string">&quot;\n&quot;</span>)] = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> ( strlen(s) != <span class="number">40</span> || strncmp(s, <span class="string">&quot;wdflag&#123;&quot;</span>, 7uLL) || v20[<span class="number">32</span>] != <span class="number">125</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  memcpy(dest, v20, 0x20uLL);</span><br><span class="line">  v18[<span class="number">8</span>] = <span class="number">0</span>;</span><br><span class="line">  s2[<span class="number">0</span>] = <span class="number">112</span>;</span><br><span class="line">  s2[<span class="number">1</span>] = -<span class="number">62</span>;</span><br><span class="line">  s2[<span class="number">2</span>] = <span class="number">108</span>;</span><br><span class="line">  s2[<span class="number">3</span>] = -<span class="number">54</span>;</span><br><span class="line">  qmemcpy(v14, <span class="string">&quot;nppl&quot;</span>, sizeof(v14));</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">7</span>; ++i )</span><br><span class="line">    s1[i] = <span class="number">2</span> * dest[i];</span><br><span class="line">  <span class="keyword">if</span> ( memcmp(s1, s2, 8uLL) )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  v22 = <span class="string">&quot;XorrLord&quot;</span>;</span><br><span class="line">  qmemcpy(v11, <span class="string">&quot;9[&quot;</span>, <span class="number">2</span>);</span><br><span class="line">  v11[<span class="number">2</span>] = <span class="number">23</span>;</span><br><span class="line">  v11[<span class="number">3</span>] = <span class="number">16</span>;</span><br><span class="line">  v11[<span class="number">4</span>] = <span class="number">127</span>;</span><br><span class="line">  v11[<span class="number">5</span>] = <span class="number">13</span>;</span><br><span class="line">  v11[<span class="number">6</span>] = <span class="number">71</span>;</span><br><span class="line">  v11[<span class="number">7</span>] = <span class="number">6</span>;</span><br><span class="line">  <span class="keyword">for</span> ( j = <span class="number">8</span>; j &lt;= <span class="number">15</span>; ++j )</span><br><span class="line">    v12[j - <span class="number">8</span>] = dest[j] ^ v22[j - <span class="number">8</span>];</span><br><span class="line">  <span class="keyword">if</span> ( memcmp(v12, v11, 8uLL) )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  base64_encode(&amp;v17, 8LL, v10);</span><br><span class="line">  v21 = <span class="string">&quot;PVLlQVPhPFW&quot;</span>;</span><br><span class="line">  <span class="keyword">if</span> ( strcmp(v10, <span class="string">&quot;PVLlQVPhPFW&quot;</span>) )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  qmemcpy(v9, <span class="string">&quot;AesMasterAesMast&quot;</span>, sizeof(v9));</span><br><span class="line">  v8[<span class="number">0</span>] = 0LL;</span><br><span class="line">  v8[<span class="number">1</span>] = 0LL;</span><br><span class="line">  memcpy(v8, v18, 8uLL);</span><br><span class="line">  <span class="keyword">for</span> ( k = <span class="number">8</span>; k &lt;= <span class="number">15</span>; ++k )</span><br><span class="line">    *((_BYTE *)v8 + k) = <span class="number">8</span>;</span><br><span class="line">  AES_set_encrypt_key(v9, 128LL, v6);</span><br><span class="line">  AES_encrypt(v8, v7, v6);</span><br><span class="line">  hex_to_string(v7, 16LL, v5);</span><br><span class="line">  v4[<span class="number">0</span>] = -<span class="number">89</span>;</span><br><span class="line">  v4[<span class="number">1</span>] = <span class="number">32</span>;</span><br><span class="line">  v4[<span class="number">2</span>] = <span class="number">21</span>;</span><br><span class="line">  v4[<span class="number">3</span>] = -<span class="number">1</span>;</span><br><span class="line">  v4[<span class="number">4</span>] = -<span class="number">51</span>;</span><br><span class="line">  v4[<span class="number">5</span>] = -<span class="number">12</span>;</span><br><span class="line">  v4[<span class="number">6</span>] = <span class="number">80</span>;</span><br><span class="line">  v4[<span class="number">7</span>] = -<span class="number">34</span>;</span><br><span class="line">  v4[<span class="number">8</span>] = <span class="number">120</span>;</span><br><span class="line">  v4[<span class="number">9</span>] = -<span class="number">66</span>;</span><br><span class="line">  v4[<span class="number">10</span>] = -<span class="number">89</span>;</span><br><span class="line">  v4[<span class="number">11</span>] = -<span class="number">108</span>;</span><br><span class="line">  v4[<span class="number">12</span>] = <span class="number">127</span>;</span><br><span class="line">  v4[<span class="number">13</span>] = -<span class="number">65</span>;</span><br><span class="line">  v4[<span class="number">14</span>] = -<span class="number">84</span>;</span><br><span class="line">  v4[<span class="number">15</span>] = -<span class="number">59</span>;</span><br><span class="line">  <span class="keyword">if</span> ( memcmp(v7, v4, 0x10uLL) )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  puts(<span class="string">&quot;Correct Flag!&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>分析代码逻辑</strong></p>
+<p>对比字符串格式<code>wdflag&#123;&#125;</code>后</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730710027020-037d805e-ed5b-4f8e-be4d-0db3f134f5a5.png" alt="img"></p>
+<p>0x20的长度给dest，也就是32位。八位一组，分成四组分别进行加密。</p>
+<p>第一组0-7进行乘法运算，乘二，那么解密就是密文除二。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730709993366-04f6bfa6-b947-45ed-8705-2ea41f159dca.png" alt="img"></p>
+<p>这里可以看出密文是s2，密文内容Tab回汇编视图查看，可以看到8位十六进制密文，大端（高位低地址）取出（<code>s2=[0x70,0xc2,0x6c,0xca,0x6e,0x70,0x70,0x6c]</code>）</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730710111843-c3378f3f-c6c6-4ee4-974c-98a58d8642ce.png" alt="img"></p>
+<p>第二组8-15是明文与<code>XorrLord</code>异或运算，异或解密即可。密文是v11。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730710428071-fabb63a3-4234-417d-8318-37413d4148ac.png" alt="img"><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730710444004-23e5dbeb-9df7-48ab-9182-c8ffac25b502.png?x-oss-process=image/crop,x_0,y_0,w_586,h_317" alt="img"></p>
+<p>写个python脚本还原：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 乘法s2</span></span><br><span class="line">s2=[<span class="number">0x70</span>,<span class="number">0xc2</span>,<span class="number">0x6c</span>,<span class="number">0xca</span>,<span class="number">0x6e</span>,<span class="number">0x70</span>,<span class="number">0x70</span>,<span class="number">0x6c</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#xor v11</span></span><br><span class="line">v11=[<span class="number">0x39</span>,<span class="number">0x5b</span>,<span class="number">0x17</span>,<span class="number">0x10</span>,<span class="number">0x7f</span>,<span class="number">0x0d</span>,<span class="number">0x47</span>,<span class="number">0x6</span>]</span><br><span class="line">xor_key=<span class="string">&#x27;XorrLord&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s2:</span><br><span class="line">    s=i//<span class="number">2</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">chr</span>(s),end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(v11)):</span><br><span class="line">    v=v11[j]^<span class="built_in">ord</span>(xor_key[j])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">chr</span>(v),end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 8a6e7886a4eb3b5b</span></span><br></pre></td></tr></table></figure>
+
+<p>第三组base64，双击函数跟进去可以看到<code>base64_table</code>，继续跟进去，可以看到采用了自定义密码表<code>DEFGHIJKLMNOPQRSTUVWXYZABabcdefghijklmnopqrstuvwxyz0123456789+/</code></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730710547095-d5e044f1-d4a2-4d95-a1c4-5303d577ac96.png" alt="img"><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730711841901-8a58ad79-904e-477b-a221-d8a581aa6f98.png" alt="img"><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730711907966-5c5b99a8-482a-42e9-92bf-cc8b8418429b.png" alt="img"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义的 base64 字符表</span></span><br><span class="line">custom_base64 = <span class="string">&quot;CDEFGHIJKLMNOPQRSTUVWXYZABabcdefghijklmnopqrstuvwxyz0123456789+/&quot;</span></span><br><span class="line"><span class="comment"># 标准的 base64 字符表</span></span><br><span class="line">standard_base64 = <span class="string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建字符映射</span></span><br><span class="line">mapping = &#123;custom_base64[i]: standard_base64[i] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(custom_base64))&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将自定义base64字符串转换为标准base64字符串</span></span><br><span class="line">standard_string = <span class="string">&#x27;&#x27;</span>.join(mapping[char] <span class="keyword">for</span> char <span class="keyword">in</span> <span class="string">&#x27;PVLlQVPhPFW&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加填充</span></span><br><span class="line"><span class="keyword">while</span> <span class="built_in">len</span>(standard_string) % <span class="number">4</span> != <span class="number">0</span>:</span><br><span class="line">    standard_string += <span class="string">&#x27;=&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 解码标准 base64 字符串</span></span><br><span class="line">decoded_bytes = base64.b64decode(standard_string)</span><br><span class="line">decoded_string = decoded_bytes.decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(decoded_string)</span><br><span class="line"><span class="comment"># 52e93a45</span></span><br></pre></td></tr></table></figure>
+
+<p>最后一组是AES，key是<code>AesMasterAesMast</code>，可以看到v8第8到15位为8，其余位为0，也就是IV为<code>0000000088888888</code>八个零八个八。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1730712358974-e86ade9e-9c5d-43a3-bb93-3e1f26698620.png" alt="img"></p>
+<p>其实这里的AES是ECB模式，不需要的IV的。密文很明显就是v4了，提取出来直接在线网站解密即可拿到最后一组明文。</p>
+<blockquote>
+<p>后续补一下常见加密算法的特征</p>
+</blockquote>
+<p>参考：[<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-284165.htm">原创]2024网鼎-Reveres-WP-Android安全-看雪-安全社区|安全招聘|kanxue.com</a></p>
+
+      
+    </div>
+    
+    
+    
+
+
+<div>
+  
+    
+<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/08/27/%E6%9F%90apk%E4%BC%9A%E5%91%98%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0(%E5%88%86%E6%9E%90%E4%B8%AD)/" rel="next" title="某apk会员功能实现(分析中)">
+                <i class="fa fa-chevron-left"></i> 某apk会员功能实现(分析中)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/logo.jpg"
+                alt="C0nney" />
+            
+              <p class="site-author-name" itemprop="name">C0nney</p>
+              <p class="site-description motion-element" itemprop="description">Keep Curious</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#reverse1"><span class="nav-number">1.</span> <span class="nav-text">reverse1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reverse2"><span class="nav-number">2.</span> <span class="nav-text">reverse2</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C0nney</span>
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
