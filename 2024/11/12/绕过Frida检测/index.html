@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="绕过Frida检测," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="浅谈Frida注入原理及绕过思路，并附上一个简单的实例。 打算尝试系统梳理下常见的Frida检测原理及绕过手段，目前先举例定位pthread_create。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈Frida注入原理及绕过思路">
+<meta property="og:url" content="https://c0nney.github.io/2024/11/12/%E7%BB%95%E8%BF%87Frida%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:site_name" content="C0nney&#39;s Blog">
+<meta property="og:description" content="浅谈Frida注入原理及绕过思路，并附上一个简单的实例。 打算尝试系统梳理下常见的Frida检测原理及绕过手段，目前先举例定位pthread_create。">
+<meta property="og:locale">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202411/3513816-20241112213013896-1013289175.png">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202411/3513816-20241112214321203-906917518.png">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202411/3513816-20241112214956012-1730502916.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/39190951/1731337179053-76916156-731c-4da9-9ec4-975dec65cc6a.png">
+<meta property="article:published_time" content="2024-11-12T13:13:35.000Z">
+<meta property="article:modified_time" content="2024-11-12T14:06:46.691Z">
+<meta property="article:author" content="C0nney">
+<meta property="article:tag" content="绕过Frida检测">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2023.cnblogs.com/blog/3513816/202411/3513816-20241112213013896-1013289175.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://C0nney.github.io/2024/11/12/绕过Frida检测/"/>
+
+
+
+
+
+  <title>浅谈Frida注入原理及绕过思路 | C0nney's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">C0nney's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">少则是多，慢也是快</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://C0nney.github.io/2024/11/12/%E7%BB%95%E8%BF%87Frida%E6%A3%80%E6%B5%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="C0nney">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C0nney's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅谈Frida注入原理及绕过思路</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-11-12T21:13:35+08:00">
+                2024-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>浅谈Frida注入原理及绕过思路，并附上一个简单的实例。</p>
+<p>打算尝试系统梳理下常见的Frida检测原理及绕过手段，目前先举例定位pthread_create。</p>
+<span id="more"></span>
+
+<hr>
+<h1 id="Frida的综合注入机制"><a href="#Frida的综合注入机制" class="headerlink" title="Frida的综合注入机制"></a><strong>Frida的综合注入机制</strong></h1><h4 id="Gadget注入"><a href="#Gadget注入" class="headerlink" title="Gadget注入"></a><strong>Gadget注入</strong></h4><ul>
+<li><p><strong>Gadget模式</strong>：Frida Gadget 是一个静态库，可以预先打包到目标应用中。</p>
+</li>
+<li><ul>
+<li>目标应用启动时，Gadget库会自动加载，并建立与Frida的通信通道。</li>
+<li>这避免了动态注入的检测风险，但需要提前修改目标APK。</li>
+</ul>
+</li>
+</ul>
+<h4 id="动态注入"><a href="#动态注入" class="headerlink" title="动态注入"></a><strong>动态注入</strong></h4><ul>
+<li>在运行时通过 <code>ptrace</code> 暂停目标进程。</li>
+<li>使用 <code>dlopen</code> 动态加载 <code>libfrida-gadget.so</code> 或其他自定义的动态库。</li>
+<li>目标库加载后，通过 Inline Hook 实现对目标函数的劫持。</li>
+</ul>
+<h4 id="两种方法的配合"><a href="#两种方法的配合" class="headerlink" title="两种方法的配合"></a><strong>两种方法的配合</strong></h4><ul>
+<li><strong>ptrace</strong> 用于初始注入和代码植入。</li>
+<li><strong>Inline Hook</strong> 用于劫持关键函数，实现动态分析和修改。</li>
+</ul>
+<h3 id="Ptrace-Hook"><a href="#Ptrace-Hook" class="headerlink" title="Ptrace Hook"></a><strong>Ptrace Hook</strong></h3><h4 id="什么是-ptrace-？"><a href="#什么是-ptrace-？" class="headerlink" title="什么是 **ptrace**？"></a><strong>什么是</strong> <code>**ptrace**</code><strong>？</strong></h4><p><code>ptrace</code> 是一个 Linux 提供的系统调用，允许一个进程（父进程）监视和控制另一个进程（子进程）的执行。它常被用于调试和修改目标进程的内存、寄存器等。</p>
+<h4 id="Frida中如何使用-ptrace-？"><a href="#Frida中如何使用-ptrace-？" class="headerlink" title="Frida中如何使用 **ptrace**？"></a><strong>Frida中如何使用</strong> <code>**ptrace**</code><strong>？</strong></h4><p>Frida 使用 <code>ptrace</code> 作为其一种注入手段，尤其是在以下情况下：</p>
+<ul>
+<li><strong>远程注入</strong>：通过 <code>frida-server</code>，Frida 使用 <code>ptrace</code> 将自己的动态库注入到目标进程中。</li>
+<li><strong>挂起进程</strong>：Frida 使用 <code>ptrace</code> 暂停目标进程，以便将其动态库（如 <code>libfrida-gadget.so</code>）注入到目标进程的地址空间。</li>
+<li><strong>内存写入</strong>：通过 <code>ptrace</code>，Frida 可以将自定义代码注入到目标进程的内存中，并修改目标进程的指令指针来执行注入的代码。</li>
+</ul>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h5><ul>
+<li>不需要修改目标应用的二进制文件。</li>
+<li>适用于运行时注入和调试。</li>
+</ul>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a><strong>缺点</strong></h5><ul>
+<li>容易被检测：<code>ptrace</code> 的使用在某些情况下会触发应用的反调试逻辑。</li>
+</ul>
+<h3 id="Inline-Hook"><a href="#Inline-Hook" class="headerlink" title="Inline Hook"></a><strong>Inline Hook</strong></h3><h4 id="什么是-Inline-Hook？"><a href="#什么是-Inline-Hook？" class="headerlink" title="什么是 Inline Hook？"></a><strong>什么是 Inline Hook？</strong></h4><p>Inline Hook 是一种通过直接修改目标进程的内存（通常是代码段中的函数起始部分）来实现函数劫持的方法。其核心原理是：</p>
+<ul>
+<li><strong>修改函数开头的指令</strong>：将原始函数的前几条指令替换为跳转（<code>jmp</code>）指令，跳转到自定义的代码（通常是自己的Hook函数）。</li>
+<li><strong>执行自定义逻辑后返回</strong>：自定义逻辑执行完成后，可以跳回原函数继续执行。</li>
+</ul>
+<h4 id="Frida中的Inline-Hook"><a href="#Frida中的Inline-Hook" class="headerlink" title="Frida中的Inline Hook"></a><strong>Frida中的Inline Hook</strong></h4><p>Frida 在目标函数上实现Hook时，使用了Inline Hook技术。例如：</p>
+<ul>
+<li>Hook Android或iOS的系统API（如 <code>open</code>、<code>read</code> 等）。</li>
+<li>Hook Native层（C&#x2F;C++）函数，通过拦截函数的执行流程来分析和修改目标程序的行为。</li>
+</ul>
+<h5 id="Frida的实现方式"><a href="#Frida的实现方式" class="headerlink" title="Frida的实现方式"></a><strong>Frida的实现方式</strong></h5><ul>
+<li><strong>ARM&#x2F;ARM64架构</strong>：修改目标函数的前几条指令（如 <code>BL</code>、<code>MOV</code> 等），将其跳转到自定义的Thunk代码。</li>
+<li><strong>x86&#x2F;x86_64架构</strong>：修改 <code>jmp</code> 或 <code>call</code> 指令的目标地址，将执行流程重定向到Frida的Hook逻辑。</li>
+</ul>
+<h5 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a><strong>优点</strong></h5><ul>
+<li>性能较高，几乎无中断感。</li>
+<li>非常灵活，可以直接修改目标函数的执行逻辑。</li>
+</ul>
+<h5 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a><strong>缺点</strong></h5><ul>
+<li>对于某些具有自校验功能的应用（如代码段完整性校验），Inline Hook 可能会被检测。</li>
+</ul>
+<hr>
+<h1 id="常见Frida检测"><a href="#常见Frida检测" class="headerlink" title="常见Frida检测"></a>常见Frida检测</h1><p>ptrace占坑、进程名检测、端口检测（绕过简单）</p>
+<p>D-Bus通信协议检测：App向每个端口都发送D-Bus认证消息，然后利用<code>strcmp()</code>或<code>strstr()</code>函数检测回复消息。</p>
+<p>maps、fd检测：</p>
+<p>1.检测frida特征（hluda-server绕过：生成随机的.so名，去除frida特征）</p>
+<p>2.但有的会检测maps和fd中是否存在&#x2F;data&#x2F;local&#x2F;tmp&#x2F;，甚至只存在tmp字段app就执行kill。</p>
+<p>（那就重定向，直接hook open函数，将原程序的maps文件中带有tmp的行过滤掉，剩余内容输出到另一个文件中，然后修改open的返回值，指向新生成的文件）</p>
+<p>线程检测（定位到调用<code>pthread_create</code>的函数，nop或者替换）</p>
+<h1 id="绕过Frida检测"><a href="#绕过Frida检测" class="headerlink" title="绕过Frida检测"></a>绕过Frida检测</h1><p>个人认为从手法上可以分为两种，一种是通过hook定位检测点后nop，另一种是通过魔改frida隐藏frida特征。</p>
+<h2 id="hook"><a href="#hook" class="headerlink" title="hook"></a>hook</h2><p>下面先介绍hook法：</p>
+<p>我个人简单以两个主要函数作为节点：<code>dlopen(android_dlopen_ext)</code>和<code>libc</code></p>
+<h4 id="hook-dlopen"><a href="#hook-dlopen" class="headerlink" title="hook-dlopen"></a><strong>hook-dlopen</strong></h4><p>动态链接库是通过系统的 <code>dlopen</code>进行加载的，在 android 7.0 之后使用的是 <code>android_dlopen_ext</code>。<code>dlopen</code> 是 <code>linker</code> 的高级接口，<code>linker</code>提供核心功能，<code>dlopen</code> 负责调用。</p>
+<p><code>.init_proc</code> 和 <code>.ini_array</code> 执行的时机很早，且执行过一次之后就不再执行。因为我们需要在 <code>android_dlopen_ext</code> 运行过程中hook。</p>
+<p><strong>检测原理</strong></p>
+<ul>
+<li>应用可能会调用 <code>dlopen</code> 或相关函数（如 <code>dlsym</code> 和 <code>dlclose</code>）来检查特定库（如 <code>libfrida-gadget.so</code>）是否被加载。</li>
+</ul>
+<p><strong>hook</strong><code>**dlopen**</code><strong>主要是用于定位注入点。</strong></p>
+<p>因此需要先hook<code> dlopen</code>定位检测点哪个.so中。</p>
+<p>并且，根据so的加载流程，<code>linker-&gt;init_proc函数-&gt;.init_array中的函数-&gt;JNI_OnLoad函数</code>，需要进一步确定检测点的时机。</p>
+<p>此时需要先hook <code>JNI_Onload</code>定位检测点是否在<code>JNI_Onload</code>之前。</p>
+<p>如果检测在<code>.init_xx</code>函数，由于这个时候处于<code>dlopen</code>调用后，<code>init_xx</code>已经执行完成了，想要再往前hook <code>linker</code>的<code>call_function</code>并不容易。</p>
+<p>此时，可以考虑在<code>.init_xx</code>中找调用时机比较早的外部函数的位置。</p>
+<h4 id="hook-libc"><a href="#hook-libc" class="headerlink" title="hook-libc"></a><strong>hook-libc</strong></h4><p>找到注入点后，就可以对具体的frida检测点下手了。这就轮到<code>libc</code>出场了。</p>
+<p><code>libc</code> 是C语言的标准库，提供了许多基础函数，例如 <code>open</code>、<code>read</code>、<code>write</code>、 <code>mmap</code>、<code>fork</code>、<code>exit</code>、<code>_exit</code>、<code>kill</code>、 等。它们被广泛用于系统调用和文件操作。</p>
+<p><strong>检测原理</strong></p>
+<ul>
+<li><strong>文件检测</strong>：应用可能通过调用 <code>open</code> 来检查 <code>/proc/self/maps</code> 文件，以判断是否有与Frida相关的库被加载。</li>
+<li><strong>内存检测</strong>：应用可能通过 <code>mmap</code> 或 <code>mprotect</code> 检查内存段的权限和内容。</li>
+<li><strong>进程检测</strong>：通过调用 <code>fork</code> 或类似的函数创建新进程，用来验证是否存在调试环境。</li>
+</ul>
+<blockquote>
+<p>网上对frida的检测通常会使用openat、open、strstr、pthread_create、snprintf、sprintf、readlinkat等一系列函数。</p>
+</blockquote>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>下面以一个实例介绍这个过程：</p>
+<p>这个实例是在看雪上看到贴主先hook libc中open分析检测点失败后再分析线程，这里我用上文提到的方法进行定位.so和注入点。</p>
+<p>这里我先尝试hook dlopen看看，可以直接定位到涉及frida检测的.so。</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hook_dlopen</span>(<span class="params"></span>)&#123;</span><br><span class="line">  Interceptor.attach(Module.findExportByName(<span class="literal">null</span>,<span class="string">&quot;android_dlopen_ext&quot;</span>),</span><br><span class="line">                     &#123;</span><br><span class="line">                       <span class="attr">onEnter</span>:<span class="keyword">function</span>(<span class="params">args</span>)&#123;</span><br><span class="line">                         <span class="keyword">var</span> pathptr=args[<span class="number">0</span>];</span><br><span class="line">                         <span class="keyword">if</span>(pathptr!==<span class="literal">undefined</span>&amp;&amp; pathptr!=<span class="literal">null</span>)&#123;</span><br><span class="line">                           <span class="keyword">var</span> path=ptr(pathptr).readCString();</span><br><span class="line">                           <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&quot;load&quot;</span>+path);</span><br><span class="line">                         &#125;</span><br><span class="line">                       &#125;</span><br><span class="line">                     &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">setImmediate(hook_dlopen)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2023.cnblogs.com/blog/3513816/202411/3513816-20241112213013896-1013289175.png" alt="image"></p>
+<p>ida分析这个.so文件，这里分析的是v8a中的.so文件。</p>
+<p>找到JNI_Onload偏移0x508C，尝试hook JNI_Onload，随便打印个日志看看。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hook_JNI_Onload</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable language_">module</span>=<span class="title class_">Process</span>.<span class="title function_">findModuleByName</span>(<span class="string">&quot;xxx.so&quot;</span>)</span><br><span class="line">    <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(<span class="variable language_">module</span>.<span class="property">base</span>.<span class="title function_">add</span>(<span class="number">0x508C</span>),&#123;</span><br><span class="line">        <span class="title function_">onEnter</span>(<span class="params">args</span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;call JNI_Onload&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有了，看来测试点就在JNI_Onload。</p>
+<p><img src="https://img2023.cnblogs.com/blog/3513816/202411/3513816-20241112214321203-906917518.png" alt="image (1)"></p>
+<p>那就非常好办了，直接hook pthread_create：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hook_JNI_Onload</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable language_">module</span>=<span class="title class_">Process</span>.<span class="title function_">findModuleByName</span>(<span class="string">&quot;xxx.so&quot;</span>)</span><br><span class="line">    <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(<span class="variable language_">module</span>.<span class="property">base</span>.<span class="title function_">add</span>(<span class="number">0x508C</span>),&#123;</span><br><span class="line">        <span class="title function_">onEnter</span>(<span class="params">args</span>)&#123;</span><br><span class="line">            <span class="comment">//console.log(&quot;call JNI_Onload&quot;)</span></span><br><span class="line">            hook_pthread_create</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">hook_pthread_create</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;xxxx.so基地址：&quot;</span> + <span class="title class_">Process</span>.<span class="title function_">findModuleByName</span>(<span class="string">&quot;xxxx.so&quot;</span>).<span class="property">base</span>)</span><br><span class="line">    <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(<span class="title class_">Module</span>.<span class="title function_">findExportByName</span>(<span class="string">&quot;libc.so&quot;</span>, <span class="string">&quot;pthread_create&quot;</span>),&#123;</span><br><span class="line">        <span class="title function_">onEnter</span>(<span class="params">args</span>)&#123;</span><br><span class="line">            <span class="keyword">let</span> func_addr = args[<span class="number">2</span>]</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;The thread function address is &quot;</span> + func_addr)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">setImmediate</span>(hook_dlopen,<span class="string">&quot;xxxx.so&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2023.cnblogs.com/blog/3513816/202411/3513816-20241112214956012-1730502916.png" alt="image"></p>
+<p>可以看到目标.so加载后创建了几个新线程用于Frida检测，计算出偏移地址分别是：52318、52664、50A6C、580D0</p>
+<p>在ida中搜索偏移地址找到然后交叉引用找到调用pthread_create的函数才是我们的目标函数，即：sub_58074 、sub_53CB4 、sub_53E28和 sub_508E0 。这里我直接nop掉了，下面给出完整脚本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hook_dlopen</span>(<span class="params">soName=<span class="string">&#x27;&#x27;</span></span>)&#123;</span><br><span class="line">    <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(<span class="title class_">Module</span>.<span class="title function_">findExportByName</span>(<span class="literal">null</span>,<span class="string">&quot;android_dlopen_ext&quot;</span>),</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">onEnter</span>:<span class="keyword">function</span>(<span class="params">args</span>)&#123;</span><br><span class="line">            <span class="keyword">var</span> pathptr=args[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">if</span>(pathptr!==<span class="literal">undefined</span>&amp;&amp; pathptr!=<span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">var</span> path=<span class="title function_">ptr</span>(pathptr).<span class="title function_">readCString</span>();</span><br><span class="line">                <span class="keyword">if</span>(path.<span class="title function_">indexOf</span>(soName)&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="variable language_">this</span>.<span class="property">is_can_hook</span>=<span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">onLeave</span>:<span class="keyword">function</span>(<span class="params">retval</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="variable language_">this</span>.<span class="property">is_can_hook</span>)&#123;</span><br><span class="line">                <span class="title function_">hook_JNI_Onload</span>()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">hook_JNI_Onload</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable language_">module</span>=<span class="title class_">Process</span>.<span class="title function_">findModuleByName</span>(<span class="string">&quot;xxxx.so&quot;</span>)</span><br><span class="line">    <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(<span class="variable language_">module</span>.<span class="property">base</span>.<span class="title function_">add</span>(<span class="number">0x508C</span>),&#123;</span><br><span class="line">        <span class="title function_">onEnter</span>(<span class="params">args</span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;call JNI_Onload&quot;</span>)</span><br><span class="line">            <span class="comment">//hook_pthread_create()</span></span><br><span class="line">            <span class="title function_">bypass</span>()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">hook_pthread_create</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;xxxx.so的基地址： &quot;</span> + <span class="title class_">Process</span>.<span class="title function_">findModuleByName</span>(<span class="string">&quot;xxxx.so&quot;</span>).<span class="property">base</span>)</span><br><span class="line">    <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(<span class="title class_">Module</span>.<span class="title function_">findExportByName</span>(<span class="string">&quot;libc.so&quot;</span>, <span class="string">&quot;pthread_create&quot;</span>),&#123;</span><br><span class="line">        <span class="title function_">onEnter</span>(<span class="params">args</span>)&#123;</span><br><span class="line">            <span class="keyword">let</span> func_addr = args[<span class="number">2</span>]</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;The thread function address is &quot;</span> + func_addr)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">nop</span>(<span class="params">addr</span>) &#123;</span><br><span class="line">    <span class="title class_">Memory</span>.<span class="title function_">patchCode</span>(<span class="title function_">ptr</span>(addr), <span class="number">4</span>, <span class="function"><span class="params">code</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//const cw = new ThumbWriter(code, &#123; pc: ptr(addr) &#125;);</span></span><br><span class="line">        <span class="keyword">const</span> cw = <span class="keyword">new</span> <span class="title class_">Arm64Writer</span>(code, &#123; <span class="attr">pc</span>: <span class="title function_">ptr</span>(addr) &#125;);</span><br><span class="line">        cw.<span class="title function_">putNop</span>();</span><br><span class="line">        cw.<span class="title function_">putNop</span>();</span><br><span class="line">        cw.<span class="title function_">putNop</span>();</span><br><span class="line">        cw.<span class="title function_">putNop</span>();</span><br><span class="line">        cw.<span class="title function_">flush</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bypass</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable language_">module</span> = <span class="title class_">Process</span>.<span class="title function_">findModuleByName</span>(<span class="string">&quot;xxxx.so&quot;</span>)</span><br><span class="line">    <span class="title function_">nop</span>(<span class="variable language_">module</span>.<span class="property">base</span>.<span class="title function_">add</span>(<span class="number">0x58074</span>))</span><br><span class="line">    <span class="title function_">nop</span>(<span class="variable language_">module</span>.<span class="property">base</span>.<span class="title function_">add</span>(<span class="number">0x53CB4</span>))</span><br><span class="line">    <span class="title function_">nop</span>(<span class="variable language_">module</span>.<span class="property">base</span>.<span class="title function_">add</span>(<span class="number">0x53E28</span>))</span><br><span class="line">    <span class="title function_">nop</span>(<span class="variable language_">module</span>.<span class="property">base</span>.<span class="title function_">add</span>(<span class="number">0x508E0</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">setImmediate</span>(hook_dlopen,<span class="string">&quot;xxxx.so&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/39190951/1731337179053-76916156-731c-4da9-9ec4-975dec65cc6a.png" alt="img"></p>
+<p>成功绕过！</p>
+<p>未完待续。</p>
+<hr>
+<p>【参考】：[<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-277034.htm">原创]绕过bilibili frida反调试-Android安全-看雪-安全社区|安全招聘|kanxue.com</a> </p>
+
+      
+    </div>
+    
+    
+    
+
+
+<div>
+  
+    
+<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%BB%95%E8%BF%87Frida%E6%A3%80%E6%B5%8B/" rel="tag"><i class="fa fa-tag"></i> 绕过Frida检测</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/11/04/%E5%A4%8D%E7%8E%B0/" rel="next" title="【复现】2024网鼎杯-青龙组">
+                <i class="fa fa-chevron-left"></i> 【复现】2024网鼎杯-青龙组
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/logo.jpg"
+                alt="C0nney" />
+            
+              <p class="site-author-name" itemprop="name">C0nney</p>
+              <p class="site-description motion-element" itemprop="description">Keep Curious</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Frida%E7%9A%84%E7%BB%BC%E5%90%88%E6%B3%A8%E5%85%A5%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">Frida的综合注入机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Gadget%E6%B3%A8%E5%85%A5"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">Gadget注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%B3%A8%E5%85%A5"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">动态注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9A%84%E9%85%8D%E5%90%88"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">两种方法的配合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ptrace-Hook"><span class="nav-number">1.0.1.</span> <span class="nav-text">Ptrace Hook</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-ptrace-%EF%BC%9F"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">什么是 **ptrace**？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Frida%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-ptrace-%EF%BC%9F"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">Frida中如何使用 **ptrace**？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">1.0.1.2.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">1.0.1.2.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inline-Hook"><span class="nav-number">1.0.2.</span> <span class="nav-text">Inline Hook</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Inline-Hook%EF%BC%9F"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">什么是 Inline Hook？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Frida%E4%B8%AD%E7%9A%84Inline-Hook"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">Frida中的Inline Hook</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Frida%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">1.0.2.2.1.</span> <span class="nav-text">Frida的实现方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-1"><span class="nav-number">1.0.2.2.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9-1"><span class="nav-number">1.0.2.2.3.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81Frida%E6%A3%80%E6%B5%8B"><span class="nav-number">2.</span> <span class="nav-text">常见Frida检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%95%E8%BF%87Frida%E6%A3%80%E6%B5%8B"><span class="nav-number">3.</span> <span class="nav-text">绕过Frida检测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hook"><span class="nav-number">3.1.</span> <span class="nav-text">hook</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hook-dlopen"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">hook-dlopen</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hook-libc"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">hook-libc</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.2.</span> <span class="nav-text">实例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C0nney</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
