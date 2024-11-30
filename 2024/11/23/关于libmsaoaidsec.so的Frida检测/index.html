@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Frida," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近在分析绕过frida检测的姿势，看到libmsaoaidsec.so 的使用还是挺多的，比如某站、某书和某艺。 既然有这么多样本，那就来分析一下检测逻辑，顺便感受一下不同版本之间该.so有哪些变化。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于libmsaoaidsec.so反Frida">
+<meta property="og:url" content="https://c0nney.github.io/2024/11/23/%E5%85%B3%E4%BA%8Elibmsaoaidsec.so%E7%9A%84Frida%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:site_name" content="C0nney&#39;s Blog">
+<meta property="og:description" content="最近在分析绕过frida检测的姿势，看到libmsaoaidsec.so 的使用还是挺多的，比如某站、某书和某艺。 既然有这么多样本，那就来分析一下检测逻辑，顺便感受一下不同版本之间该.so有哪些变化。">
+<meta property="og:locale">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202412/3513816-20241201000135904-1417460045.png">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202412/3513816-20241201000428815-1949852358.png">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202412/3513816-20241201002544760-264964053.png">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202412/3513816-20241201002837087-941565323.png">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/3513816/202412/3513816-20241201003403121-186558745.png">
+<meta property="article:published_time" content="2024-11-23T07:09:50.000Z">
+<meta property="article:modified_time" content="2024-11-30T16:51:21.059Z">
+<meta property="article:author" content="C0nney">
+<meta property="article:tag" content="Frida">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2023.cnblogs.com/blog/3513816/202412/3513816-20241201000135904-1417460045.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://C0nney.github.io/2024/11/23/关于libmsaoaidsec.so的Frida检测/"/>
+
+
+
+
+
+  <title>关于libmsaoaidsec.so反Frida | C0nney's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">C0nney's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">少则是多，慢也是快</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://C0nney.github.io/2024/11/23/%E5%85%B3%E4%BA%8Elibmsaoaidsec.so%E7%9A%84Frida%E6%A3%80%E6%B5%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="C0nney">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C0nney's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于libmsaoaidsec.so反Frida</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-11-23T15:09:50+08:00">
+                2024-11-23
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2024-12-01T00:51:21+08:00">
+                2024-12-01
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在分析绕过frida检测的姿势，看到libmsaoaidsec.so 的使用还是挺多的，比如某站、某书和某艺。</p>
+<p>既然有这么多样本，那就来分析一下检测逻辑，顺便感受一下不同版本之间该.so有哪些变化。</p>
+<span id="more"></span>
+
+<hr>
+<blockquote>
+<p><strong>注意！</strong></p>
+<p><strong>样本一是比较早的经典版本，想看较新的绕过思路可直接看样本二。</strong></p>
+</blockquote>
+<h2 id="样本一"><a href="#样本一" class="headerlink" title="样本一"></a>样本一</h2><p>【某app v7.26.1版本】</p>
+<p>先定位so，<code>hook_dlopen</code>可见加载<code>libmsaoaidsec.so</code>后，frida进程就被杀掉了，因此监测点在<code>libmsaoaidsec.so</code>中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hook_dlopen</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(<span class="title class_">Module</span>.<span class="title function_">findExportByName</span>(<span class="literal">null</span>,<span class="string">&quot;android_dlopen_ext&quot;</span>),</span><br><span class="line">                     &#123;</span><br><span class="line">                       <span class="attr">onEnter</span>:<span class="keyword">function</span>(<span class="params">args</span>)&#123;</span><br><span class="line">                         <span class="keyword">var</span> pathptr=args[<span class="number">0</span>];</span><br><span class="line">                         <span class="keyword">if</span>(pathptr!==<span class="literal">undefined</span>&amp;&amp; pathptr!=<span class="literal">null</span>)&#123;</span><br><span class="line">                           <span class="keyword">var</span> path=<span class="title function_">ptr</span>(pathptr).<span class="title function_">readCString</span>();</span><br><span class="line">                           <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;load&quot;</span>+path);</span><br><span class="line">                         &#125;</span><br><span class="line">                       &#125;</span><br><span class="line">                     &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">setImmediate</span>(hook_dlopen)</span><br></pre></td></tr></table></figure>
+
+<p>接下来要定位函数</p>
+<p>ida打开<code>libmsaoaidsec.so</code>找到JNI_Onload函数的偏移地址，尝试<code>hook JNI_Onload</code>函数，如果能成功hook将打印日志“call JNI_Onload”，没有就说明frida检测在<code>hook JNI_Onload</code>前。</p>
+<p>运行后没有打印日志，检测在init_xxx。</p>
+<p>运行后没有打印日志，检测在init_xxx。</p>
+<p>需要hook .init_xxx的函数，但这里有一个问题，dlopen函数调用完成之后.init_xxx函数已经执行完成了，这个时候不容易使用frida进行hook，这个问题其实很麻烦的，因为想要hook linker的call_function并不容易，这里面涉及到linker的自举。</p>
+<p>这里学到的思路是在<code>.init_proc</code>函数中找一个调用了外部函数的位置，时机越早越好。</p>
+<p>导出表搜索只搜索到<code>.init_proc</code></p>
+<p>f5看到.init_proc被混淆了，很明显的虚假控制流。不过这里在最开始调用了一个外部函数sub_B1B4，这个时候也就是.init_proc函数刚刚调用的时候，在这个时机点是个注入的好时机。</p>
+<p><img src="https://img2023.cnblogs.com/blog/3513816/202412/3513816-20241201000135904-1417460045.png" alt="image1"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int <span class="title function_">sub_B1B4</span>(<span class="params"></span>)</span><br><span class="line">&#123;</span><br><span class="line">  int v1[<span class="number">8</span>]; <span class="comment">// [sp+0h] [bp-20h] BYREF</span></span><br><span class="line"></span><br><span class="line">  v1[<span class="number">3</span>] = *(_DWORD *)off_1FC04;</span><br><span class="line">  v1[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">  v1[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">  <span class="title function_">_system_property_get</span>(<span class="string">&quot;ro.build.version.sdk&quot;</span>, v1);</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">atoi</span>((<span class="keyword">const</span> char *)v1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在获取了一个非常早的注入时机之后，就可以定位具体的frida检测点了。</p>
+<p>这里对<code>pthread_create</code>函数进行hook，可以看到这里有两个线程地址和其他的不一样，说明这两个线程是<code>libmsaoaidsec.so</code>创建的。</p>
+<p><img src="https://img2023.cnblogs.com/blog/3513816/202412/3513816-20241201000428815-1949852358.png" alt="image2"></p>
+<p>这里需要计算一下偏移地址：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">0xb54d4129</span> - <span class="number">0</span>xb54c3000 = <span class="number">0</span>x11129</span><br><span class="line"><span class="attribute">0xb54d3975</span> - <span class="number">0</span>xb54c3000 = <span class="number">0</span>x10975</span><br></pre></td></tr></table></figure>
+
+<p>0x11129和0x10975是线程需要执行的函数的地址，也就是pthread_create函数的第三个参数。</p>
+<p>而我们需要通过交叉引用找到pthread_create函数被调用的地址。</p>
+<p>G键搜索<code>11129</code>找到<code>sub_11128</code>，然后通过x键交叉引用找到目标函数<code>sub_113E0</code>，同理，搜索<code>10975</code>找到<code>sub_10974</code>,然后交叉引用找到目标函数<code>sub_109A8</code>。</p>
+<p>然后直接把<code>pthread_create</code>函数<code>nop</code>掉即可。</p>
+<hr>
+<h2 id="样本二"><a href="#样本二" class="headerlink" title="样本二"></a>样本二</h2><h3 id="v8-31-0"><a href="#v8-31-0" class="headerlink" title="v8.31.0"></a>v8.31.0</h3><p>【另一款也使用libmsaoaidsec.so的app】</p>
+<p>这里用上面定位frida检测的hook脚本直接定位到<code>libmsaoaidsec.so</code>，</p>
+<p>这里为了避免遇到字符串加密，而是将注意力放在分析frida检测逻辑上，就直接从内存中dump出<code>libmsaoaidsec.so</code>然后修复得到<code>libmsaoaidesc_fixed.so</code></p>
+<p>ida打开，由于前面的分析可以直接定位到<code>.init_proc</code>，反编译看到有很多while一看便知是虚假控制流，然后发现代码与样本有些细微的变化。</p>
+<p>这里直接使用<a target="_blank" rel="noopener" href="https://gitlab.com/eshard/d810">D810</a>去除混淆，然后来分析代码逻辑看看做了哪些检测的操作。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">init_proc</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">const</span> <span class="type">char</span> *v0; <span class="comment">// x23</span></span><br><span class="line">  __int64 v1; <span class="comment">// x0</span></span><br><span class="line">  __int64 v2; <span class="comment">// x0</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 StatusReg; <span class="comment">// [xsp+0h] [xbp-870h] BYREF</span></span><br><span class="line">  __int64 *v4; <span class="comment">// [xsp+8h] [xbp-868h]</span></span><br><span class="line">  <span class="type">int</span> v6; <span class="comment">// [xsp+18h] [xbp-858h]</span></span><br><span class="line">  <span class="type">int</span> v7; <span class="comment">// [xsp+1Ch] [xbp-854h]</span></span><br><span class="line">  __int64 *v8; <span class="comment">// [xsp+20h] [xbp-850h]</span></span><br><span class="line">  <span class="type">char</span> *v10; <span class="comment">// [xsp+30h] [xbp-840h]</span></span><br><span class="line">  FILE *v11; <span class="comment">// [xsp+38h] [xbp-838h]</span></span><br><span class="line">  <span class="type">char</span> v12[<span class="number">2000</span>]; <span class="comment">// [xsp+40h] [xbp-830h] BYREF</span></span><br><span class="line">  __int64 v13; <span class="comment">// [xsp+810h] [xbp-60h]</span></span><br><span class="line"></span><br><span class="line">  StatusReg = _ReadStatusReg(ARM64_SYSREG(<span class="number">3</span>, <span class="number">3</span>, <span class="number">13</span>, <span class="number">0</span>, <span class="number">2</span>));<span class="comment">// 获取寄存器状态</span></span><br><span class="line">  v13 = *(_QWORD *)(StatusReg + <span class="number">40</span>);</span><br><span class="line">  v4 = (__int64 *)(&amp;StatusReg - <span class="number">250</span>);</span><br><span class="line">  *(_DWORD *)off_47FB8 = sub_123F0();           <span class="comment">// 获取SDK版本</span></span><br><span class="line">  sub_12550();                                  <span class="comment">// 判断art/devm</span></span><br><span class="line">  sub_12440();                                  <span class="comment">// 获取版本信息</span></span><br><span class="line">  <span class="keyword">if</span> ( *(_DWORD *)off_47FB8 &gt; <span class="number">23</span> )</span><br><span class="line">    *(_BYTE *)off_47ED8 = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> ( (sub_25A48() &amp; <span class="number">1</span>) == <span class="number">0</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v10 = v12;</span><br><span class="line">    <span class="built_in">memset</span>(v10, <span class="number">0</span>, <span class="number">0x7D0</span>u);</span><br><span class="line">    getpid();</span><br><span class="line">    _cxa_finalize(v12);</span><br><span class="line">    v11 = fopen(v12, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> ( v11 )</span><br><span class="line">    &#123;</span><br><span class="line">      v8 = v4;</span><br><span class="line">      <span class="built_in">memset</span>(v4, <span class="number">0</span>, <span class="number">0x7D0</span>u);</span><br><span class="line">      v0 = (<span class="type">const</span> <span class="type">char</span> *)v4;</span><br><span class="line">      strdup((<span class="type">const</span> <span class="type">char</span> *)v11);</span><br><span class="line">      fclose(v11);</span><br><span class="line">      <span class="keyword">if</span> ( !<span class="built_in">strchr</span>(v0, <span class="number">58</span>) )</span><br><span class="line">        sub_1BEC4();                            <span class="comment">// anti-frida</span></span><br><span class="line">    &#125;</span><br><span class="line">    v1 = sub_13728();</span><br><span class="line">    sub_23AD4(v1);</span><br><span class="line">    v6 = sub_C830();</span><br><span class="line">    <span class="keyword">if</span> ( v6 != <span class="number">1</span> || (v7 = sub_95C8()) != <span class="number">0</span> )</span><br><span class="line">      sub_9150();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( *(_QWORD *)(StatusReg + <span class="number">40</span>) != v13 )</span><br><span class="line">  &#123;</span><br><span class="line">    v2 = _strlcpy_chk();                        <span class="comment">// check标志位</span></span><br><span class="line">    sub_148A0(v2);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以定位到关键函数sub_1BEC4，来分析一下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">__int64 <span class="title function_">sub_1BEC4</span>(<span class="params"></span>)</span><br><span class="line">&#123;</span><br><span class="line">  unsigned __int64 <span class="title class_">StatusReg</span>; <span class="comment">// x19</span></span><br><span class="line">  __int64 v1; <span class="comment">// x0</span></span><br><span class="line">  __int64 v3; <span class="comment">// x0</span></span><br><span class="line">  __int64 v4; <span class="comment">// [xsp+8h] [xbp-48h]</span></span><br><span class="line"></span><br><span class="line">  <span class="title class_">StatusReg</span> = <span class="title function_">_ReadStatusReg</span>(<span class="title class_">ARM64</span>_SYSREG(<span class="number">3</span>, <span class="number">3</span>, <span class="number">13</span>, <span class="number">0</span>, <span class="number">2</span>));</span><br><span class="line">  v4 = *(_QWORD *)(<span class="title class_">StatusReg</span> + <span class="number">40</span>);</span><br><span class="line">  <span class="title function_">HIDWORD</span>(qword_49010) = <span class="title function_">getpid</span>();</span><br><span class="line">  v1 = <span class="title function_">sub_1B924</span>();                             <span class="comment">// check2</span></span><br><span class="line">  <span class="keyword">if</span> ( *(_QWORD *)(<span class="title class_">StatusReg</span> + <span class="number">40</span>) == v4 )</span><br><span class="line">    <span class="keyword">return</span> 0LL;</span><br><span class="line">  v3 = <span class="title function_">_strlcpy_chk</span>(v1);</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">sub_1BFAC</span>(v3);                         <span class="comment">// check1 检测/proc/pid/tast下线程：gum-js-loop和gmain</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>这里接前篇【浅谈Frida注入原理及绕过思路】介绍下task和fd目录下的具体检测特征。</strong></p>
+<p><strong>检测&#x2F;proc&#x2F;pid&#x2F;tast下线程</strong></p>
+<p> &#x2F;proc&#x2F;pid&#x2F;task目录下可以查看不同线程的子目录，获取每个线程运行时信息，这些信息包括线程的状态、线程的寄存器内容、线程占用的CPU时间、线程的堆栈信息等。</p>
+<p>开启frida调试后这个task目录下会多出几个线程，检测点在查看这些多出来的线程是否和frida调试相关。	</p>
+<p><code>gmain</code>：Frida 使用 Glib 库，其中的主事件循环被称为 GMainLoop。在 Frida 中，gmain 表示 GMainLoop 的线程。</p>
+<p><code>gdbus</code>：GDBus 是 Glib 提供的一个用于 D-Bus 通信的库。在 Frida 中，gdbus 表示 GDBus 相关的线程。</p>
+<p><code>gum-js-loop</code>：Gum 是 Frida 的运行时引擎，用于执行注入的 JavaScript 代码。gum-js-loop 表示 Gum 引擎执行 JavaScript 代码的线程。</p>
+<p><code>pool-frida</code>：Frida 中的某些功能可能会使用线程池来处理任务，pool-frida 表示 Frida 中的线程池。</p>
+<p><strong>&#x2F;proc&#x2F;pid&#x2F;fd</strong></p>
+<p>该目录的作用在于提供了一种方便的方式来查看进程的文件描述符信息，通过查看文件描述符信息，可以了解进程打开了哪些文件、网络连接等。</p>
+<p><code>linjector</code>是一种用于 Android 设备的开源工具，它允许用户在运行时向 Android 应用程序注入动态链接库（DLL）文件。通过注入 DLL 文件，用户可以修改应用程序的行为、调试应用程序、监视函数调用等，这在逆向工程、安全研究和动态分析中是非常有用的。</p>
+<h4 id="chek2：sub-1B924-sub-1CEF8-sub-1C544"><a href="#chek2：sub-1B924-sub-1CEF8-sub-1C544" class="headerlink" title="chek2：sub_1B924-&gt;sub_1CEF8-&gt;sub_1C544"></a><strong>chek2：sub_1B924-&gt;sub_1CEF8-&gt;sub_1C544</strong></h4><p>chek1比较简单一眼就看到，下面详细介绍check2。</p>
+<p>sub_1B924中一眼看到定位到<code>_strlcpy_chk()</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">result = (__int64)dlopen(v19, <span class="number">2</span>);</span><br><span class="line">v21 = (<span class="type">char</span> *)result;</span><br><span class="line"><span class="keyword">if</span> ( result )</span><br><span class="line">&#123;</span><br><span class="line">  v24 = atoi(v21);</span><br><span class="line">  v25 = (<span class="type">void</span> (__fastcall *)(__int64 *, _QWORD, <span class="type">void</span> *, _QWORD))v24;</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="type">unsigned</span> <span class="type">int</span>)sub_CAA8() == <span class="number">248</span> &amp;&amp; (sub_12D9C(<span class="number">0LL</span>) &amp; <span class="number">1</span>) == <span class="number">0</span> )</span><br><span class="line">    sub_1CEF8(v25);</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="type">unsigned</span> <span class="type">int</span>)sub_CAE8() == <span class="number">249</span> )</span><br><span class="line">    v25(&amp;qword_49650, <span class="number">0LL</span>, &amp;loc_1B8D4, <span class="number">0LL</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    sub_1B380(v21, v25);</span><br><span class="line">  v23 = sub_CA28();</span><br><span class="line">  <span class="keyword">if</span> ( v23 == <span class="number">167</span> )</span><br><span class="line">    v25(&amp;qword_49658, <span class="number">0LL</span>, &amp;loc_19E0C, <span class="number">0LL</span>);</span><br><span class="line">  result = dlclose(v21);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> ( *(_QWORD *)(StatusReg + <span class="number">40</span>) != v28 )</span><br><span class="line">&#123;</span><br><span class="line">  _strlcpy_chk(result);</span><br><span class="line">  <span class="keyword">return</span> sub_1BEC4();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>交叉引用定位到关键变量v25，进而定位到sub_1CEF8。</p>
+<p>sub_1CEF8一开头就看到加载了“libart.so”，然后一堆异或和取余操作，应该是在加解密（这里就不还原算法了），根据经验合理猜测这是通过libc.so的pthread_create创建线程实例来anti-frida。</p>
+<p>继续往下分析发现关键代码块为LABEL__35：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">LABEL_35:</span><br><span class="line">  <span class="keyword">if</span> ( (sub_25B30(v15) &amp; <span class="number">1</span>) != <span class="number">0</span> )</span><br><span class="line">    sub_234E0(<span class="number">0LL</span>);</span><br><span class="line">  result = a1(&amp;v42, <span class="number">0LL</span>, sub_1C544, v15);</span><br><span class="line">  <span class="keyword">if</span> ( *(_QWORD *)(StatusReg + <span class="number">40</span>) != v44 )</span><br><span class="line">  &#123;</span><br><span class="line">    v41 = _strlcpy_chk(result);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">std</span>::_Rb_tree&lt;<span class="built_in">std</span>::<span class="built_in">string</span>,<span class="built_in">std</span>::<span class="built_in">string</span>,<span class="built_in">std</span>::_Identity&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;,<span class="built_in">std</span>::less&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;,<span class="built_in">std</span>::allocator&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;&gt;::_M_erase(v41);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>看到老朋友<code>_strlcpy_chk</code>同理，定位到sub_1C544，一路分析定位到LABEL_81，最终的检测写在这个while循环里：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">                                      <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">                                      &#123;</span><br><span class="line">LABEL_81:</span><br><span class="line">                                        v103 = sub_1BFAC();<span class="comment">// check1,gum-js-loop和gmain</span></span><br><span class="line">                                        v104 = sub_1C158(v103);<span class="comment">// chek3,检测linjector</span></span><br><span class="line">                                        sub_1C26C(v104);<span class="comment">// check4,检测/data/local/tmp和frida-agent</span></span><br><span class="line">                                        sub_26334(a1);<span class="comment">// check5,mmap</span></span><br><span class="line">                                        sleep(<span class="number">4u</span>);</span><br><span class="line">                                      &#125;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>分析结束，下面是hook</strong></p>
+<p><strong>这里接前篇【浅谈Frida注入原理及绕过思路】关于linker的讨论，先明确，我们的目标是replace <code>sub_1BEC4</code>。</strong></p>
+<p>我们已经知道<code>dlopen(android_dlopen_ext)</code>将动态库加载到内存中，加载库后，系统会处理库中的依赖关系，并在库的地址空间中映射所有符号。</p>
+<p>然后执行<code>.init_array</code> 和 <code>.init_proc</code> 段。</p>
+<p>ELF 文件中 <code>.init_proc</code> 段的地址存储在 <code>.init_array</code> 表中。</p>
+<p>在加载库后，系统会调用 <code>call_constructors</code> 来执行 <code>.init_array</code> 中的所有初始化函数，<code>.init_proc</code> 中的代码一般由开发者定义，它可能会调用一些重要的逻辑函数，比如初始化全局变量，设置反调试、密钥初始化等。</p>
+<p>由此可知， 如果库中有重要的保护逻辑或初始化算法，它们通常会出现在 <code>.init_proc</code> 或由 <code>.init_proc</code> 调用的函数中。  </p>
+<p>这里有个关键的地方在于， <code>call_constructors</code>的执行过程，即：linker64中<code>dlopen通过do_dlopen-&gt;call_constructors-&gt;call_array</code>。（<code>call_function</code>这个函数的,这个函数被优化成了代码片段，插进<code>call_constructors</code>函数和<code>call_array</code>函数中了。）</p>
+<p>整个流程借用正己大佬给的流程图，更清晰：<br><img src="https://img2023.cnblogs.com/blog/3513816/202412/3513816-20241201002544760-264964053.png" alt="image3"></p>
+<p>所以我们从<code>call_constructors</code>入手。<code>sub_1BEC4</code> 是一个位于 <code>libmsaoaidsec.so</code> 中的关键函数，但在动态库完成加载前，它的地址并未映射到内存中。而<code>call_constructors</code> 是库完成加载后，首次执行初始化逻辑的地方，此时目标库的基地址已经确定，所有符号地址也已经可以解析。</p>
+<p>使用objdump查看<code>android_dlopen_ext</code>和<code>call_constructors</code>相对linker64的偏移地址，然后hook：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hook_android_dlopen_ext</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> linker64_base_addr = <span class="title class_">Module</span>.<span class="title function_">getBaseAddress</span>(<span class="string">&quot;linker64&quot;</span>)</span><br><span class="line">    <span class="keyword">var</span> android_dlopen_ext_func_off = <span class="number">0x8f74</span></span><br><span class="line">    <span class="keyword">var</span> android_dlopen_ext_func_addr = linker64_base_addr.<span class="title function_">add</span>(android_dlopen_ext_func_off)</span><br><span class="line">    <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(android_dlopen_ext_func_addr, &#123;</span><br><span class="line">        <span class="attr">onEnter</span>: <span class="keyword">function</span> (<span class="params">args</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (args[<span class="number">0</span>].<span class="title function_">readCString</span>() != <span class="literal">null</span> &amp;&amp; args[<span class="number">0</span>].<span class="title function_">readCString</span>().<span class="title function_">indexOf</span>(<span class="string">&quot;libmsaoaidsec.so&quot;</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="title function_">hook_call_constructors</span>()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">onLeave</span>: <span class="keyword">function</span> (<span class="params">ret</span>) &#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">hook_call_constructors</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> linker64_base_addr = <span class="title class_">Module</span>.<span class="title function_">getBaseAddress</span>(<span class="string">&quot;linker64&quot;</span>)</span><br><span class="line">    <span class="keyword">var</span> call_constructors_func_off = <span class="number">0x20b78</span></span><br><span class="line">    <span class="keyword">var</span> call_constructors_func_addr = linker64_base_addr.<span class="title function_">add</span>(call_constructors_func_off)</span><br><span class="line">    <span class="keyword">var</span> listener = <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(call_constructors_func_addr, &#123;</span><br><span class="line">        <span class="attr">onEnter</span>: <span class="keyword">function</span> (<span class="params">args</span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> <span class="variable language_">module</span> = <span class="title class_">Process</span>.<span class="title function_">findModuleByName</span>(<span class="string">&quot;libmsaoaidsec.so&quot;</span>)</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable language_">module</span> != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="title class_">Interceptor</span>.<span class="title function_">replace</span>(<span class="variable language_">module</span>.<span class="property">base</span>.<span class="title function_">add</span>(<span class="number">0x1BEC4</span>), <span class="keyword">new</span> <span class="title class_">NativeCallback</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;replace sub_1BEC4&quot;</span>)</span><br><span class="line">                &#125;, <span class="string">&quot;void&quot;</span>, []))</span><br><span class="line">                listener.<span class="title function_">detach</span>()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">hook_android_dlopen_ext</span>()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2023.cnblogs.com/blog/3513816/202412/3513816-20241201002837087-941565323.png" alt="image4"></p>
+<p>成功绕过！</p>
+<hr>
+<h3 id="v8-63-0"><a href="#v8-63-0" class="headerlink" title="v8.63.0"></a>v8.63.0</h3><p>关于样本二的最新版我也分析了下，关键函数没变，具体检测的函数调用有点变化，不过一样可以bypass＜（＾－＾）＞</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">__int64 <span class="title function_">sub_1BEC4</span>(<span class="params"></span>)</span><br><span class="line">&#123;</span><br><span class="line">  unsigned __int64 <span class="title class_">StatusReg</span>; <span class="comment">// x19</span></span><br><span class="line">  __int64 v1; <span class="comment">// x0</span></span><br><span class="line">  __int64 v3; <span class="comment">// x0</span></span><br><span class="line">  __int64 v4; <span class="comment">// [xsp+8h] [xbp-48h]</span></span><br><span class="line"></span><br><span class="line">  <span class="title class_">StatusReg</span> = <span class="title function_">_ReadStatusReg</span>(<span class="title class_">ARM64</span>_SYSREG(<span class="number">3</span>, <span class="number">3</span>, <span class="number">13</span>, <span class="number">0</span>, <span class="number">2</span>));</span><br><span class="line">  v4 = *(_QWORD *)(<span class="title class_">StatusReg</span> + <span class="number">40</span>);</span><br><span class="line">  <span class="title function_">HIDWORD</span>(qword_49010) = <span class="title function_">getpid</span>();</span><br><span class="line">  v1 = <span class="title function_">sub_1B924</span>();</span><br><span class="line">  <span class="keyword">if</span> ( *(_QWORD *)(<span class="title class_">StatusReg</span> + <span class="number">40</span>) == v4 )</span><br><span class="line">    <span class="keyword">return</span> 0LL;</span><br><span class="line">  v3 = <span class="title function_">_strlcpy_chk</span>(v1);</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">sub_1BFAC</span>(v3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>sub_1BFAC-&gt;sub_1C158-&gt;sub_1C26C-&gt;dlclose()</p>
+<p>sub_1B924-&gt;dlclose()</p>
+<p><img src="https://img2023.cnblogs.com/blog/3513816/202412/3513816-20241201003403121-186558745.png" alt="image5"></p>
+<p>成功！</p>
+<hr>
+<p>【参考】：</p>
+<p>[<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-277034.htm">原创]绕过bilibili frida反调试-Android安全-看雪-安全社区|安全招聘|kanxue.com</a> </p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45582916/article/details/137973006">某书Frida检测绕过记录_libmsaoaidsec.so-CSDN博客</a></p>
+
+      
+    </div>
+    
+    
+    
+
+
+<div>
+  
+    
+<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------我是有底线的<i class="fa fa-leaf"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Frida/" rel="tag"><i class="fa fa-tag"></i> Frida</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/11/12/%E7%BB%95%E8%BF%87Frida%E6%A3%80%E6%B5%8B/" rel="next" title="浅谈Frida注入原理及绕过思路">
+                <i class="fa fa-chevron-left"></i> 浅谈Frida注入原理及绕过思路
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/logo.jpg"
+                alt="C0nney" />
+            
+              <p class="site-author-name" itemprop="name">C0nney</p>
+              <p class="site-description motion-element" itemprop="description">Keep Curious</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">样本一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E4%BA%8C"><span class="nav-number">2.</span> <span class="nav-text">样本二</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#v8-31-0"><span class="nav-number">2.1.</span> <span class="nav-text">v8.31.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#chek2%EF%BC%9Asub-1B924-sub-1CEF8-sub-1C544"><span class="nav-number">2.1.1.</span> <span class="nav-text">chek2：sub_1B924-&gt;sub_1CEF8-&gt;sub_1C544</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v8-63-0"><span class="nav-number">2.2.</span> <span class="nav-text">v8.63.0</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C0nney</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
