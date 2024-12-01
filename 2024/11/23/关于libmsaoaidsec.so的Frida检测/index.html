@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/C0nney/Pictures@img/img/202412020017447.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/C0nney/Pictures@img/img/202412020017456.png">
 <meta property="article:published_time" content="2024-11-23T07:09:50.000Z">
-<meta property="article:modified_time" content="2024-12-01T16:19:20.619Z">
+<meta property="article:modified_time" content="2024-12-01T16:34:56.589Z">
 <meta property="article:author" content="C0nney">
 <meta property="article:tag" content="Frida">
 <meta name="twitter:card" content="summary">
@@ -304,7 +304,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-12-02T00:19:20+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-12-02T00:34:56+08:00">
                 2024-12-02
               </time>
             
@@ -332,7 +332,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.6k 字
+                  2.5k 字
                 </span>
               
 
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  11 分钟
+                  10 分钟
                 </span>
               
             </div>
@@ -445,7 +445,7 @@
 <p>ELF 文件中 <code>.init_proc</code> 段的地址存储在 <code>.init_array</code> 表中。</p>
 <p>在加载库后，系统会调用 <code>call_constructors</code> 来执行 <code>.init_array</code> 中的所有初始化函数，<code>.init_proc</code> 中的代码一般由开发者定义，它可能会调用一些重要的逻辑函数，比如初始化全局变量，设置反调试、密钥初始化等。</p>
 <p>由此可知， 如果库中有重要的保护逻辑或初始化算法，它们通常会出现在 <code>.init_proc</code> 或由 <code>.init_proc</code> 调用的函数中。  </p>
-<p>这里有个关键的地方在于， <code>call_constructors</code>的执行过程，即：linker64中<code>dlopen通过do_dlopen-&gt;call_constructors-&gt;call_array</code>。（<code>call_function</code>这个函数的,这个函数被优化成了代码片段，插进<code>call_constructors</code>函数和<code>call_array</code>函数中了。）</p>
+<p>这里有个关键的地方在于， <code>call_constructors</code>的执行过程，即：linker64中<code>dlopen通过do_dlopen-&gt;call_constructors-&gt;call_array</code>。</p>
 <p>整个流程借用正己大佬给的流程图，更清晰：<br><img src="https://cdn.jsdelivr.net/gh/C0nney/Pictures@img/img/202412020016928.png" alt="image3"></p>
 <p>所以我们从<code>call_constructors</code>入手。<code>sub_1BEC4</code> 是一个位于 <code>libmsaoaidsec.so</code> 中的关键函数，但在动态库完成加载前，它的地址并未映射到内存中。而<code>call_constructors</code> 是库完成加载后，首次执行初始化逻辑的地方，此时目标库的基地址已经确定，所有符号地址也已经可以解析。</p>
 <p>使用objdump查看<code>android_dlopen_ext</code>和<code>call_constructors</code>相对linker64的偏移地址，然后hook：</p>
