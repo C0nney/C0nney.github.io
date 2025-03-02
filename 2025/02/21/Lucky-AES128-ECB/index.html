@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="关于某幸咖啡v5.0.01登录接口算法还原。分析参数sign 和 q。 分析该样本仅用于学习dfs分析白盒AES。">
+<meta name="description" content="关于某幸咖啡v5.0.01登录接口算法还原。分析参数sign 和 q。 分析该样本仅用于学习dfa分析白盒AES。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lucky-AES128 ECB">
 <meta property="og:url" content="https://c0nney.github.io/2025/02/21/Lucky-AES128-ECB/index.html">
 <meta property="og:site_name" content="C0nney&#39;s Blog">
-<meta property="og:description" content="关于某幸咖啡v5.0.01登录接口算法还原。分析参数sign 和 q。 分析该样本仅用于学习dfs分析白盒AES。">
+<meta property="og:description" content="关于某幸咖啡v5.0.01登录接口算法还原。分析参数sign 和 q。 分析该样本仅用于学习dfa分析白盒AES。">
 <meta property="og:locale">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/C0nney/Pictures@img/img/202503021555765.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/C0nney/Pictures@img/img/202503021607778.png">
@@ -97,7 +97,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/C0nney/Pictures@img/img/202503021645166.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/C0nney/Pictures@img/img/202503021648660.png">
 <meta property="article:published_time" content="2025-02-21T07:08:54.000Z">
-<meta property="article:modified_time" content="2025-03-02T08:52:58.892Z">
+<meta property="article:modified_time" content="2025-03-02T10:44:03.750Z">
 <meta property="article:author" content="C0nney">
 <meta property="article:tag" content="算法还原">
 <meta name="twitter:card" content="summary">
@@ -309,7 +309,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-03-02T16:52:58+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2025-03-02T18:44:03+08:00">
                 2025-03-02
               </time>
             
@@ -380,7 +380,7 @@
 
       
         <p>关于某幸咖啡v5.0.01登录接口算法还原。分析参数sign 和 q。</p>
-<p>分析该样本仅用于学习dfs分析白盒AES。</p>
+<p>分析该样本仅用于学习dfa分析白盒AES。</p>
 <span id="more"></span>
 
 <hr>
@@ -412,7 +412,7 @@
 <p>修改参数测试了一下，看填充方式</p>
 <p>&#96;436f6e6e6579436f6e6e657904040404 </p>
 <p>6c76646f757a686f7507070707070707&#96;</p>
-<p>确认了是ECB模式，PKCS5Padding填充</p>
+<p>确认了是ECB模式，PKCS7Padding填充</p>
 <p>回到ida，分析<code>wbaes_encrypt_ecb</code>函数。第三个参数也就是r2的地方一般是返回值</p>
 <p><img src="https://cdn.jsdelivr.net/gh/C0nney/Pictures@img/img/202503021614282.png"></p>
 <p>v33复制给前项，看v33的引用</p>
